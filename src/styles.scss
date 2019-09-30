@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i");
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+@import "~semantic-ui-css/components/transition.min.css";
+@import "~semantic-ui-css/components/dropdown.min.css";
+@import "~semantic-ui-css/components/search.min.css";
+
+$fa-font-path: "~src/assets/fonts/font-awesome";
+@import "~src/assets/fontawesome/scss/fontawesome.scss";
+@import "~src/assets/fontawesome/scss/regular.scss";
+@import "~src/assets/fontawesome/scss/solid.scss";
+@import "~src/assets/fontawesome/scss/brands.scss";
+
+
+body {
+  margin: 0;
+
+  font-family: 'Poppins', sans-serif !important;
+  padding-top: 70px;
+}
+
+h1 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: 700;
+  color: $primary;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 25px;
+  margin: 0;
+  font-weight: 700;
+  color: $primary;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 500;
+  color: $primary;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+:host button {
+  i{
+    margin-right: 3px;
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+
+  &:hover, &:active, &:focus, &:visited {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (max-width: $breakpoint-tablet - 1) {
+  .text-wrap {
+    text-align: left;
+  }
+}
+
+.alert p {
+  margin: 0;
+}
+
+.btn-primary {
+  @include button-variant($primary, $primary, $primary-hover, $primary-hover, $primary-hover, $primary-hover);
+  &:focus { background-color: $primary-hover; }
+}
+.btn-secondary {
+  @include button-variant($gray-dark, $gray-dark, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover);
+  &:focus { background-color: $gray-dark-hover; }
+}
+.btn-success {
+  @include button-variant($green, $green, $green-hover, $green-hover, $green-hover, $green-hover);
+  &:focus { background-color: $green-hover; }
+}
+.btn-danger {
+  @include button-variant($red, $red, $red-hover, $red-hover, $red-hover, $red-hover);
+  &:focus { background-color: $red-hover; }
+}
+.btn-warning {
+  @include button-variant($orange, $orange, $orange-hover, $orange-hover, $orange-hover, $orange-hover);
+  &:focus { background-color: $orange-hover; }
+}
+.btn-light {
+  @include button-variant($gray, $gray, $gray-hover, $gray-hover, $gray-hover, $gray-hover);
+  &:focus { background-color: $gray-hover; }
+}
+
+.badge {
+  padding: 4px 5px;
+}
+.badge-primary {
+  background-color: $primary;
+}
+.badge-secondary {
+  background-color: $gray-dark;
+}
+.badge-success {
+  background-color: $green;
+}
+.badge-danger {
+  background-color: $red;
+}
+.badge-warning {
+  background-color: $orange;
+}
+.badge-light {
+  background-color: $gray;
+}
