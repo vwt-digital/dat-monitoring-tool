@@ -16,14 +16,15 @@ body {
   margin: 0;
 
   font-family: 'Poppins', sans-serif !important;
-  padding-top: 70px;
+  padding: 20px;
+  background-color: $gray-light;
 }
 
 h1 {
   font-size: 30px;
   margin: 0;
   font-weight: 700;
-  color: $primary;
+  color: $gray-dark;
   text-transform: uppercase;
 }
 
@@ -41,13 +42,32 @@ h3 {
   color: $primary;
 }
 
+h4 {
+  font-size: 15px;
+  line-height: 15px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: $gray-dark;
+}
+
 .title {
   margin-bottom: 10px;
 }
 
-:host button {
-  i{
-    margin-right: 3px;
+.red {
+  color: $red;
+}
+.orange {
+  color: $orange;
+}
+.green {
+  color: $green;
+}
+
+:host button::ng-deep,
+:host .badge::ng-deep {
+  i {
+    margin-right: 5px;
   }
 }
 

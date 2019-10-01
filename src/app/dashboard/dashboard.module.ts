@@ -5,15 +5,20 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
+import { BuildStatusesComponent } from '../components/build-statuses/build-statuses.component';
 
 @NgModule({
   declarations: [
-    DashboardOverviewComponent
+    DashboardOverviewComponent,
+    BuildStatusesComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
     DashboardRoutingModule
+  ],
+  exports: [
+    BuildStatusesComponent
   ]
 })
 export class DashboardModule { }

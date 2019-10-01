@@ -1,0 +1,16 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.app-dashboard-overview {
+  .title {
+    .badge {
+      margin-right: 5px;
+
+      i.green {
+        color: $green;
+        font-size: 6px;
+        vertical-align: middle;
+      }
+    }
+  }
+}

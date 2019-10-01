@@ -1,0 +1,26 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.app-build-statuses {
+  .build-status-item {
+    padding: 10px;
+
+    .card {
+      background-color: $white;
+      border-radius: 5px;
+    }
+
+    .build-status-badges {
+      margin-top: 10px;
+    }
+
+    .build-status.badge {
+      font-size: 15px;
+      padding: 10px;
+    }
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}

@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
       throwError(error);
     }
 
+    /* tslint:disable:no-string-literal */
     if (this.oauthService.hasValidAccessToken()) {
       const claims = this.oauthService.getIdentityClaims();
       if (!claims['roles'] && claims['roles'].length <= 0) {
@@ -26,6 +27,8 @@ export class AuthGuard implements CanActivate {
       }
       return true;
     }
+    /* tslint:enable:no-string-literal */
+
     this.oauthService.initImplicitFlow();
     return false;
   }
