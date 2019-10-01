@@ -2,13 +2,13 @@
 *ngIf="buildStatuses"
 class="app-build-statuses row build-statuses" >
   <div class="col-12 col-md-6 col-lg-4 build-status-item">
-    <div class="card">
+    <div class="card {{ getFilteredStatuses('failing').length > 0 ? 'red' : '' }}">
       <div class="card-body">
-        <h4 class="card-title red">
+        <h4 class="card-title">
           <i class="fas fa-exclamation-triangle"></i> Failing builds
         </h4>
 
-        <h2 class="build-count red">{{ getFilteredStatusesCount('failing') }}</h2>
+        <h2 class="build-count">{{ getFilteredStatusesCount('failing') }}</h2>
 
         <div
           *ngIf="getFilteredStatuses('failing').length > 0"
@@ -16,9 +16,12 @@ class="app-build-statuses row build-statuses" >
           <ng-container *ngFor="let buildStatus of getFilteredStatuses('failing')" >
             <div
               *ngIf="buildStatus"
-              class="build-status badge badge-{{ color(buildStatus) }}" >
-              <i class="fas {{ icon(buildStatus) }}"></i>
-              {{ buildStatus.repo_name }}
+              class="build-status" >
+              <div
+                class="badge badge-{{ color(buildStatus) }}" >
+                <i class="fas {{ icon(buildStatus) }}"></i>
+                {{ buildStatus.repo_name }}
+              </div>
             </div>
           </ng-container>
         </div>
@@ -27,13 +30,13 @@ class="app-build-statuses row build-statuses" >
   </div>
 
   <div class="col-12 col-md-6 col-lg-4 build-status-item">
-    <div class="card">
+    <div class="card {{ getFilteredStatuses('pending').length > 0 ? 'orange' : '' }}">
       <div class="card-body">
-        <h4 class="card-title orange">
+        <h4 class="card-title">
           <i class="fas fa-sync-alt"></i> Pending builds
         </h4>
 
-        <h2 class="build-count orange">{{ getFilteredStatusesCount('pending') }}</h2>
+        <h2 class="build-count">{{ getFilteredStatusesCount('pending') }}</h2>
 
         <div
           *ngIf="getFilteredStatuses('pending').length > 0"
@@ -41,9 +44,12 @@ class="app-build-statuses row build-statuses" >
           <ng-container *ngFor="let buildStatus of getFilteredStatuses('pending')" >
             <div
               *ngIf="buildStatus"
-              class="build-status badge badge-{{ color(buildStatus) }}" >
-              <i class="fas {{ icon(buildStatus) }}"></i>
-              {{ buildStatus.repo_name }}
+              class="build-status" >
+              <div
+                class="badge badge-{{ color(buildStatus) }}" >
+                <i class="fas {{ icon(buildStatus) }}"></i>
+                {{ buildStatus.repo_name }}
+              </div>
             </div>
           </ng-container>
         </div>
@@ -52,7 +58,7 @@ class="app-build-statuses row build-statuses" >
   </div>
 
   <div class="col-12 col-md-6 col-lg-4 build-status-item">
-    <div class="card">
+    <div class="card {{ getFilteredStatuses('passing').length > 0 ? 'green' : '' }}">
       <div class="card-body">
         <h4 class="card-title green">
           <i class="fas fa-check"></i> Passing builds

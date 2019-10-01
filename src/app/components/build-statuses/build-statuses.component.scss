@@ -8,15 +8,47 @@
     .card {
       background-color: $white;
       border-radius: 5px;
+
+      h4.card-title,
+      h2.build-count {
+        color: $gray-dark;
+      }
+
+      &.red {
+        border: 2px solid $red;
+
+        h4.card-title,
+        h2.build-count {
+          color: $red;
+        }
+      }
+      &.orange {
+        h4.card-title,
+        h2.build-count {
+          color: $orange;
+        }
+      }
+      &.green {
+        h4.card-title,
+        h2.build-count {
+          color: $green;
+        }
+      }
     }
 
     .build-status-badges {
       margin-top: 10px;
-    }
 
-    .build-status.badge {
-      font-size: 15px;
-      padding: 10px;
+      .build-status {
+        width: 100%;
+        margin: 5px 0;
+
+        .badge {
+          font-size: 15px;
+          padding: 10px;
+          text-align: left;
+        }
+      }
     }
   }
 

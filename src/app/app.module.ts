@@ -17,12 +17,14 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
+import { HeaderComponent } from './header/header.component';
 
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -35,6 +37,7 @@ registerLocaleData(localeNl, 'nl');
   ],
   exports: [
     AppComponent,
+    HeaderComponent,
     PageNotFoundComponent
   ],
   providers: [

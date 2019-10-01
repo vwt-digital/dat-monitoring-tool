@@ -16,8 +16,13 @@ body {
   margin: 0;
 
   font-family: 'Poppins', sans-serif !important;
-  padding: 20px;
   background-color: $gray-light;
+
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 h1 {
@@ -50,91 +55,6 @@ h4 {
   color: $gray-dark;
 }
 
-.title {
-  margin-bottom: 10px;
-}
-
-.red {
-  color: $red;
-}
-.orange {
-  color: $orange;
-}
-.green {
-  color: $green;
-}
-
-:host button::ng-deep,
-:host .badge::ng-deep {
-  i {
-    margin-right: 5px;
-  }
-}
-
-.btn {
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 14px;
-
-  &:hover, &:active, &:focus, &:visited {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
-
-@media (max-width: $breakpoint-tablet - 1) {
-  .text-wrap {
-    text-align: left;
-  }
-}
-
-.alert p {
-  margin: 0;
-}
-
-.btn-primary {
-  @include button-variant($primary, $primary, $primary-hover, $primary-hover, $primary-hover, $primary-hover);
-  &:focus { background-color: $primary-hover; }
-}
-.btn-secondary {
-  @include button-variant($gray-dark, $gray-dark, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover);
-  &:focus { background-color: $gray-dark-hover; }
-}
-.btn-success {
-  @include button-variant($green, $green, $green-hover, $green-hover, $green-hover, $green-hover);
-  &:focus { background-color: $green-hover; }
-}
-.btn-danger {
-  @include button-variant($red, $red, $red-hover, $red-hover, $red-hover, $red-hover);
-  &:focus { background-color: $red-hover; }
-}
-.btn-warning {
-  @include button-variant($orange, $orange, $orange-hover, $orange-hover, $orange-hover, $orange-hover);
-  &:focus { background-color: $orange-hover; }
-}
-.btn-light {
-  @include button-variant($gray, $gray, $gray-hover, $gray-hover, $gray-hover, $gray-hover);
-  &:focus { background-color: $gray-hover; }
-}
-
-.badge {
-  padding: 4px 5px;
-}
-.badge-primary {
-  background-color: $primary;
-}
-.badge-secondary {
-  background-color: $gray-dark;
-}
-.badge-success {
-  background-color: $green;
-}
-.badge-danger {
-  background-color: $red;
-}
-.badge-warning {
-  background-color: $orange;
-}
-.badge-light {
-  background-color: $gray;
+.container-fluid {
+  padding: 20px;
 }

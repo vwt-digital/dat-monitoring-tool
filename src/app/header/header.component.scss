@@ -1,0 +1,42 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+nav {
+  width: 100%;
+  color: $gray;
+  padding: 20px;
+
+  .row {
+    width: 100%;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .brand {
+    float: right;
+    display: table;
+    overflow: hidden;
+
+    .logo {
+      float: left;
+      margin: 12.5px 0;
+      display: table;
+      background-image: url('src/assets/images/volkerwesselstelecom_white.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 100px;
+      height: 25px;
+    }
+  }
+
+  span.badge {
+    margin-right: 5px;
+
+    i {
+      margin-right: 5px;
+    }
+  }
+}

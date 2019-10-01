@@ -1,19 +1,6 @@
 <div
   *ngIf="buildStatuses$ | async as buildStatuses; else loading"
   class="container-fluid app-dashboard-overview">
-
-  <div class="row">
-    <div [ngClass]="['col-12', 'title']">
-      <h1>Dashboard</h1>
-      <span class="badge badge-light">
-        <i class="fas fa-code-branch"></i> {{ branch }}
-      </span>
-      <span class="badge badge-light">
-        <i class="fas fa-circle green"></i> live reload
-      </span>
-    </div>
-  </div>
-
   <div class="row">
     <div [ngClass]="['col-12']">
       <app-build-statuses [buildStatuses]="buildStatuses"></app-build-statuses>
