@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { EnvServiceProvider } from './env/env.service.provider';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 
@@ -24,7 +23,6 @@ registerLocaleData(localeNl, 'nl');
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -37,7 +35,6 @@ registerLocaleData(localeNl, 'nl');
   ],
   exports: [
     AppComponent,
-    HeaderComponent,
     PageNotFoundComponent
   ],
   providers: [
