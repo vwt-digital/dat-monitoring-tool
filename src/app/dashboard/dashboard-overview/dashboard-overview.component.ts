@@ -1,24 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-import { switchMap, filter, flatMap, map, toArray } from 'rxjs/operators';
 
 import { EnvService } from 'src/app/env/env.service';
 
 import { DashboardService } from '../dashboard.service';
 import { ActivatedRoute } from '@angular/router';
 
-import { BuildStatus } from '../build-status';
-
 @Component({
   selector: 'app-dashboard-overview',
   templateUrl: './dashboard-overview.component.html',
   styleUrls: ['./dashboard-overview.component.scss']
 })
-export class DashboardOverviewComponent implements OnInit {
-  buildStatuses$: Observable<BuildStatus[]>;
-  branch = 'develop';
+export class DashboardOverviewComponent implements OnDestroy, OnInit {
+  buildStatuses: any;
+  interval: any;
 
   constructor(
     private env: EnvService,
@@ -27,11 +22,21 @@ export class DashboardOverviewComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  async ngOnInit() {
-    this.buildStatuses$ = await this.route.paramMap.pipe(
-      switchMap(() => {
-        return this.service.getBuildStatuses(this.branch);
-      })
-    );
+  ngOnInit() {
+    this.buildStatuses = this.service.buildStatuses$;
+
+    this.refreshData();
+    this.interval = setInterval(() => {
+        this.refreshData();
+    }, 10000);
+  }
+
+  refreshData() {
+    console.log('Refreshing');
+    this.service.updateData();
+  }
+
+  ngOnDestroy() {
+    this.buildStatuses.unsubscribe();
   }
 }

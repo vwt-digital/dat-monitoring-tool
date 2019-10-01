@@ -11,6 +11,6 @@ export class HeaderComponent {
   title = 'Dasboard';
 
   constructor(
-    private service: DashboardService
+    public service: DashboardService
   ) {}
 }

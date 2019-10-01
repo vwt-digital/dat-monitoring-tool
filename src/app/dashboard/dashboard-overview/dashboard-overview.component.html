@@ -1,9 +1,9 @@
 <div
-  *ngIf="buildStatuses$ | async as buildStatuses; else loading"
+  *ngIf="buildStatuses | async as statuses; else loading"
   class="container-fluid app-dashboard-overview">
   <div class="row">
     <div [ngClass]="['col-12']">
-      <app-build-statuses [buildStatuses]="buildStatuses"></app-build-statuses>
+      <app-build-statuses [buildStatuses]="statuses"></app-build-statuses>
     </div>
   </div>
 </div>

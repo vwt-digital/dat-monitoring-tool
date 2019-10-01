@@ -7,7 +7,7 @@ import { BuildStatus } from 'src/app/dashboard/build-status';
   styleUrls: ['./build-statuses.component.scss']
 })
 export class BuildStatusesComponent implements OnInit {
-  @Input() buildStatuses: BuildStatus[];
+  @Input() buildStatuses: any;
 
   constructor() { }
 
