@@ -14,22 +14,10 @@ nav {
     padding: 0;
   }
 
-  .brand {
+  .logo {
+    height: 36px;
+    width: auto;
     float: right;
-    display: table;
-    overflow: hidden;
-
-    .logo {
-      float: left;
-      margin: 12.5px 0;
-      display: table;
-      background-image: url('src/assets/images/volkerwesselstelecom_white.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      width: 100px;
-      height: 25px;
-    }
   }
 
   span.badge {

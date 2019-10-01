@@ -32,7 +32,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   }
 
   refreshData() {
-    console.log('Refreshing');
+    console.log('--- REFRESHING ---');
     this.service.updateData();
   }
 
