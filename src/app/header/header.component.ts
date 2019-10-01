@@ -8,7 +8,7 @@ import { DashboardService } from '../dashboard/dashboard.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  title = 'Dasboard';
+  title = 'Dashboard';
 
   constructor(
     public service: DashboardService
