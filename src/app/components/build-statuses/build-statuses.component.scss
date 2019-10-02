@@ -14,6 +14,13 @@
         color: $gray-dark;
       }
 
+      span.build-count-limited {
+        font-size: 10px;
+        color: $gray-dark;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
       &.red {
         border: 2px solid $red;
 
@@ -21,17 +28,29 @@
         h2.build-count {
           color: $red;
         }
+        .badge.build-status-time {
+          background: $red-hover;
+          color: $white;
+        }
       }
       &.orange {
         h4.card-title,
         h2.build-count {
           color: $orange;
         }
+        .badge.build-status-time {
+          background: $orange-hover;
+          color: $white;
+        }
       }
       &.green {
         h4.card-title,
         h2.build-count {
           color: $green;
+        }
+        .badge.build-status-time {
+          background: $green-hover;
+          color: $white;
         }
       }
     }
@@ -41,12 +60,41 @@
 
       .build-status {
         width: 100%;
+        display: table;
+        float: left;
         margin: 5px 0;
 
         .badge {
           font-size: 15px;
-          padding: 10px;
+          padding: 10px 15px 10px 10px;
           text-align: left;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          float: left;
+          display: table;
+
+          &.build-status-time {
+            font-size: 8px;
+            line-height: 8.5px;
+            text-transform: uppercase;
+            padding: 13.75px 5px;
+            border-radius: 0 .25rem .25rem 0;
+          }
+        }
+      }
+
+      &.small {
+        .build-status {
+          .badge {
+            font-size: 12px;
+            padding: 5px 10px 5px 5px;
+
+            &.build-status-time {
+              font-size: 6px;
+              line-height: 6px;
+              padding: 8.5px;
+            }
+          }
         }
       }
     }

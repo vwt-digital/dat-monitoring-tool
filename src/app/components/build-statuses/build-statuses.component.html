@@ -22,6 +22,9 @@
                 <i class="fas {{ icon(buildStatus) }}"></i>
                 {{ buildStatus.repo_name }}
               </div>
+              <div class="badge badge-light build-status-time" >
+                {{ buildStatus.updated | timeDifference }}
+              </div>
             </div>
           </ng-container>
         </div>
@@ -50,6 +53,9 @@
                 <i class="fas {{ icon(buildStatus) }}"></i>
                 {{ buildStatus.repo_name }}
               </div>
+              <div class="badge badge-light build-status-time" >
+                {{ buildStatus.updated | timeDifference }}
+              </div>
             </div>
           </ng-container>
         </div>
@@ -65,6 +71,26 @@
         </h4>
 
         <h2 class="build-count green">{{ getFilteredStatusesCount('passing') }}</h2>
+
+        <div
+          *ngIf="getFilteredStatuses('passing').length > 0"
+          class="build-status-badges small">
+          <span class="build-count-limited">Last {{ (getFilteredStatusesCount('passing') < 5 ? getFilteredStatusesCount('passing') : 5 ) }} passing builds</span>
+          <ng-container *ngFor="let buildStatus of getFilteredStatuses('passing', 5)" >
+            <div
+              *ngIf="buildStatus"
+              class="build-status" >
+              <div
+                class="badge badge-{{ color(buildStatus) }}" >
+                <i class="fas {{ icon(buildStatus) }}"></i>
+                {{ buildStatus.repo_name }}
+              </div>
+              <div class="badge badge-light build-status-time" >
+                {{ buildStatus.updated | timeDifference }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>

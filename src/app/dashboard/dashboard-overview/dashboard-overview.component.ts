@@ -28,7 +28,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
     this.refreshData();
     this.interval = setInterval(() => {
         this.refreshData();
-    }, 10000);
+    }, 30000);
   }
 
   refreshData() {
@@ -38,5 +38,6 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.buildStatuses.unsubscribe();
+    clearInterval(this.interval);
   }
 }
