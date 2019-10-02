@@ -12,6 +12,9 @@ export class EnvService {
   // API url
   public apiUrl = '';
 
+  // Environment
+  public environment = '';
+
   constructor() { }
 
 }

@@ -28,6 +28,6 @@ export class DashboardService {
   }
 
   get getBranch() {
-    return 'develop';
+    return this.env.environment;
   }
 }

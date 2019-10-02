@@ -30,5 +30,6 @@ describe('EnvService', () => {
     expect(service.issuer).toBeDefined();
 
     expect(service.apiUrl).toBeDefined();
+    expect(service.environment).toBeDefined();
   });
 });
