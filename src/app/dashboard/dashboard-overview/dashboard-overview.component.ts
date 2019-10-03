@@ -28,7 +28,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
     this.refreshData();
     this.interval = setInterval(() => {
         this.refreshData();
-    }, 30000);
+    }, this.service.refreshTime);
   }
 
   refreshData() {

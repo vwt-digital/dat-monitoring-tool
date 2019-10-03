@@ -11,6 +11,7 @@ import { BuildStatus } from './build-status';
 })
 export class DashboardService {
   public buildStatuses$: BehaviorSubject<BuildStatus[]> = new BehaviorSubject([]);
+  public refreshTime = 30000; // Time in milliseconds
 
   constructor(
     private httpClient: HttpClient,
