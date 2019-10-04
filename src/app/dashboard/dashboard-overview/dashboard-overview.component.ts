@@ -1,10 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { EnvService } from 'src/app/env/env.service';
 
 import { DashboardService } from '../dashboard.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -13,22 +9,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
   buildStatuses: any;
-  interval: any;
 
   constructor(
-    private env: EnvService,
-    private httpClient: HttpClient,
-    private service: DashboardService,
-    private route: ActivatedRoute
+    private service: DashboardService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.buildStatuses = this.service.buildStatuses$;
 
-    this.refreshData();
-    this.interval = setInterval(() => {
+    await this.refreshData();
+    if (!this.service.isInvalidRequest) {
+      this.service.intervalIsSet = true;
+      this.service.interval = setInterval(() => {
         this.refreshData();
-    }, this.service.refreshTime);
+      }, this.service.refreshTime);
+    }
   }
 
   refreshData() {
@@ -37,7 +32,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    this.buildStatuses.unsubscribe();
-    clearInterval(this.interval);
+    clearInterval(this.service.interval);
+    this.service.intervalIsSet = false;
   }
 }

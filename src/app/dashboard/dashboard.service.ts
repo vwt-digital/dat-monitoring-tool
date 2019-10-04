@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EnvService } from '../env/env.service';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../components/modal/modal.component';
+
+import { EnvService } from '../env/env.service';
+import { AuthService } from '../auth/auth.service';
+
 import { BuildStatus } from './build-status';
 
 @Injectable({
@@ -12,23 +17,45 @@ import { BuildStatus } from './build-status';
 export class DashboardService {
   public buildStatuses$: BehaviorSubject<BuildStatus[]> = new BehaviorSubject([]);
   public refreshTime = 30000; // Time in milliseconds
+  public interval: any;
+  public intervalIsSet = false;
+  public isInvalidRequest = false;
 
   constructor(
     private httpClient: HttpClient,
-    private env: EnvService
+    private env: EnvService,
+    private authService: AuthService,
+    private modalService: NgbModal
   ) { }
 
-  updateData() {
-    this.httpClient.get(`${this.env.apiUrl}/build-statuses/branch/${this.getBranch}`)
-      .pipe(
-        map((response: any) => response)
-      ).subscribe(
-        data => this.buildStatuses$.next(data),
-        error => console.log(error)
+  async updateData() {
+    this.isInvalidRequest = false;
+    await this.httpClient.get(`${this.env.apiUrl}/build-statuses/branch/${this.getBranch}`).subscribe(
+        (data: BuildStatus[]) => this.buildStatuses$.next(data),
+        error => {
+          this.isInvalidRequest = true;
+          clearInterval(this.interval);
+          if (error.status === 401) {
+            this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
+
+            setTimeout(() =>{
+              this.authService.removeApiKey();
+            }, 2000)
+          } else {
+            this.setModalMessage('Oh oh!', `An error occurred.`);
+          }
+        }
       );
   }
 
   get getBranch() {
     return this.env.environment;
+  }
+
+  setModalMessage(title: string, content: string, backdrop: boolean = true) {
+    const modalRef = this.modalService.open(ModalComponent, { backdrop: (backdrop ? backdrop : 'static') });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
+    modalRef.componentInstance.backdrop = backdrop;
   }
 }

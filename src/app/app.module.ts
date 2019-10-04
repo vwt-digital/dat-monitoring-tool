@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptor } from './auth/token.interceptor';
 
@@ -13,12 +13,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { EnvServiceProvider } from './env/env.service.provider';
 
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
+import { ModalComponent } from './components/modal/modal.component';
+
+import { FormPasswordDirective } from './components/login/form-password.directive';
 import { DashboardModule } from './dashboard/dashboard.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
-import { HeaderComponent } from './header/header.component';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -26,13 +30,17 @@ registerLocaleData(localeNl, 'nl');
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    LoginComponent,
+    FormPasswordDirective,
+    PageNotAuthorizedComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    OAuthModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     DashboardModule,
     AppRoutingModule
@@ -40,17 +48,22 @@ registerLocaleData(localeNl, 'nl');
   exports: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    LoginComponent,
+    FormPasswordDirective,
+    PageNotAuthorizedComponent,
+    ModalComponent
   ],
   providers: [
     EnvServiceProvider,
-    OAuthService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
+  ],
+  entryComponents: [
+    ModalComponent
   ],
   bootstrap: [AppComponent]
 })

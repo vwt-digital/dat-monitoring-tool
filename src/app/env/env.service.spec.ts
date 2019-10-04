@@ -23,12 +23,6 @@ describe('EnvService', () => {
   });
 
   it('should define all variables', () => {
-    expect(service.loginUrl).toBeDefined();
-    expect(service.logoutUrl).toBeDefined();
-    expect(service.clientId).toBeDefined();
-    expect(service.scope).toBeDefined();
-    expect(service.issuer).toBeDefined();
-
     expect(service.apiUrl).toBeDefined();
     expect(service.environment).toBeDefined();
   });

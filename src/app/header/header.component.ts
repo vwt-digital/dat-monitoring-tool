@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { trigger, transition, state, style, animate } from '@angular/animations';
 
 import { DashboardService } from '../dashboard/dashboard.service';
-import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-header',
@@ -18,18 +17,22 @@ import { Observable } from 'rxjs/Rx';
 })
 export class HeaderComponent implements OnDestroy {
   title = 'Dashboard';
-  blinkingIcon = 'invisible';
-  interval: any;
+  blinkingIcon = 'visible';
+  blinkInterval: any;
 
   constructor(
     public service: DashboardService
   ) {
-    this.interval = setInterval(() => {
-      this.blinkingIcon = (this.blinkingIcon == 'visible') ? 'invisible' : 'visible';
+    this.blinkInterval = setInterval(() => {
+      if (this.service.isInvalidRequest) {
+        this.blinkingIcon = 'visible';
+      } else {
+        this.blinkingIcon = (this.blinkingIcon == 'visible') ? 'invisible' : 'visible';
+      }
     }, 500)
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.blinkInterval);
   }
 }

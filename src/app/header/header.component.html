@@ -7,10 +7,11 @@
         <span class="badge badge-light">
           <i class="fas fa-code-branch"></i> {{ this.service.getBranch }}
         </span>
-        <span class="badge badge-light">
+        <span
+          class="badge badge-light" >
           <i
             [@showhide]="blinkingIcon"
-            class="fas fa-circle green" ></i> live refresh
+            class="fas fa-circle {{ this.service.isInvalidRequest ? 'red' : 'green' }}" ></i> live refresh
             <small class="text-muted">{{ this.service.refreshTime / 1000 }}s</small>
         </span>
       </div>
