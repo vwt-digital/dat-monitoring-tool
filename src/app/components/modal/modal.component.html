@@ -19,10 +19,11 @@
       type="button"
       class="btn btn-primary"
       (click)="activeModal.close('Close clicked')" >Close</button>
-    <button
+
+    <small
       *ngIf="!backdrop"
-      type="button"
-      class="btn btn-primary"
-      (click)="closeOnError(activeModal)" >To login page</button>
+      class="form-text text-muted" >
+      <i class="fas fa-spinner fa-spin"></i> You will be redirected shortly!
+    </small>
   </div>
 </div>

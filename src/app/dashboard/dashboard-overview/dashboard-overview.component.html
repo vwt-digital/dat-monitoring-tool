@@ -2,7 +2,34 @@
   *ngIf="buildStatuses | async as statuses; else loading"
   class="container-fluid app-dashboard-overview">
   <div class="row">
-    <div [ngClass]="['col-12']">
+    <div class="col-12 toolbar">
+      <span class="badge badge-light">
+        <i class="fas fa-code-branch"></i> {{ service.getBranch }}
+      </span>
+
+      <span
+        *ngIf="!this.service.hasError"
+        class="badge badge-light" >
+        <i
+          [@showhide]="blinkingIcon"
+          class="fas fa-circle green" ></i> live refresh
+          <small class="text-muted">{{ service.refreshTime / 1000 }}s</small>
+      </span>
+
+      <span
+        *ngIf="loader.isLoading | async"
+        class="badge badge-warning" >
+        <i class="fas fa-spinner fa-spin"></i> Refreshing
+      </span>
+
+      <span
+        *ngIf="this.service.hasError"
+        class="badge badge-danger" >
+        <i class="fas fa-exclamation-triangle"></i> An error has occurred
+      </span>
+    </div>
+
+    <div class="col-12">
       <app-build-statuses [buildStatuses]="statuses"></app-build-statuses>
     </div>
   </div>

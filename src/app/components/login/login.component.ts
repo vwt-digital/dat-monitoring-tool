@@ -15,8 +15,13 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
+    const currentApiKey = sessionStorage.getItem('apiKey');
+
     const formGroup = this.formBuilder.group({});
-    const apiKeyControl = this.formBuilder.control('', Validators.required);
+    const apiKeyControl = this.formBuilder.control(
+      (currentApiKey ? currentApiKey : ''),
+      Validators.required
+    );
     formGroup.addControl('apiKey', apiKeyControl);
     this.form = formGroup;
   }

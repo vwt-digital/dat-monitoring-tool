@@ -1,10 +1,6 @@
-<div class="container app-login">
+<div class="container-fluid app-login">
   <div class="row">
-    <div class="col-12 title">
-      <h2>Add Api Key</h2>
-    </div>
-
-    <div class="col-12 col-md-6">
+    <div class="col-12">
       <form
         *ngIf="form; else loading"
         [formGroup]="form"
@@ -23,6 +19,10 @@
             [formControlName]="'apiKey'"
             formPassword >
 
+            <small class="form-text text-muted" >
+              The API key will be saved in the browsers session storage.
+            </small>
+
           <div
             *ngIf="form.get('apiKey').hasError('required') && form.get('apiKey').touched"
             class="invalid-feedback" >
@@ -34,7 +34,7 @@
           type="submit"
           class="btn btn-primary"
           [disabled]="form.valid ? false : true" >
-          Save key
+          Authenticate
         </button>
       </form>
     </div>

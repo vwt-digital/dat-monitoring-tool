@@ -18,7 +18,13 @@ export class ModalComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (!this.backdrop) {
+      setTimeout(() => {
+        this.closeOnError(this.activeModal);
+      }, 6000);
+    }
+  }
 
   closeOnError(activeModal: any) {
     activeModal.close('Close clicked');

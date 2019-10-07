@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { LoaderInterceptor } from './loader.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { EnvServiceProvider } from './env/env.service.provider';
@@ -59,6 +60,11 @@ registerLocaleData(localeNl, 'nl');
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
       multi: true
     }
   ],

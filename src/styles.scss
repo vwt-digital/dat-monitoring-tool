@@ -26,7 +26,7 @@ body {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 40px;
   margin: 0;
   font-weight: 700;
   color: $gray-dark;
@@ -34,26 +34,41 @@ h1 {
 }
 
 h2 {
-  font-size: 25px;
+  font-size: 30px;
   margin: 0;
   font-weight: 700;
   color: $gray-dark;
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 25px;
   margin: 0;
   font-weight: 500;
   color: $gray-dark;
 }
 
 h4 {
-  font-size: 15px;
-  line-height: 15px;
+  font-size: 20px;
   text-transform: uppercase;
   font-weight: 800;
   color: $gray-dark;
 }
+
+@media (max-width: $breakpoint-tablet) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h4 {
+    font-size: 15px;
+  }
+}
+
 
 .container-fluid {
   padding: 20px;

@@ -3,7 +3,17 @@
 
 .app-login {
   padding: 20px;
+
   .title {
     margin-bottom: 10px;
+  }
+
+  input {
+    max-width: 400px;
+  }
+
+  small {
+    display: table;
+    width: 100%;
   }
 }

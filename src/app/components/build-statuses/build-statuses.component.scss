@@ -65,8 +65,9 @@
         margin: 5px 0;
 
         .badge {
-          font-size: 15px;
-          padding: 10px 15px 10px 10px;
+          font-size: 25px;
+          padding: 10px;
+          padding-right: 10px;
           text-align: left;
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
@@ -74,8 +75,8 @@
           display: table;
 
           &.build-status-time {
-            font-size: 8px;
-            line-height: 9px;
+            font-size: 15px;
+            line-height: 20px;
             text-transform: uppercase;
             padding: 13px 5px;
             border-radius: 0 .25rem .25rem 0;
@@ -86,13 +87,14 @@
       &.small {
         .build-status {
           .badge {
-            font-size: 12px;
-            padding: 5px 10px 5px 5px;
+            font-size: 20px;
+            padding: 10px;
+            padding-right: 10px;
 
             &.build-status-time {
-              font-size: 6px;
-              line-height: 6px;
-              padding: 8.5px;
+              font-size: 10px;
+              line-height: 10px;
+              padding: 15.5px;
             }
           }
         }
@@ -102,5 +104,38 @@
 
   i {
     margin-right: 5px;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .app-build-statuses {
+    .build-status-item {
+      .build-status-badges {
+        .build-status {
+          .badge{
+            font-size: 20px;
+
+            &.build-status-time {
+              font-size: 12px;
+              line-height: 14.5px;
+            }
+          }
+        }
+
+        &.small {
+          .build-status {
+            .badge {
+              font-size: 15px;
+
+              &.build-status-time {
+                font-size: 9px;
+                line-height: 10px;
+                padding: 7.5px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

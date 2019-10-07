@@ -2,5 +2,36 @@
 @import "~src/assets/scss/mixins";
 
 .app-dashboard-overview {
-  
+  padding-top: 0;
+
+  .toolbar {
+    margin-bottom: 10px;
+
+    span.badge {
+      margin-right: 10px;
+      font-size: 20px;
+      line-height: 20px;
+      padding: 5px 10px;
+
+      i {
+        margin-right: 5px;
+      }
+      small {
+        color: $black-light !important;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .app-dashboard-overview {
+    .toolbar {
+      span.badge {
+        margin-right: 5px;
+        font-size: 15px;
+        line-height: 15px;
+        padding: 5px;
+      }
+    }
+  }
 }
