@@ -63,38 +63,55 @@
         display: table;
         float: left;
         margin: 5px 0;
+        height: 40px;
+        overflow: hidden;
 
         .badge {
-          font-size: 25px;
+          width: 75%;
+          height: 100%;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
           padding: 10px;
-          padding-right: 10px;
-          text-align: left;
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
           float: left;
-          display: table;
+
+          text-align: left;
+          font-size: 20px;
+          line-height: 20px;
 
           &.build-status-time {
-            font-size: 15px;
-            line-height: 20px;
-            text-transform: uppercase;
-            padding: 13px 5px;
+            width: 25%;
+            height: 100%;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            padding: 10px;
             border-radius: 0 .25rem .25rem 0;
+
+            font-size: 75%;
+            text-align: left;
+            text-transform: uppercase;
           }
         }
       }
 
       &.small {
         .build-status {
+          height: 30px;
           .badge {
-            font-size: 20px;
-            padding: 10px;
-            padding-right: 10px;
+            padding: 7.5px;
+            font-size: 15px;
+            line-height: 15px;
 
             &.build-status-time {
-              font-size: 10px;
-              line-height: 10px;
-              padding: 15.5px;
+              font-size: 75%;
+              padding: 7px;
             }
           }
         }
@@ -110,27 +127,36 @@
 @media (max-width: $breakpoint-tablet) {
   .app-build-statuses {
     .build-status-item {
+      .card-title {
+        margin-bottom: 5px;
+      }
+
       .build-status-badges {
         .build-status {
-          .badge{
-            font-size: 20px;
+          height: 30px;
+          .badge {
+            padding: 7.5px;
+            font-size: 15px;
+            line-height: 15px;
 
             &.build-status-time {
-              font-size: 12px;
-              line-height: 14.5px;
+              font-size: 75%;
+              padding: 7px;
             }
           }
         }
 
         &.small {
           .build-status {
+            height: 30px;
             .badge {
+              padding: 7.5px;
               font-size: 15px;
+              line-height: 15px;
 
               &.build-status-time {
-                font-size: 9px;
-                line-height: 10px;
-                padding: 7.5px;
+                font-size: 75%;
+                padding: 7px;
               }
             }
           }
