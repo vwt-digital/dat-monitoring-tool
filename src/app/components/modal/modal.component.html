@@ -1,0 +1,29 @@
+<div class="modal-inner {{ !backdrop ? 'no-click' : '' }}">
+  <div class="modal-header">
+    <h1 class="modal-title" id="modal-basic-title">{{ title }}</h1>
+    <button
+      *ngIf="backdrop"
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross clicked')" >
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ content }}</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      *ngIf="backdrop"
+      type="button"
+      class="btn btn-primary"
+      (click)="activeModal.close('Close clicked')" >Close</button>
+
+    <small
+      *ngIf="!backdrop"
+      class="form-text text-muted" >
+      <i class="fas fa-spinner fa-spin"></i> You will be redirected shortly!
+    </small>
+  </div>
+</div>

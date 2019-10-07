@@ -1,34 +1,45 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { EnvService } from 'src/app/env/env.service';
+import { trigger, transition, state, style, animate } from '@angular/animations';
 
 import { DashboardService } from '../dashboard.service';
-import { ActivatedRoute } from '@angular/router';
+import { LoaderService } from 'src/app/loader.service';
 
 @Component({
   selector: 'app-dashboard-overview',
   templateUrl: './dashboard-overview.component.html',
-  styleUrls: ['./dashboard-overview.component.scss']
+  styleUrls: ['./dashboard-overview.component.scss'],
+  animations: [
+    trigger('showhide', [
+      state('invisible', style({opacity: '0'})),
+      state('visible', style({opacity: '1'})),
+      transition('invisible <=> visible', animate('.5s linear'))
+    ])
+  ]
 })
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
   buildStatuses: any;
-  interval: any;
+  blinkInterval: any;
+  blinkingIcon = 'visible';
 
   constructor(
-    private env: EnvService,
-    private httpClient: HttpClient,
-    private service: DashboardService,
-    private route: ActivatedRoute
-  ) { }
+    public loader: LoaderService,
+    public service: DashboardService
+  ) {
+    this.blinkInterval = setInterval(() => {
+      this.blinkingIcon = (this.blinkingIcon == 'visible') ? 'invisible' : 'visible';
+    }, 500);
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.buildStatuses = this.service.buildStatuses$;
+    this.loader.isError.subscribe(
+      res => this.service.hasError = res
+    );
 
-    this.refreshData();
-    this.interval = setInterval(() => {
-        this.refreshData();
-    }, 30000);
+    await this.refreshData();
+    this.service.interval = setInterval(() => {
+      this.refreshData();
+    }, this.service.refreshTime);
   }
 
   refreshData() {
@@ -37,7 +48,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    this.buildStatuses.unsubscribe();
-    clearInterval(this.interval);
+    clearInterval(this.service.interval);
+    clearInterval(this.blinkInterval);
   }
 }

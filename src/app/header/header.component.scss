@@ -14,17 +14,31 @@ nav {
     padding: 0;
   }
 
+  h1 {
+    a {
+      color: $gray-dark;
+      text-decoration: none;
+
+      &:hover {
+        color: $gray-dark-hover;
+        text-decoration: none;
+      }
+    }
+  }
+
   .logo {
-    height: 36px;
+    height: 48px;
     width: auto;
     float: right;
   }
+}
 
-  span.badge {
-    margin-right: 5px;
+@media (max-width: $breakpoint-tablet) {
+  nav {
+    padding: 10px;
 
-    i {
-      margin-right: 5px;
+    .logo {
+      height: 30px;
     }
   }
 }

@@ -1,0 +1,22 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.modal-inner::ng-deep {
+  padding: 20px;
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border: none;
+    padding: 0;
+  }
+
+  .modal-body {
+    padding: 10px 0;
+  }
+
+  button.close {
+    opacity: 1;
+    color: $primary;
+  }
+}

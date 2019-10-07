@@ -3,20 +3,18 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { EnvService } from '../env/env.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private env: EnvService,
-    public oauthService: OAuthService
+    private env: EnvService
   ) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (request.url.includes(this.env.apiUrl)) {
+    if (sessionStorage.getItem('apiKey') && request.url.includes(this.env.apiUrl)) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.oauthService.getAccessToken()}`
+          'x-api-key': sessionStorage.getItem('apiKey')
         }
       });
     }

@@ -1,7 +1,7 @@
 <div
   *ngIf="buildStatuses"
   class="app-build-statuses row build-statuses" >
-  <div class="col-12 col-md-6 col-lg-4 build-status-item">
+  <div class="col-12 col-lg-6 col-xl-4 build-status-item">
     <div class="card {{ getFilteredStatuses('failing').length > 0 ? 'red' : '' }}">
       <div class="card-body">
         <h4 class="card-title">
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-6 col-lg-4 build-status-item">
+  <div class="col-12 col-lg-6 col-xl-4 build-status-item">
     <div class="card {{ getFilteredStatuses('pending').length > 0 ? 'orange' : '' }}">
       <div class="card-body">
         <h4 class="card-title">
@@ -63,7 +63,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-6 col-lg-4 build-status-item">
+  <div class="col-12 col-lg-6 col-xl-4 build-status-item">
     <div class="card {{ getFilteredStatuses('passing').length > 0 ? 'green' : '' }}">
       <div class="card-body">
         <h4 class="card-title green">

@@ -1,7 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './components/login/login.component';
+import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,18 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'not-authorized',
+    component: PageNotAuthorizedComponent,
+    pathMatch: 'full'
+  },
+  {
     path: '**',
-    component: PageNotFoundComponent,
+    redirectTo: '/',
     pathMatch: 'full'
   }
 ];

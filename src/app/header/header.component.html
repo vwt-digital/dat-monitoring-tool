@@ -1,18 +1,15 @@
 <nav class="navbar">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-8">
-        <h1>{{title}}</h1>
-
-        <span class="badge badge-light">
-          <i class="fas fa-code-branch"></i> {{ this.service.getBranch }}
-        </span>
-        <span class="badge badge-light">
-          <i class="fas fa-circle green"></i> live reload
-        </span>
+      <div class="col-8">
+        <h1>
+          <a routerLink="dashboard">
+            {{title}}
+          </a>
+        </h1>
       </div>
 
-      <div class="col-12 col-md-4">
+      <div class="col-4 no-padding">
         <img class="logo" src="assets/images/volkerwessels_telecom_wide_gray.png" alt="Logo">
       </div>
     </div>
