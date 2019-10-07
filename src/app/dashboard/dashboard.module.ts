@@ -5,13 +5,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
-import { BuildStatusesComponent } from '../components/build-statuses/build-statuses.component';
+import { BuildStatusComponent } from '../components/build-status/build-status.component';
 import { TimeDifferencePipe } from './time-difference.pipe';
 
 @NgModule({
   declarations: [
     DashboardOverviewComponent,
-    BuildStatusesComponent,
+    BuildStatusComponent,
     TimeDifferencePipe
   ],
   imports: [
@@ -20,7 +20,7 @@ import { TimeDifferencePipe } from './time-difference.pipe';
     DashboardRoutingModule
   ],
   exports: [
-    BuildStatusesComponent,
+    BuildStatusComponent,
     TimeDifferencePipe
   ]
 })

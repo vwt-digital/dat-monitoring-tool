@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.validateAllFormFields(this.form);
     }
-
   }
 
   saveApiKey(value: any) {

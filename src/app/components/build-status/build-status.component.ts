@@ -1,13 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BuildStatus } from 'src/app/dashboard/build-status';
+
+import { BuildTriggerStatus } from 'src/app/dashboard/build-status';
 
 @Component({
-  selector: 'app-build-statuses',
-  templateUrl: './build-statuses.component.html',
-  styleUrls: ['./build-statuses.component.scss']
+  selector: 'app-build-status',
+  templateUrl: './build-status.component.html',
+  styleUrls: ['./build-status.component.scss']
 })
-export class BuildStatusesComponent implements OnInit {
+export class BuildStatusComponent implements OnInit {
   @Input() buildStatuses: any;
+  @Input() buildStatusType: string;
+  @Input() buildStatusKind: string;
+  @Input() buildStatusAmount: number = null;
 
   constructor() { }
 
@@ -22,7 +26,7 @@ export class BuildStatusesComponent implements OnInit {
       }
     }
 
-    filteredStatuses = filteredStatuses.sort((a, b) => a.updated > b.updated ? -1 : (a.updated < b.updated ? 1 : 0))
+    filteredStatuses = filteredStatuses.sort((a, b) => a.updated > b.updated ? -1 : (a.updated < b.updated ? 1 : 0));
     if (amount) {
       filteredStatuses = filteredStatuses.slice(0, amount);
     }
@@ -42,7 +46,27 @@ export class BuildStatusesComponent implements OnInit {
     return filteredCount;
   }
 
-  color(buildStatus: BuildStatus) {
+  outlineColor(buildStatus: string) {
+    if (buildStatus === 'pending') {
+      return 'orange';
+    } else if (buildStatus === 'failing') {
+      return 'red';
+    } else {
+      return 'green';
+    }
+  }
+
+  outlineIcon(buildStatus: string) {
+    if (buildStatus === 'pending') {
+      return 'fa-sync-alt';
+    } else if (buildStatus === 'failing') {
+      return 'fa-exclamation-triangle';
+    } else {
+      return 'fa-check';
+    }
+  }
+
+  badgeColor(buildStatus: BuildTriggerStatus) {
     if (buildStatus.status === 'pending') {
       return 'warning';
     } else if (buildStatus.status === 'failing') {
@@ -51,7 +75,8 @@ export class BuildStatusesComponent implements OnInit {
       return 'success';
     }
   }
-  icon(buildStatus: BuildStatus) {
+
+  badgeIcon(buildStatus: BuildTriggerStatus) {
     if (buildStatus.status === 'pending') {
       return 'fa-spinner fa-spin';
     } else if (buildStatus.status === 'failing') {

@@ -26,25 +26,26 @@ export class LoaderInterceptor implements HttpInterceptor {
 
     this.loaderService.isLoading.next(true);
 
-    return Observable.create(observer => {
+    return new Observable(observer => {
       const subscription = next.handle(req)
-      .subscribe(
-        event => {
-          if (event instanceof HttpResponse) {
+        .subscribe(
+          event => {
+            if (event instanceof HttpResponse) {
+              this.removeRequest(req);
+              observer.next(event);
+            }
+          },
+          err => {
             this.removeRequest(req);
-            observer.next(event);
-          }
-        },
-        err => {
-          this.removeRequest(req);
-          observer.error(err);
-          this.loaderService.isError.next(true);
-        },
-        () => { this.removeRequest(req); observer.complete(); });
-        return () => {
-          this.removeRequest(req);
-          subscription.unsubscribe();
-        };
-      });
-    }
+            observer.error(err);
+            this.loaderService.isError.next(true);
+          },
+          () => { this.removeRequest(req); observer.complete(); }
+        );
+      return () => {
+        this.removeRequest(req);
+        subscription.unsubscribe();
+      };
+    });
   }
+}
