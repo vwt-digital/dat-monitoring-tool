@@ -1,0 +1,50 @@
+<ng-container *ngIf="errorReporting">
+  <div class="error-reporting-item">
+    <div class="card {{ errorReporting.length > 0 ? 'red' : '' }}">
+      <div class="card-header {{ cardColor }}">
+        <i class="{{ cardHeaderIcon }}"></i>
+        {{ cardHeader }}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="fas fa-exclamation-circle"></i> Errors
+        </h4>
+
+        <h2
+          *ngIf="errorReporting.length <= 0"
+          class="build-count">0</h2>
+
+        <div
+          *ngIf="errorReporting.length > 0"
+          class="error-reporting-badges">
+
+          <span
+            *ngIf="errorReportingAmount"
+            class="build-count-limited">
+            Last {{ (errorReporting.length < errorReportingAmount ? errorReporting.length : errorReportingAmount ) }} errors
+          </span>
+
+          <ng-container *ngFor="let errorReport of errorReporting" >
+            <div class="error-reporting" >
+              <div
+                class="badge badge-danger" >
+                <span class="badge-title">
+                  {{ errorReport.log_name.split('/')[1] }}
+                </span>
+                <span
+                  *ngIf="errorReport.resource['type']"
+                  class="badge-content">
+                  {{ errorReport.resource['type'] | replaceValue:'_':' ' }}
+                </span>
+              </div>
+              <div class="badge badge-light error-reporting-time" >
+                <span>{{ errorReport.receive_timestamp | timeDifference }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -10,6 +10,7 @@ import { EnvService } from '../env/env.service';
 import { AuthService } from '../auth/auth.service';
 
 import { BuildTriggerStatus, BuildOtherStatus } from './build-status';
+import { ErrorReport } from './error-report';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,8 @@ import { BuildTriggerStatus, BuildOtherStatus } from './build-status';
 export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
   public buildOtherStatuses$: BehaviorSubject<BuildOtherStatus[]> = new BehaviorSubject([]);
+  public errorReporting$: BehaviorSubject<ErrorReport[]> = new BehaviorSubject([]);
+
   public refreshTime = 30000; // Time in milliseconds
   public interval: any;
 
@@ -32,6 +35,7 @@ export class DashboardService {
   async updateData() {
     await this.getBuildStatusesTrigger();
     await this.getBuildStatusesOther();
+    await this.getErrorReporting();
   }
 
   get getBranch() {
@@ -47,7 +51,7 @@ export class DashboardService {
 
 
   async getBuildStatusesTrigger() {
-    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers/branch/${this.getBranch}`).subscribe(
+    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers`).subscribe(
       (data: BuildTriggerStatus[]) => this.buildTriggerStatuses$.next(data),
       error => {
         clearInterval(this.interval);
@@ -66,6 +70,23 @@ export class DashboardService {
   async getBuildStatusesOther() {
     await this.httpClient.get(`${this.env.apiUrl}/build-statuses-other`).subscribe(
       (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
+      error => {
+        clearInterval(this.interval);
+        if (error.status === 401) {
+          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
+
+          setTimeout(() => {
+            this.authService.removeApiKey();
+          }, 4000 );
+        }
+        console.log(error);
+      }
+    );
+  }
+
+  async getErrorReporting() {
+    await this.httpClient.get(`${this.env.apiUrl}/error-reporting`).subscribe(
+      (data: ErrorReport[]) => this.errorReporting$.next(data),
       error => {
         clearInterval(this.interval);
         if (error.status === 401) {

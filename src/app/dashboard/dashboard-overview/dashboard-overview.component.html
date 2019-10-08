@@ -68,6 +68,16 @@
               [buildStatusAmount]="5" >
             </app-build-status>
         </ng-container>
+
+        <ng-container
+          *ngIf="errorReporting | async as errorReporting; else loading">
+            <app-error-reporting
+              ngxMasonryItem
+              [ngClass]="['masonry-item']"
+              [errorReporting]="errorReporting"
+              [errorReportingAmount]="5" >
+            </app-error-reporting>
+        </ng-container>
       </ngx-masonry>
     </div>
   </div>

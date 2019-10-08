@@ -19,6 +19,7 @@ import { LoaderService } from 'src/app/loader.service';
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
   buildTriggerStatuses: any;
   buildOtherStatuses: any;
+  errorReporting: any;
   blinkInterval: any;
   blinkingIcon = 'visible';
 
@@ -34,6 +35,8 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   async ngOnInit() {
     this.buildTriggerStatuses = this.service.buildTriggerStatuses$;
     this.buildOtherStatuses = this.service.buildOtherStatuses$;
+    this.errorReporting = this.service.errorReporting$;
+
     this.loader.isError.subscribe(
       res => this.service.hasError = res
     );

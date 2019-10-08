@@ -1,0 +1,202 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.error-reporting-item {
+  .card {
+    background-color: $white;
+    border-radius: 5px;
+    position: relative;
+
+    .card-header {
+      text-transform: uppercase;
+      color: $white;
+
+      &.red {
+        background-color: rgba(192, 57, 43, .8);
+        border-color: rgba(192, 57, 43, 1);
+      }
+    }
+
+    h4.card-title,
+    h2.build-count {
+      color: $gray-dark;
+    }
+
+    span.build-count-limited {
+      font-size: 10px;
+      color: $gray-dark;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    &.red {
+      .card-body {
+        border: 2px solid $red-hover;
+      }
+      .card-header {
+        background-color: $red;
+        border-color: $red-hover;
+      }
+
+      h4.card-title,
+      h2.build-count {
+        color: $red;
+      }
+      .badge.error-reporting-time {
+        background: $red-hover;
+        color: $white;
+      }
+    }
+    &.orange {
+      h4.card-title,
+      h2.build-count {
+        color: $orange;
+      }
+      .badge.error-reporting-time {
+        background: $orange-hover;
+        color: $white;
+      }
+    }
+    &.green {
+      h4.card-title,
+      h2.build-count {
+        color: $green;
+      }
+      .badge.error-reporting-time {
+        background: $green-hover;
+        color: $white;
+      }
+    }
+  }
+
+  .error-reporting-badges {
+    margin-top: 10px;
+
+    .error-reporting {
+      width: 100%;
+      display: table;
+      float: left;
+      margin: 5px 0;
+      height: 40px;
+      overflow: hidden;
+
+      .badge {
+        width: 75%;
+        max-width: 75%;
+        height: 100%;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        padding: 10px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        float: left;
+
+        text-align: left;
+        font-size: 20px;
+        line-height: 20px;
+
+        &.error-reporting-time {
+          width: 25%;
+          height: 100%;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          padding: 10px;
+          border-radius: 0 .25rem .25rem 0;
+
+          font-size: 75%;
+          text-align: left;
+          text-transform: uppercase;
+
+          span {
+            vertical-align: middle;
+          }
+        }
+
+        .badge-title,
+        .badge-content {
+          width: 100%;
+          max-width: 100%;
+          float: left;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .badge-title {
+          line-height: 24px;
+        }
+        .badge-content {
+          font-size: 50%;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    &.small {
+      .error-reporting {
+        height: 30px;
+        .badge {
+          padding: 7.5px;
+          font-size: 15px;
+          line-height: 15px;
+
+          &.error-reporting-time {
+            font-size: 75%;
+            padding: 7px;
+          }
+        }
+      }
+    }
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+
+@media (max-width: $breakpoint-tablet) {
+  .error-reporting-item {
+    .card-title {
+      margin-bottom: 5px;
+    }
+
+    .error-reporting-badges {
+      .error-reporting {
+        height: 30px;
+        .badge {
+          padding: 7.5px;
+          font-size: 15px;
+          line-height: 15px;
+
+          &.error-reporting-time {
+            font-size: 75%;
+            padding: 7px;
+          }
+        }
+      }
+
+      &.small {
+        .error-reporting {
+          height: 30px;
+          .badge {
+            padding: 7.5px;
+            font-size: 15px;
+            line-height: 15px;
+
+            &.error-reporting-time {
+              font-size: 75%;
+              padding: 7px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
