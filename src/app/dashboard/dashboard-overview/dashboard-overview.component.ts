@@ -17,7 +17,8 @@ import { LoaderService } from 'src/app/loader.service';
   ]
 })
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
-  buildStatuses: any;
+  buildTriggerStatuses: any;
+  buildOtherStatuses: any;
   blinkInterval: any;
   blinkingIcon = 'visible';
 
@@ -26,12 +27,13 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
     public service: DashboardService
   ) {
     this.blinkInterval = setInterval(() => {
-      this.blinkingIcon = (this.blinkingIcon == 'visible') ? 'invisible' : 'visible';
+      this.blinkingIcon = (this.blinkingIcon === 'visible') ? 'invisible' : 'visible';
     }, 500);
   }
 
   async ngOnInit() {
-    this.buildStatuses = this.service.buildStatuses$;
+    this.buildTriggerStatuses = this.service.buildTriggerStatuses$;
+    this.buildOtherStatuses = this.service.buildOtherStatuses$;
     this.loader.isError.subscribe(
       res => this.service.hasError = res
     );

@@ -9,13 +9,14 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { EnvService } from '../env/env.service';
 import { AuthService } from '../auth/auth.service';
 
-import { BuildStatus } from './build-status';
+import { BuildTriggerStatus, BuildOtherStatus } from './build-status';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  public buildStatuses$: BehaviorSubject<BuildStatus[]> = new BehaviorSubject([]);
+  public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
+  public buildOtherStatuses$: BehaviorSubject<BuildOtherStatus[]> = new BehaviorSubject([]);
   public refreshTime = 30000; // Time in milliseconds
   public interval: any;
 
@@ -29,20 +30,8 @@ export class DashboardService {
   ) { }
 
   async updateData() {
-    await this.httpClient.get(`${this.env.apiUrl}/build-statuses/branch/${this.getBranch}`).subscribe(
-      (data: BuildStatus[]) => this.buildStatuses$.next(data),
-      error => {
-        clearInterval(this.interval);
-        if (error.status === 401) {
-          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
-
-          setTimeout(() =>{
-            this.authService.removeApiKey();
-          }, 4000)
-        }
-        console.log(error);
-      }
-    );
+    await this.getBuildStatusesTrigger();
+    await this.getBuildStatusesOther();
   }
 
   get getBranch() {
@@ -54,5 +43,40 @@ export class DashboardService {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.componentInstance.backdrop = backdrop;
+  }
+
+
+  async getBuildStatusesTrigger() {
+    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers/branch/${this.getBranch}`).subscribe(
+      (data: BuildTriggerStatus[]) => this.buildTriggerStatuses$.next(data),
+      error => {
+        clearInterval(this.interval);
+        if (error.status === 401) {
+          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
+
+          setTimeout(() => {
+            this.authService.removeApiKey();
+          }, 4000 );
+        }
+        console.log(error);
+      }
+    );
+  }
+
+  async getBuildStatusesOther() {
+    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-other`).subscribe(
+      (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
+      error => {
+        clearInterval(this.interval);
+        if (error.status === 401) {
+          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
+
+          setTimeout(() => {
+            this.authService.removeApiKey();
+          }, 4000 );
+        }
+        console.log(error);
+      }
+    );
   }
 }

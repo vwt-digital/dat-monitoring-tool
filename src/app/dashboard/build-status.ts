@@ -1,5 +1,5 @@
 /* tslint:disable:variable-name */
-export class BuildStatus {
+export class BuildTriggerStatus {
   branch: string;
   git_source: string;
   organization: string;
@@ -7,4 +7,11 @@ export class BuildStatus {
   repo_name: string;
   status: string;
   updated: string;
+}
+export class BuildOtherStatus {
+  finish_time: string;
+  id: string;
+  project_id: string;
+  start_time: string;
+  status: string;
 }

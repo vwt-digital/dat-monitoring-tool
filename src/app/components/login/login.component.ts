@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit(apiKey) {
+  onSubmit() {
     event.preventDefault();
     event.stopPropagation();
 
@@ -42,11 +42,10 @@ export class LoginComponent implements OnInit {
     } else {
       this.validateAllFormFields(this.form);
     }
-
   }
 
   saveApiKey(value: any) {
-    sessionStorage.setItem('apiKey', value['apiKey']);
+    sessionStorage.setItem('apiKey', value.apiKey);
     this.form.reset();
     this.router.navigate(['dashboard']);
   }

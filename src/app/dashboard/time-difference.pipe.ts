@@ -15,30 +15,30 @@ export class TimeDifferencePipe implements PipeTransform {
 }
 
 
-function millisecondsToStr (milliseconds) {
-    function numberEnding (number) {
-      return (number > 1) ? 's ago' : ' ago';
+function millisecondsToStr(milliseconds) {
+    function numberEnding(endingNumber: number) {
+      return (endingNumber > 1) ? 's ago' : ' ago';
     }
 
-    var temp = Math.floor(milliseconds / 1000);
-    var years = Math.floor(temp / 31536000);
+    let temp = Math.floor(milliseconds / 1000);
+    const years = Math.floor(temp / 31536000);
     if (years) {
       return years + ' year' + numberEnding(years);
     }
 
-    var days = Math.floor((temp %= 31536000) / 86400);
+    const days = Math.floor((temp %= 31536000) / 86400);
     if (days) {
       return days + ' day' + numberEnding(days);
     }
-    var hours = Math.floor((temp %= 86400) / 3600);
+    const hours = Math.floor((temp %= 86400) / 3600);
     if (hours) {
       return hours + ' hour' + numberEnding(hours);
     }
-    var minutes = Math.floor((temp %= 3600) / 60);
+    const minutes = Math.floor((temp %= 3600) / 60);
     if (minutes) {
       return minutes + ' minute' + numberEnding(minutes);
     }
-    var seconds = temp % 60;
+    const seconds = temp % 60;
     if (seconds) {
       return seconds + ' second' + numberEnding(seconds);
     }

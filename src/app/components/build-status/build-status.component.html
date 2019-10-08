@@ -1,0 +1,44 @@
+<ng-container *ngIf="buildStatuses">
+  <div class="build-status-item">
+    <div class="card {{ getFilteredStatuses(buildStatusType).length > 0 ? outlineColor(buildStatusType) : '' }}">
+      <div class="card-header {{ cardColor }}">
+        <i class="{{ cardHeaderIcon }}"></i>
+        {{ cardHeader }}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="fas {{ outlineIcon(buildStatusType) }}"></i> {{ buildStatusType }} builds
+        </h4>
+
+        <h2 class="build-count">{{ getFilteredStatusesCount(buildStatusType) }}</h2>
+
+        <div
+          *ngIf="getFilteredStatuses(buildStatusType).length > 0"
+          class="build-status-badges">
+
+          <span
+            *ngIf="buildStatusAmount"
+            class="build-count-limited">
+            Last {{ (getFilteredStatusesCount(buildStatusType) < buildStatusAmount ? getFilteredStatusesCount(buildStatusType) : buildStatusAmount ) }} {{ buildStatusType }} builds
+          </span>
+
+          <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
+            <div
+              *ngIf="buildStatus"
+              class="build-status" >
+              <div
+                class="badge badge-{{ badgeColor(buildStatus) }}" >
+                <i class="fas {{ badgeIcon(buildStatus) }}"></i>
+                {{ buildStatus.repo_name || buildStatus.project_id }}
+              </div>
+              <div class="badge badge-light build-status-time" >
+                {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

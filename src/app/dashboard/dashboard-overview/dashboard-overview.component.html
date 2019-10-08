@@ -1,6 +1,4 @@
-<div
-  *ngIf="buildStatuses | async as statuses; else loading"
-  class="container-fluid app-dashboard-overview">
+<div class="container-fluid app-dashboard-overview">
   <div class="row">
     <div class="col-12 toolbar">
       <span class="badge badge-light">
@@ -29,8 +27,48 @@
       </span>
     </div>
 
-    <div class="col-12">
-      <app-build-statuses [buildStatuses]="statuses"></app-build-statuses>
+    <div class="col-12 masonry-outer">
+      <ngx-masonry>
+        <ng-container
+          *ngIf="buildTriggerStatuses | async as triggerStatuses; else loading">
+          <app-build-status
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
+            [buildStatuses]="triggerStatuses"
+            [buildStatusType]="'failing'"
+            [buildStatusKind]="'trigger'" >
+          </app-build-status>
+
+          <app-build-status
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
+            [buildStatuses]="triggerStatuses"
+            [buildStatusType]="'pending'"
+            [buildStatusKind]="'trigger'" >
+          </app-build-status>
+
+          <app-build-status
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
+            [buildStatuses]="triggerStatuses"
+            [buildStatusType]="'passing'"
+            [buildStatusKind]="'trigger'"
+            [buildStatusAmount]="5" >
+          </app-build-status>
+        </ng-container>
+
+        <ng-container
+          *ngIf="buildOtherStatuses | async as otherStatuses; else loading">
+            <app-build-status
+              ngxMasonryItem
+              [ngClass]="['masonry-item']"
+              [buildStatuses]="otherStatuses"
+              [buildStatusType]="'failing'"
+              [buildStatusKind]="'other'"
+              [buildStatusAmount]="5" >
+            </app-build-status>
+        </ng-container>
+      </ngx-masonry>
     </div>
   </div>
 </div>

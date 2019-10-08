@@ -11,7 +11,7 @@ export class PageNotAuthorizedComponent {
     private router: Router
   ) {
     const apiKey = sessionStorage.getItem('apiKey');
-    if (apiKey && apiKey != '') {
+    if (apiKey && apiKey !== '') {
       this.router.navigate(['/']);
     }
   }

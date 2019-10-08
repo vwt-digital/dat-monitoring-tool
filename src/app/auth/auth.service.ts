@@ -13,7 +13,7 @@ export class AuthService {
   get hasApiKey() {
     const apiKey = sessionStorage.getItem('apiKey');
 
-    if (apiKey && apiKey != '') {
+    if (apiKey && apiKey !== '') {
       return true;
     }
 
