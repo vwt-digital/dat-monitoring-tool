@@ -2,8 +2,6 @@
 @import "~src/assets/scss/mixins";
 
 .build-status-item {
-  padding: 10px 0;
-
   .card {
     background-color: $white;
     border-radius: 5px;
@@ -11,7 +9,16 @@
 
     .card-header {
       text-transform: uppercase;
-      color: $gray-dark;
+      color: $white;
+
+      &.green {
+        background-color: rgba(22, 160, 133, .8);
+        border-color: rgba(22, 160, 133, 1);
+      }
+      &.blue {
+        background-color: rgba(44, 62, 80, .8);
+        border-color: rgba(44, 62, 80, 1);
+      }
     }
 
     h4.card-title,
@@ -27,7 +34,13 @@
     }
 
     &.red {
-      border: 2px solid $red;
+      .card-body {
+        border: 2px solid $red-hover;
+      }
+      .card-header {
+        background-color: $red;
+        border-color: $red-hover;
+      }
 
       h4.card-title,
       h2.build-count {

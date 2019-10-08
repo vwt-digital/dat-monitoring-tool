@@ -90,3 +90,31 @@ p {
 .red {
   color: $red;
 }
+
+// MASONRY LAYOUT STYLING
+.masonry-outer {
+  margin-left: -10px;
+  margin-right: -10px;
+
+  .masonry-item {
+    padding: 10px;
+  }
+}
+
+@media (min-width: $breakpoint-desktop + 1) {
+  .masonry-item {
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: $breakpoint-desktop) and (min-width: $breakpoint-tablet) {
+  .masonry-item {
+    width: calc(100% / 2);
+  }
+}
+
+@media (max-width: $breakpoint-tablet - 1) {
+  .masonry-item {
+    width: 100%;
+  }
+}

@@ -2,18 +2,26 @@
 @import "~src/assets/scss/mixins";
 
 .app-login {
-  padding: 20px;
+  .card {
+    .card-header {
+      i {
+        margin-right: 5px;
+      }
+    }
 
-  .title {
-    margin-bottom: 10px;
   }
+}
 
-  input {
-    max-width: 400px;
-  }
+@media (max-width: $breakpoint-tablet) {
+  .app-login {
+    .card {
+      .card-body {
+        padding: 10px;
 
-  small {
-    display: table;
-    width: 100%;
+        .card-column:last-child {
+          margin-top: 10px;
+        }
+      }
+    }
   }
 }

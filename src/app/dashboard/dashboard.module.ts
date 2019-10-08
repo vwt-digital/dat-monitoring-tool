@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
@@ -16,6 +17,7 @@ import { TimeDifferencePipe } from './time-difference.pipe';
   ],
   imports: [
     CommonModule,
+    NgxMasonryModule,
     NgbModule,
     DashboardRoutingModule
   ],

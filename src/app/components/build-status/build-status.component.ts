@@ -13,9 +13,27 @@ export class BuildStatusComponent implements OnInit {
   @Input() buildStatusKind: string;
   @Input() buildStatusAmount: number = null;
 
+  cardHeader: string;
+  cardHeaderIcon: string;
+  cardColor: string;
+
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.buildStatusKind === 'trigger') {
+      this.cardHeader = 'Cloud Build Triggers';
+      this.cardHeaderIcon = 'fas fa-code';
+      this.cardColor = 'blue';
+    } else if (this.buildStatusKind === 'other') {
+      this.cardHeader = 'Other Cloud Builds';
+      this.cardHeaderIcon = 'fas fa-sitemap';
+      this.cardColor = 'green';
+    } else {
+      this.cardHeader = 'Other';
+      this.cardHeaderIcon = 'fas fa-question';
+      this.cardColor = 'gray';
+    }
+  }
 
   getFilteredStatuses(status: string, amount: number = null) {
     let filteredStatuses = [];

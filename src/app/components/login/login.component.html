@@ -1,42 +1,57 @@
-<div class="container-fluid app-login">
+<div class="container app-login">
   <div class="row">
     <div class="col-12">
-      <form
-        *ngIf="form; else loading"
-        [formGroup]="form"
-        (ngSubmit)="onSubmit(form.value)" >
-
-        <div class="form-group input-group input-input">
-          <div class="input-group-prepend">
-            <label class="input-group-text text-wrap text-break" for="apikey">
-              API Key
-            </label>
-          </div>
-          <input
-            id="apikey"
-            class="form-control"
-            type="password"
-            [formControlName]="'apiKey'"
-            appFormPassword >
-
-            <small class="form-text text-muted" >
-              The API key will be saved in the browsers session storage.
-            </small>
-
-          <div
-            *ngIf="form.get('apiKey').hasError('required') && form.get('apiKey').touched"
-            class="invalid-feedback" >
-            This field is required
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-unlock"></i>
+          Authenticate
         </div>
 
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="form.valid ? false : true" >
-          Authenticate
-        </button>
-      </form>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-6 order-first order-md-last card-column">
+              <small class="form-text text-muted" >
+                The API key will be saved in the browsers session storage. The authentication also works with the 'in query' parameter <code>apiKey</code>.
+              </small>
+            </div>
+
+            <div class="col-12 col-md-6 card-column">
+              <form
+                *ngIf="form; else loading"
+                [formGroup]="form"
+                (ngSubmit)="onSubmit()" >
+
+                <div class="form-group input-group input-input">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text text-wrap text-break" for="apikey">
+                      API Key
+                    </label>
+                  </div>
+                  <input
+                    id="apikey"
+                    class="form-control"
+                    type="password"
+                    [formControlName]="'apiKey'"
+                    appFormPassword >
+
+                  <div
+                    *ngIf="form.get('apiKey').hasError('required') && form.get('apiKey').touched"
+                    class="invalid-feedback" >
+                    This field is required
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="form.valid ? false : true" >
+                  Authenticate
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

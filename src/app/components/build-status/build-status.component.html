@@ -1,8 +1,9 @@
 <ng-container *ngIf="buildStatuses">
   <div class="build-status-item">
     <div class="card {{ getFilteredStatuses(buildStatusType).length > 0 ? outlineColor(buildStatusType) : '' }}">
-      <div class="card-header">
-        {{ buildStatusKind }}
+      <div class="card-header {{ cardColor }}">
+        <i class="{{ cardHeaderIcon }}"></i>
+        {{ cardHeader }}
       </div>
 
       <div class="card-body">

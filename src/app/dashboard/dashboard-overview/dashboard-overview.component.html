@@ -27,29 +27,32 @@
       </span>
     </div>
 
-    <div class="col-12">
-      <div class="row">
+    <div class="col-12 masonry-outer">
+      <ngx-masonry>
         <ng-container
           *ngIf="buildTriggerStatuses | async as triggerStatuses; else loading">
           <app-build-status
-            [ngClass]="['col-12', 'col-lg-6', 'col-xl-4']"
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
             [buildStatuses]="triggerStatuses"
             [buildStatusType]="'failing'"
-            [buildStatusKind]="'Build triggers'" >
+            [buildStatusKind]="'trigger'" >
           </app-build-status>
 
           <app-build-status
-            [ngClass]="['col-12', 'col-lg-6', 'col-xl-4']"
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
             [buildStatuses]="triggerStatuses"
             [buildStatusType]="'pending'"
-            [buildStatusKind]="'Build triggers'" >
+            [buildStatusKind]="'trigger'" >
           </app-build-status>
 
           <app-build-status
-            [ngClass]="['col-12', 'col-lg-6', 'col-xl-4']"
+            ngxMasonryItem
+            [ngClass]="['masonry-item']"
             [buildStatuses]="triggerStatuses"
             [buildStatusType]="'passing'"
-            [buildStatusKind]="'Build triggers'"
+            [buildStatusKind]="'trigger'"
             [buildStatusAmount]="5" >
           </app-build-status>
         </ng-container>
@@ -57,14 +60,15 @@
         <ng-container
           *ngIf="buildOtherStatuses | async as otherStatuses; else loading">
             <app-build-status
-              [ngClass]="['col-12', 'col-lg-6', 'col-xl-4']"
+              ngxMasonryItem
+              [ngClass]="['masonry-item']"
               [buildStatuses]="otherStatuses"
               [buildStatusType]="'failing'"
-              [buildStatusKind]="'Other builds'"
+              [buildStatusKind]="'other'"
               [buildStatusAmount]="5" >
             </app-build-status>
         </ng-container>
-      </div>
+      </ngx-masonry>
     </div>
   </div>
 </div>
