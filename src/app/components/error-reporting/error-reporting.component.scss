@@ -9,12 +9,10 @@
 
     .card-header {
       text-transform: uppercase;
-      color: $white;
 
-      &.red {
-        background-color: rgba(192, 57, 43, .8);
-        border-color: rgba(192, 57, 43, 1);
-      }
+      background-color: $gray;
+      border-color: $gray-hover;
+      color: $red;
     }
 
     h4.card-title,
@@ -22,50 +20,17 @@
       color: $gray-dark;
     }
 
+    &.red{
+      h4.card-title {
+        color: $red;
+      }
+    }
+
     span.build-count-limited {
       font-size: 10px;
       color: $gray-dark;
       text-transform: uppercase;
       font-weight: 700;
-    }
-
-    &.red {
-      .card-body {
-        border: 2px solid $red-hover;
-      }
-      .card-header {
-        background-color: $red;
-        border-color: $red-hover;
-      }
-
-      h4.card-title,
-      h2.build-count {
-        color: $red;
-      }
-      .badge.error-reporting-time {
-        background: $red-hover;
-        color: $white;
-      }
-    }
-    &.orange {
-      h4.card-title,
-      h2.build-count {
-        color: $orange;
-      }
-      .badge.error-reporting-time {
-        background: $orange-hover;
-        color: $white;
-      }
-    }
-    &.green {
-      h4.card-title,
-      h2.build-count {
-        color: $green;
-      }
-      .badge.error-reporting-time {
-        background: $green-hover;
-        color: $white;
-      }
     }
   }
 
@@ -102,6 +67,9 @@
         font-size: 20px;
         line-height: 20px;
 
+        color: $red;
+        background-color: $gray;
+
         &.error-reporting-time {
           width: 25%;
           height: 100%;
@@ -116,6 +84,9 @@
           font-size: 75%;
           text-align: left;
           text-transform: uppercase;
+
+          color: $red;
+          background-color: $gray-hover;
 
           .badge-content {
             font-size: 75%;

@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class ReplaceValuePipe implements PipeTransform {
   transform(value: string, arg1: string, arg2: string): any {
-    console.log(value);
     try {
       return value.replace(
         new RegExp(arg1, 'g'),

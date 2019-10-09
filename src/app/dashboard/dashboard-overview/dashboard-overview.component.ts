@@ -4,6 +4,8 @@ import { trigger, transition, state, style, animate } from '@angular/animations'
 import { DashboardService } from '../dashboard.service';
 import { LoaderService } from 'src/app/loader.service';
 
+import { NgxMasonryOptions } from 'ngx-masonry';
+
 @Component({
   selector: 'app-dashboard-overview',
   templateUrl: './dashboard-overview.component.html',
@@ -22,6 +24,10 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   errorReporting: any;
   blinkInterval: any;
   blinkingIcon = 'visible';
+
+  public masonryOptions: NgxMasonryOptions = {
+    transitionDuration: '0.5s'
+  };
 
   constructor(
     public loader: LoaderService,
