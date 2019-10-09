@@ -22,25 +22,32 @@
           <span
             *ngIf="errorReportingAmount"
             class="build-count-limited">
-            Last {{ (errorReporting.length < errorReportingAmount ? errorReporting.length : errorReportingAmount ) }} errors
+            Last {{ (errorReporting.length < errorReportingAmount ? errorReporting.length : errorReportingAmount ) }} projects with errors
           </span>
 
-          <ng-container *ngFor="let errorReport of errorReporting" >
-            <div class="error-reporting" >
-              <div
-                class="badge badge-danger" >
-                <span class="badge-title">
-                  {{ errorReport.log_name.split('/')[1] }}
-                </span>
-                <span
-                  *ngIf="errorReport.resource['type']"
-                  class="badge-content">
-                  {{ errorReport.resource['type'] | replaceValue:'_':' ' }}
-                </span>
-              </div>
-              <div class="badge badge-light error-reporting-time" >
-                <span>{{ errorReport.receive_timestamp | timeDifference }}</span>
-              </div>
+          <ng-container *ngFor="let errorReport of getFilteredErrorReporting(errorReporting, errorReportingAmount)" >
+            <div class="error-reporting">
+              <a href="https://console.cloud.google.com/errors?project={{ errorReport.project_id }}" target="_blank">
+                <div
+                  class="badge badge-danger" >
+                  <span class="badge-title">
+                    {{ errorReport.project_id }}
+                  </span>
+                  <span
+                    class="badge-content">
+                    <b>{{ errorReport.count }}</b> in last 7 days
+                  </span>
+                </div>
+                <div class="badge badge-light error-reporting-time" >
+                  <span class="badge-title">
+                    {{ errorReport.latest_updated | timeDifference }}
+                  </span>
+                  <span
+                    class="badge-content">
+                    {{ errorReport.resource['type'] || '' | replaceValue:'_':' ' }}
+                  </span>
+                </div>
+              </a>
             </div>
           </ng-container>
         </div>

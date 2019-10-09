@@ -68,7 +68,7 @@ export class DashboardService {
   }
 
   async getBuildStatusesOther() {
-    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-other`).subscribe(
+    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing`).subscribe(
       (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
       error => {
         clearInterval(this.interval);
@@ -85,7 +85,7 @@ export class DashboardService {
   }
 
   async getErrorReporting() {
-    await this.httpClient.get(`${this.env.apiUrl}/error-reporting`).subscribe(
+    await this.httpClient.get(`${this.env.apiUrl}/error-reporting/count`).subscribe(
       (data: ErrorReport[]) => this.errorReporting$.next(data),
       error => {
         clearInterval(this.interval);
