@@ -32,10 +32,10 @@ export class DashboardService {
     private modalService: NgbModal
   ) { }
 
-  async updateData() {
-    await this.getBuildStatusesTrigger();
-    await this.getBuildStatusesOther();
-    await this.getErrorReporting();
+  updateData() {
+    this.getBuildStatusesTrigger();
+    this.getBuildStatusesOther();
+    this.getErrorReporting();
   }
 
   get getBranch() {
@@ -50,8 +50,8 @@ export class DashboardService {
   }
 
 
-  async getBuildStatusesTrigger() {
-    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers`).subscribe(
+  getBuildStatusesTrigger() {
+    this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers`).subscribe(
       (data: BuildTriggerStatus[]) => this.buildTriggerStatuses$.next(data),
       error => {
         clearInterval(this.interval);
@@ -67,8 +67,8 @@ export class DashboardService {
     );
   }
 
-  async getBuildStatusesOther() {
-    await this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing?days=1`).subscribe(
+  getBuildStatusesOther() {
+    this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing?days=1`).subscribe(
       (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
       error => {
         clearInterval(this.interval);
@@ -84,8 +84,8 @@ export class DashboardService {
     );
   }
 
-  async getErrorReporting() {
-    await this.httpClient.get(`${this.env.apiUrl}/error-reporting/count`).subscribe(
+  getErrorReporting() {
+    this.httpClient.get(`${this.env.apiUrl}/error-reporting/count`).subscribe(
       (data: ErrorReport[]) => this.errorReporting$.next(data),
       error => {
         clearInterval(this.interval);

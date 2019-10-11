@@ -24,7 +24,7 @@
           </span>
 
           <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
-            <a href="https://console.cloud.google.com/cloud-build/builds?project={{ buildStatus.project_id }}" target="_blank">
+            <a href="{{ getLogUrl(buildStatus) }}" target="_blank">
               <div
                 *ngIf="buildStatus"
                 class="build-status" >
