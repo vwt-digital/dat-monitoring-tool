@@ -25,8 +25,8 @@ export class BuildStatusComponent implements OnInit {
       this.cardHeaderIcon = 'fas fa-code';
       this.cardColor = 'blue';
     } else if (this.buildStatusKind === 'other') {
-      this.cardHeader = 'Other Cloud Builds';
-      this.cardHeaderIcon = 'fas fa-sitemap';
+      this.cardHeader = 'Cloud Build backups';
+      this.cardHeaderIcon = 'fas fa-cloud-download-alt';
       this.cardColor = 'green';
     } else {
       this.cardHeader = 'Other';
@@ -62,6 +62,14 @@ export class BuildStatusComponent implements OnInit {
     }
 
     return filteredCount;
+  }
+
+  getLogUrl(buildStatus: any) {
+    if (buildStatus['log_url']) {
+      return buildStatus['log_url'];
+    } else {
+      return `https://console.cloud.google.com/cloud-build/builds?project=${buildStatus.project_id}`
+    }
   }
 
   outlineColor(buildStatus: string) {

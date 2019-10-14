@@ -1,7 +1,7 @@
 @import "~src/assets/scss/constants";
 @import "~src/assets/scss/mixins";
 
-.build-status-item {
+.error-reporting-item {
   .card {
     background-color: $white;
     border-radius: 5px;
@@ -9,21 +9,21 @@
 
     .card-header {
       text-transform: uppercase;
-      color: $white;
 
-      &.green {
-        background-color: rgba(22, 160, 133, .8);
-        border-color: rgba(22, 160, 133, 1);
-      }
-      &.blue {
-        background-color: rgba(44, 62, 80, .8);
-        border-color: rgba(44, 62, 80, 1);
-      }
+      background-color: $gray;
+      border-color: $gray-hover;
+      color: $red;
     }
 
     h4.card-title,
     h2.build-count {
       color: $gray-dark;
+    }
+
+    &.red{
+      h4.card-title {
+        color: $red;
+      }
     }
 
     span.build-count-limited {
@@ -32,51 +32,12 @@
       text-transform: uppercase;
       font-weight: 700;
     }
-
-    &.red {
-      .card-body {
-        border: 2px solid $red-hover;
-      }
-      .card-header {
-        background-color: $red;
-        border-color: $red-hover;
-      }
-
-      h4.card-title,
-      h2.build-count {
-        color: $red;
-      }
-      .badge.build-status-time {
-        background: $red-hover;
-        color: $white;
-      }
-    }
-    &.orange {
-      h4.card-title,
-      h2.build-count {
-        color: $orange;
-      }
-      .badge.build-status-time {
-        background: $orange-hover;
-        color: $white;
-      }
-    }
-    &.green {
-      h4.card-title,
-      h2.build-count {
-        color: $green;
-      }
-      .badge.build-status-time {
-        background: $green-hover;
-        color: $white;
-      }
-    }
   }
 
-  .build-status-badges {
+  .error-reporting-badges {
     margin-top: 10px;
 
-    .build-status {
+    .error-reporting {
       width: 100%;
       display: table;
       float: left;
@@ -90,6 +51,7 @@
 
       .badge {
         width: 75%;
+        max-width: 75%;
         height: 100%;
 
         white-space: nowrap;
@@ -105,7 +67,10 @@
         font-size: 20px;
         line-height: 20px;
 
-        &.build-status-time {
+        color: $red;
+        background-color: $gray;
+
+        &.error-reporting-time {
           width: 25%;
           height: 100%;
 
@@ -119,19 +84,49 @@
           font-size: 75%;
           text-align: left;
           text-transform: uppercase;
+
+          color: $red;
+          background-color: $gray-hover;
+
+          .badge-content {
+            font-size: 75%;
+          }
+
+          span {
+            vertical-align: middle;
+          }
+        }
+
+        .badge-title,
+        .badge-content {
+          width: 100%;
+          max-width: 100%;
+          float: left;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .badge-title {
+          line-height: 24px;
+        }
+        .badge-content {
+          font-size: 50%;
+          text-transform: uppercase;
+          font-weight: 600;
         }
       }
     }
 
     &.small {
-      .build-status {
+      .error-reporting {
         height: 30px;
         .badge {
           padding: 7.5px;
           font-size: 15px;
           line-height: 15px;
 
-          &.build-status-time {
+          &.error-reporting-time {
             font-size: 75%;
             padding: 7px;
           }
@@ -147,20 +142,20 @@
 
 
 @media (max-width: $breakpoint-tablet) {
-  .build-status-item {
+  .error-reporting-item {
     .card-title {
       margin-bottom: 5px;
     }
 
-    .build-status-badges {
-      .build-status {
+    .error-reporting-badges {
+      .error-reporting {
         height: 30px;
         .badge {
           padding: 7.5px;
           font-size: 15px;
           line-height: 15px;
 
-          &.build-status-time {
+          &.error-reporting-time {
             font-size: 75%;
             padding: 7px;
           }
@@ -168,14 +163,14 @@
       }
 
       &.small {
-        .build-status {
+        .error-reporting {
           height: 30px;
           .badge {
             padding: 7.5px;
             font-size: 15px;
             line-height: 15px;
 
-            &.build-status-time {
+            &.error-reporting-time {
               font-size: 75%;
               padding: 7px;
             }

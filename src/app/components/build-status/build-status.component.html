@@ -24,18 +24,20 @@
           </span>
 
           <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
-            <div
-              *ngIf="buildStatus"
-              class="build-status" >
+            <a href="{{ getLogUrl(buildStatus) }}" target="_blank">
               <div
-                class="badge badge-{{ badgeColor(buildStatus) }}" >
-                <i class="fas {{ badgeIcon(buildStatus) }}"></i>
-                {{ buildStatus.repo_name || buildStatus.project_id }}
+                *ngIf="buildStatus"
+                class="build-status" >
+                <div
+                  class="badge badge-{{ badgeColor(buildStatus) }}" >
+                  <i class="fas {{ badgeIcon(buildStatus) }}"></i>
+                  {{ buildStatus.repo_name || buildStatus.project_id }}
+                </div>
+                <div class="badge badge-light build-status-time" >
+                  {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+                </div>
               </div>
-              <div class="badge badge-light build-status-time" >
-                {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
-              </div>
-            </div>
+            </a>
           </ng-container>
         </div>
       </div>

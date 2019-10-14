@@ -7,13 +7,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardOverviewComponent } from './dashboard-overview/dashboard-overview.component';
 import { BuildStatusComponent } from '../components/build-status/build-status.component';
+import { ErrorReportComponent } from '../components/error-reporting/error-reporting.component';
 import { TimeDifferencePipe } from './time-difference.pipe';
+import { ReplaceValuePipe } from './replace-value.pipe';
 
 @NgModule({
   declarations: [
     DashboardOverviewComponent,
     BuildStatusComponent,
-    TimeDifferencePipe
+    ErrorReportComponent,
+    TimeDifferencePipe,
+    ReplaceValuePipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { TimeDifferencePipe } from './time-difference.pipe';
   ],
   exports: [
     BuildStatusComponent,
-    TimeDifferencePipe
+    ErrorReportComponent,
+    TimeDifferencePipe,
+    ReplaceValuePipe
   ]
 })
 export class DashboardModule { }
