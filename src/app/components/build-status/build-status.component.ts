@@ -12,6 +12,7 @@ export class BuildStatusComponent implements OnInit {
   @Input() buildStatusType: string;
   @Input() buildStatusKind: string;
   @Input() buildStatusAmount: number = null;
+  @Input() totalDays: number = null;
 
   cardHeader: string;
   cardHeaderIcon: string;

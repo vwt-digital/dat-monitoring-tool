@@ -68,7 +68,7 @@ export class DashboardService {
   }
 
   getBuildStatusesOther() {
-    this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing?days=1`).subscribe(
+    this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing?days=2`).subscribe(
       (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
       error => {
         clearInterval(this.interval);

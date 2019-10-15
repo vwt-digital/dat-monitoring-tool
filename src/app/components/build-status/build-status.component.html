@@ -20,21 +20,35 @@
           <span
             *ngIf="buildStatusAmount"
             class="build-count-limited">
-            Last {{ (getFilteredStatusesCount(buildStatusType) < buildStatusAmount ? getFilteredStatusesCount(buildStatusType) : buildStatusAmount ) }} {{ buildStatusType }} builds
+            Last {{ (getFilteredStatusesCount(buildStatusType) < buildStatusAmount ? getFilteredStatusesCount(buildStatusType) : buildStatusAmount ) }} {{ buildStatusType }} builds {{ totalDays ? 'in last '+ totalDays +' days' : '' }}
           </span>
 
           <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
             <a href="{{ getLogUrl(buildStatus) }}" target="_blank">
               <div
                 *ngIf="buildStatus"
-                class="build-status" >
-                <div
-                  class="badge badge-{{ badgeColor(buildStatus) }}" >
-                  <i class="fas {{ badgeIcon(buildStatus) }}"></i>
-                  {{ buildStatus.repo_name || buildStatus.project_id }}
+                class="build-status {{ buildStatus.repo_name ? 'big' : 'small' }}" >
+                <div class="badge badge-{{ badgeColor(buildStatus) }}" >
+                  <div class="row">
+                    <div class="col-1 badge-icon">
+                      <i class="fas {{ badgeIcon(buildStatus) }}"></i>
+                    </div>
+                    <div class="col-11 badge-content">
+                      <span class="badge-title">
+                        {{ buildStatus.repo_name || buildStatus.project_id }}
+                      </span>
+                      <span
+                        *ngIf="buildStatus.repo_name"
+                        class="badge-text">
+                        {{ buildStatus.project_id }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div class="badge badge-light build-status-time" >
-                  {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+                  <span class="badge-title">
+                    {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+                  </span>
                 </div>
               </div>
             </a>
