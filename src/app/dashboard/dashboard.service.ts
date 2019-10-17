@@ -20,7 +20,7 @@ export class DashboardService {
   public buildOtherStatuses$: BehaviorSubject<BuildOtherStatus[]> = new BehaviorSubject([]);
   public errorReporting$: BehaviorSubject<ErrorReport[]> = new BehaviorSubject([]);
 
-  public refreshTime = 30000; // Time in milliseconds
+  public refreshTime = 300000; // Time in milliseconds
   public interval: any;
 
   public hasError = false;

@@ -11,7 +11,7 @@
         <i
           [@showhide]="blinkingIcon"
           class="fas fa-circle green" ></i> live refresh
-          <small class="text-muted">{{ service.refreshTime / 1000 }}s</small>
+          <small class="text-muted">{{ service.refreshTime | timeToText }}</small>
       </span>
 
       <span
