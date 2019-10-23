@@ -16,7 +16,7 @@ export class ErrorReportComponent implements OnInit {
   cardColor = 'red';
 
   getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number) {
-    let filteredStatuses = errorReporting.sort((a, b) => a.latest_updated > b.latest_updated ? -1 : (a.latest_updated < b.latest_updated ? 1 : 0));
+    let filteredStatuses = errorReporting.sort((a, b) => a.receive_timestamp > b.receive_timestamp ? -1 : (a.receive_timestamp < b.receive_timestamp ? 1 : 0));
     filteredStatuses = filteredStatuses.slice(0, amount);
 
     return filteredStatuses;
