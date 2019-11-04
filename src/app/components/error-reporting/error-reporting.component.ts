@@ -22,6 +22,14 @@ export class ErrorReportComponent implements OnInit {
     return filteredStatuses;
   }
 
+  getLogUrl(errorReporting: any) {
+    if (errorReporting['log_url']) {
+      return errorReporting['log_url'];
+    } else {
+      return `https://console.cloud.google.com/errors?project=${errorReporting.project_id}`
+    }
+  }
+
   constructor() { }
 
   ngOnInit() { }
