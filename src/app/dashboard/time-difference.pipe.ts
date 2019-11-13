@@ -3,12 +3,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'timeDifference' })
 export class TimeDifferencePipe implements PipeTransform {
   transform(value: string, args?: any): any {
-    try {
-      const currentDate = new Date();
-      const updatedDate = new Date(value);
-      const timeDifference = (currentDate.getTime() - updatedDate.getTime());
-      return millisecondsToStr(timeDifference);
-    } catch {
+    if (value) {
+      try {
+        const currentDate = new Date();
+        const updatedDate = new Date(value);
+        const timeDifference = (currentDate.getTime() - updatedDate.getTime());
+        return millisecondsToStr(timeDifference);
+      } catch {
+        return 'N/A';
+      }
+    } else {
       return 'N/A';
     }
   }
