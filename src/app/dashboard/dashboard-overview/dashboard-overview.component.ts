@@ -61,5 +61,9 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     clearInterval(this.service.interval);
     clearInterval(this.blinkInterval);
+
+    this.buildTriggerStatuses.unsubscribe();
+    this.buildOtherStatuses.unsubscribe();
+    this.errorReporting.unsubscribe();
   }
 }

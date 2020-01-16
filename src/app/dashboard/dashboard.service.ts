@@ -21,6 +21,7 @@ export class DashboardService {
   public errorReporting$: BehaviorSubject<ErrorReport[]> = new BehaviorSubject([]);
 
   public refreshTime = 300000; // Time in milliseconds
+  public lastUpdate: Date;
   public interval: any;
 
   public hasError = false;
@@ -36,6 +37,7 @@ export class DashboardService {
     this.getBuildStatusesTrigger();
     this.getBuildStatusesOther();
     this.getErrorReporting();
+    this.lastUpdate = new Date();
   }
 
   get getBranch() {

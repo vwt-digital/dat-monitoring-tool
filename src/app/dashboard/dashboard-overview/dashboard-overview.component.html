@@ -25,6 +25,12 @@
         class="badge badge-danger" >
         <i class="fas fa-exclamation-triangle"></i> An error has occurred
       </span>
+
+      <span
+        *ngIf="this.service.lastUpdate"
+        class="badge badge-light float-right">
+        <i class="fas fa-history"></i> {{ this.service.lastUpdate | date:'HH:mm' }}
+      </span>
     </div>
 
     <div class="col-12 masonry-outer">
