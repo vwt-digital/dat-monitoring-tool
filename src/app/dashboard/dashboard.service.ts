@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../components/modal/modal.component';
@@ -34,10 +34,28 @@ export class DashboardService {
   ) { }
 
   updateData() {
-    this.getBuildStatusesTrigger();
-    this.getBuildStatusesOther();
-    this.getErrorReporting();
-    this.lastUpdate = new Date();
+    forkJoin([
+      this.getBuildStatusesTrigger(),
+      this.getBuildStatusesOther(),
+      this.getErrorReporting()
+    ]).subscribe(
+        responseList => {
+          this.buildTriggerStatuses$.next(responseList[0]);
+          this.buildOtherStatuses$.next(responseList[1]);
+          this.errorReporting$.next(responseList[2]);
+
+          this.lastUpdate = new Date();
+        }, error => {
+          clearInterval(this.interval);
+          if (error.status === 401) {
+            this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
+
+            setTimeout(() => {
+              this.authService.removeApiKey();
+            }, 4000 );
+          }
+          console.log(error);
+        });
   }
 
   get getBranch() {
@@ -53,53 +71,14 @@ export class DashboardService {
 
 
   getBuildStatusesTrigger() {
-    this.httpClient.get(`${this.env.apiUrl}/build-statuses-triggers`).subscribe(
-      (data: BuildTriggerStatus[]) => this.buildTriggerStatuses$.next(data),
-      error => {
-        clearInterval(this.interval);
-        if (error.status === 401) {
-          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
-
-          setTimeout(() => {
-            this.authService.removeApiKey();
-          }, 4000 );
-        }
-        console.log(error);
-      }
-    );
+    return this.httpClient.get<BuildTriggerStatus[]>(`${this.env.apiUrl}/build-statuses-triggers`);
   }
 
   getBuildStatusesOther() {
-    this.httpClient.get(`${this.env.apiUrl}/build-statuses-other/failing?days=2`).subscribe(
-      (data: BuildOtherStatus[]) => this.buildOtherStatuses$.next(data),
-      error => {
-        clearInterval(this.interval);
-        if (error.status === 401) {
-          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
-
-          setTimeout(() => {
-            this.authService.removeApiKey();
-          }, 4000 );
-        }
-        console.log(error);
-      }
-    );
+    return this.httpClient.get<BuildOtherStatus[]>(`${this.env.apiUrl}/build-statuses-other/failing?days=2`);
   }
 
   getErrorReporting() {
-    this.httpClient.get(`${this.env.apiUrl}/error-reporting/count`).subscribe(
-      (data: ErrorReport[]) => this.errorReporting$.next(data),
-      error => {
-        clearInterval(this.interval);
-        if (error.status === 401) {
-          this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
-
-          setTimeout(() => {
-            this.authService.removeApiKey();
-          }, 4000 );
-        }
-        console.log(error);
-      }
-    );
+    return this.httpClient.get<ErrorReport[]>(`${this.env.apiUrl}/error-reporting/count`);
   }
 }
