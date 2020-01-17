@@ -26,10 +26,8 @@
         <i class="fas fa-exclamation-triangle"></i> An error has occurred
       </span>
 
-      <span
-        *ngIf="this.service.lastUpdate"
-        class="badge badge-light float-right">
-        <i class="fas fa-history"></i> {{ this.service.lastUpdate | date:'HH:mm' }}
+      <span class="badge badge-light float-right">
+        <i class="fas fa-history"></i> {{ this.service.lastUpdate ? (this.service.lastUpdate | date:'HH:mm') : 'N/A' }}
       </span>
     </div>
 
