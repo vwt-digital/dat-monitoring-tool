@@ -46,14 +46,16 @@ export class DashboardService {
 
           this.lastUpdate = new Date();
         }, error => {
-          clearInterval(this.interval);
           if (error.status === 401) {
+            clearInterval(this.interval);
             this.setModalMessage('Uh uh!', `You made an unauthorized request.`, false);
 
             setTimeout(() => {
               this.authService.removeApiKey();
             }, 4000 );
           }
+
+          this.lastUpdate = new Date();
           console.log(error);
         });
   }
