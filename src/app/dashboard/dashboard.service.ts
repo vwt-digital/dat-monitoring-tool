@@ -77,10 +77,21 @@ export class DashboardService {
   }
 
   getBuildStatusesOther() {
-    return this.httpClient.get<BuildOtherStatus[]>(`${this.env.apiUrl}/build-statuses-other/failing?days=2`);
+    return this.httpClient.get<BuildOtherStatus[]>(
+      `${this.env.apiUrl}/build-statuses-other/failing`,
+      { params: {
+        days: '2'
+      } }
+    );
   }
 
   getErrorReporting() {
-    return this.httpClient.get<ErrorReport[]>(`${this.env.apiUrl}/error-reporting/count`);
+    return this.httpClient.get<ErrorReport[]>(
+      `${this.env.apiUrl}/error-reporting/count`,
+      { params: {
+        days: '7',
+        maxRows: '5'
+      } }
+    );
   }
 }
