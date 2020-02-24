@@ -78,7 +78,7 @@ export class DashboardService {
 
   getBuildStatusesOther() {
     return this.httpClient.get<BuildOtherStatus[]>(
-      `${this.env.apiUrl}/build-statuses-other/failing`,
+      `${this.env.apiUrl}/build-statuses-others/failing`,
       { params: {
         days: '2'
       } }
@@ -87,10 +87,10 @@ export class DashboardService {
 
   getErrorReporting() {
     return this.httpClient.get<ErrorReport[]>(
-      `${this.env.apiUrl}/error-reporting/count`,
+      `${this.env.apiUrl}/error-reports/counts`,
       { params: {
         days: '7',
-        maxRows: '5'
+        max_rows: '5'
       } }
     );
   }
