@@ -18,8 +18,6 @@ export class BuildStatusComponent implements OnInit {
   cardHeaderIcon: string;
   cardColor: string;
 
-  constructor() { }
-
   ngOnInit() {
     if (this.buildStatusKind === 'trigger') {
       this.cardHeader = 'Cloud Build Triggers';

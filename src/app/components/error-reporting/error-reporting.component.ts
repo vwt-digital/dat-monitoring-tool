@@ -7,7 +7,7 @@ import { ErrorReport } from 'src/app/dashboard/error-report';
   templateUrl: './error-reporting.component.html',
   styleUrls: ['./error-reporting.component.scss']
 })
-export class ErrorReportComponent implements OnInit {
+export class ErrorReportComponent {
   @Input() errorReporting: any;
   @Input() errorReportingAmount: number = null;
 
@@ -16,6 +16,7 @@ export class ErrorReportComponent implements OnInit {
   cardColor = 'red';
 
   getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number) {
+    // tslint:disable-next-line:max-line-length
     let filteredStatuses = errorReporting.sort((a, b) => a.receive_timestamp > b.receive_timestamp ? -1 : (a.receive_timestamp < b.receive_timestamp ? 1 : 0));
     filteredStatuses = filteredStatuses.slice(0, amount);
 
@@ -29,8 +30,4 @@ export class ErrorReportComponent implements OnInit {
       return `https://console.cloud.google.com/errors?project=${errorReporting.project_id}`
     }
   }
-
-  constructor() { }
-
-  ngOnInit() { }
 }

@@ -64,7 +64,7 @@ export class DashboardService {
     return this.env.environment;
   }
 
-  setModalMessage(title: string, content: string, backdrop: boolean = true) {
+  setModalMessage(title: string, content: string, backdrop = true) {
     const modalRef = this.modalService.open(ModalComponent, { backdrop: (backdrop ? backdrop : 'static') });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
@@ -90,8 +90,8 @@ export class DashboardService {
       `${this.env.apiUrl}/error-reports/counts`,
       { params: {
         days: '7',
-        max_rows: '5'
-      } }
+        max_rows: '5' // eslint-disable-line @typescript-eslint/camelcase
+        } }
     );
   }
 }
