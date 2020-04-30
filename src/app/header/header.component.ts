@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   title = 'Cloud Monitoring';
-
-  constructor() { }
 }

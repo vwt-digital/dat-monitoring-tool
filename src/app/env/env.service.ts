@@ -7,7 +7,4 @@ export class EnvService {
 
   // Environment
   public environment = '';
-
-  constructor() { }
-
 }

@@ -1,5 +1,5 @@
 import { browser, protractor, by, element } from 'protractor';
-const request = require('request');
+const request = require('request'); // eslint-disable-line
 
 describe('DAT Monitoring', () => {
     beforeEach(() => {
