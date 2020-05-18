@@ -116,7 +116,7 @@
           vertical-align: middle;
         }
 
-        .badge-content {
+        .badge-content, &.badge-content {
           padding: 0;
 
           .badge-title,
@@ -147,7 +147,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
 
-          padding: 13px 10px;
+          padding: 10px;
           border-radius: 0 .25rem .25rem 0;
 
           font-size: 75%;

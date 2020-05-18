@@ -45,9 +45,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="badge badge-light build-status-time" >
+                <div class="badge badge-light build-status-time badge-content">
                   <span class="badge-title">
                     {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+                  </span>
+                  <span
+                    *ngIf="buildStatus.auto_corrected"
+                    class="badge-text">
+                    Auto-corrected <i class="fas fa-check-double"></i>
                   </span>
                 </div>
               </div>
