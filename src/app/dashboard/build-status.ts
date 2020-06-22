@@ -6,7 +6,6 @@ export class BuildTriggerStatus {
   project_id: string;
   repo_name: string;
   status: string;
-  auto_corrected: boolean;
   updated: string;
 }
 export class BuildOtherStatus {
