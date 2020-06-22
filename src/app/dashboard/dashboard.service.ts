@@ -17,7 +17,6 @@ import { ErrorReport } from './error-report';
 })
 export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
-  public buildOtherStatuses$: BehaviorSubject<BuildOtherStatus[]> = new BehaviorSubject([]);
   public errorReporting$: BehaviorSubject<ErrorReport[]> = new BehaviorSubject([]);
 
   public refreshTime = 300000; // Time in milliseconds
@@ -36,13 +35,14 @@ export class DashboardService {
   updateData() {
     forkJoin([
       this.getBuildStatusesTrigger(),
-      this.getBuildStatusesOther(),
       this.getErrorReporting()
     ]).subscribe(
         responseList => {
-          this.buildTriggerStatuses$.next(responseList[0]);
-          this.buildOtherStatuses$.next(responseList[1]);
-          this.errorReporting$.next(responseList[2]);
+          this.buildTriggerStatuses$.next(responseList[0].filter(
+            (value) => {
+              return !(value.repo_name === 'backup' && value.status !== 'failing');
+            }));
+          this.errorReporting$.next(responseList[1]);
 
           this.lastUpdate = new Date();
         }, error => {
@@ -74,15 +74,6 @@ export class DashboardService {
 
   getBuildStatusesTrigger() {
     return this.httpClient.get<BuildTriggerStatus[]>(`${this.env.apiUrl}/build-statuses-triggers`);
-  }
-
-  getBuildStatusesOther() {
-    return this.httpClient.get<BuildOtherStatus[]>(
-      `${this.env.apiUrl}/build-statuses-others/failing`,
-      { params: {
-        days: '2'
-      } }
-    );
   }
 
   getErrorReporting() {

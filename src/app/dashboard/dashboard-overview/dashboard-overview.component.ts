@@ -20,7 +20,6 @@ import { NgxMasonryOptions } from 'ngx-masonry';
 })
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
   buildTriggerStatuses: any;
-  buildOtherStatuses: any;
   errorReporting: any;
   blinkInterval: any;
   blinkingIcon = 'visible';
@@ -40,7 +39,6 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
 
   async ngOnInit() {
     this.buildTriggerStatuses = this.service.buildTriggerStatuses$;
-    this.buildOtherStatuses = this.service.buildOtherStatuses$;
     this.errorReporting = this.service.errorReporting$;
 
     this.loader.isError.subscribe(
@@ -63,7 +61,6 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
     clearInterval(this.blinkInterval);
 
     this.buildTriggerStatuses.unsubscribe();
-    this.buildOtherStatuses.unsubscribe();
     this.errorReporting.unsubscribe();
   }
 }

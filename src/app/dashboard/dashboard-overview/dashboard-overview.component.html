@@ -63,19 +63,6 @@
         </ng-container>
 
         <ng-container
-          *ngIf="buildOtherStatuses | async as otherStatuses; else loading">
-            <app-build-status
-              ngxMasonryItem
-              [ngClass]="['masonry-item']"
-              [buildStatuses]="otherStatuses"
-              [buildStatusType]="'failing'"
-              [buildStatusKind]="'other'"
-              [buildStatusAmount]="5"
-              [totalDays]="2" >
-            </app-build-status>
-        </ng-container>
-
-        <ng-container
           *ngIf="errorReporting | async as errorReporting; else loading">
             <app-error-reporting
               ngxMasonryItem

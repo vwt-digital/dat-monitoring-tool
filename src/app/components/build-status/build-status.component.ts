@@ -20,13 +20,9 @@ export class BuildStatusComponent implements OnInit {
 
   ngOnInit() {
     if (this.buildStatusKind === 'trigger') {
-      this.cardHeader = 'Cloud Build Triggers';
+      this.cardHeader = 'Cloud Builds';
       this.cardHeaderIcon = 'fas fa-code';
       this.cardColor = 'blue';
-    } else if (this.buildStatusKind === 'other') {
-      this.cardHeader = 'Cloud Build backups';
-      this.cardHeaderIcon = 'fas fa-cloud-download-alt';
-      this.cardColor = 'green';
     } else {
       this.cardHeader = 'Other';
       this.cardHeaderIcon = 'fas fa-question';
