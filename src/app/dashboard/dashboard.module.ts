@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +10,7 @@ import { ErrorReportComponent } from '../components/error-reporting/error-report
 import { TimeDifferencePipe } from './time-difference.pipe';
 import { TimeToTextPipe } from './time-to-text.pipe';
 import { ReplaceValuePipe } from './replace-value.pipe';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,9 @@ import { ReplaceValuePipe } from './replace-value.pipe';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NgxMasonryModule,
-    NgbModule,
-    DashboardRoutingModule
+    NgbModule
   ],
   exports: [
     BuildStatusComponent,

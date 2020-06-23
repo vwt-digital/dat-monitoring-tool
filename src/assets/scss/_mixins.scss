@@ -5,10 +5,15 @@
 @import "~bootstrap/scss/mixins/_box-shadow.scss";
 @import "~bootstrap/scss/mixins/_hover.scss";
 
+// Collapsing menu
+$breakpoint-menu: 992px;
+
+
 // Tablet
 $breakpoint-tablet: 768px;
 $breakpoint-tablet-portrait-up: 600px;
 $breakpoint-tablet-landscape-up: 900px;
+
 // Mobile Phones
 $breakpoint-phone-large-screen: 599px;
 $breakpoint-phone-medium-screen: 375px;
@@ -42,6 +47,11 @@ $breakpoint-desktop-big: 1800px;
 }
 @mixin for-big-desktop-up {
   @media (min-width: $breakpoint-desktop-big) { @content; }
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .btn-primary {
@@ -90,4 +100,11 @@ $breakpoint-desktop-big: 1800px;
 }
 .badge-light {
   background-color: $gray;
+}
+
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.0;
+  border-radius: 0.2rem;
 }

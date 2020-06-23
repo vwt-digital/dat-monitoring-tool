@@ -1,0 +1,16 @@
+<div class="container-fluid app-errors-overview">
+  <div class="col-12 toolbar">
+    <span class="badge badge-light">
+      <i class="fas fa-code-branch"></i> {{ service.getBranch }}
+    </span>
+  </div>
+</div>
+
+<div class="container app-errors-overview">
+  <ag-grid-angular
+    [ngClass]="['col-12', 'ag-theme-balham', 'info-grid']"
+    [gridOptions]="gridOptions"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    (gridReady)="onGridReady($event)" >
+  </ag-grid-angular>
+</div>

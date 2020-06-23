@@ -34,9 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    event.preventDefault();
-    event.stopPropagation();
-
     if (this.form.valid) {
       this.saveApiKey(this.form.value);
     } else {

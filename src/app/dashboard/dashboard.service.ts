@@ -9,15 +9,15 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { EnvService } from '../env/env.service';
 import { AuthService } from '../auth/auth.service';
 
-import { BuildTriggerStatus, BuildOtherStatus } from './build-status';
-import { ErrorReport } from './error-report';
+import { BuildTriggerStatus } from './build-status';
+import { ErrorReportCount } from './error-report';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
-  public errorReporting$: BehaviorSubject<ErrorReport[]> = new BehaviorSubject([]);
+  public errorReporting$: BehaviorSubject<ErrorReportCount[]> = new BehaviorSubject([]);
 
   public refreshTime = 300000; // Time in milliseconds
   public lastUpdate: Date;
@@ -77,7 +77,7 @@ export class DashboardService {
   }
 
   getErrorReporting() {
-    return this.httpClient.get<ErrorReport[]>(
+    return this.httpClient.get<ErrorReportCount[]>(
       `${this.env.apiUrl}/error-reports/counts`,
       { params: {
         days: '7',

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptor } from './auth/token.interceptor';
@@ -18,6 +19,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
 
 import { FormPasswordDirective } from './components/login/form-password.directive';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -34,7 +36,8 @@ registerLocaleData(localeNl, 'nl');
     LoginComponent,
     FormPasswordDirective,
     PageNotAuthorizedComponent,
-    ModalComponent
+    ModalComponent,
+    ErrorsOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ registerLocaleData(localeNl, 'nl');
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AgGridModule.withComponents([]),
     NgbModule,
     DashboardModule,
     AppRoutingModule

@@ -63,7 +63,7 @@ export class BuildStatusComponent implements OnInit {
     if (buildStatus['log_url']) {
       return buildStatus['log_url'];
     } else {
-      return `https://console.cloud.google.com/cloud-build/builds?project=${buildStatus.project_id}`
+      return `https://console.cloud.google.com/cloud-build/builds?project=${buildStatus.project_id}`;
     }
   }
 

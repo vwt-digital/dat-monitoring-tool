@@ -1,0 +1,21 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.app-errors-overview {
+  .toolbar {
+    margin-bottom: 10px;
+
+    span.badge {
+      margin-right: 10px;
+      font-size: 20px;
+      padding: 5px 10px;
+
+      i {
+        margin-right: 5px;
+      }
+      small {
+        color: $black-light !important;
+      }
+    }
+  }
+}

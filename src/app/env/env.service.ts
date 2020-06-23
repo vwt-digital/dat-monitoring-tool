@@ -7,4 +7,7 @@ export class EnvService {
 
   // Environment
   public environment = '';
+
+  // ag-Grid enterprise key
+  public agGridKey = '';
 }
