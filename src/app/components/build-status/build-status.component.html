@@ -36,6 +36,7 @@
                     <div class="col-11 badge-content">
                       <span class="badge-title">
                         {{ buildStatus.repo_name || buildStatus.project_id }}
+                        <i *ngIf="(buildStatus.repo_name || buildStatus.project_id) == 'backup'" class="fas fa-cloud-download-alt fa-xs"></i>
                       </span>
                       <span
                         *ngIf="buildStatus.repo_name"
@@ -48,11 +49,6 @@
                 <div class="badge badge-light build-status-time badge-content">
                   <span class="badge-title">
                     {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
-                  </span>
-                  <span
-                    *ngIf="buildStatus.auto_corrected"
-                    class="badge-text">
-                    Auto-corrected <i class="fas fa-check-double"></i>
                   </span>
                 </div>
               </div>
