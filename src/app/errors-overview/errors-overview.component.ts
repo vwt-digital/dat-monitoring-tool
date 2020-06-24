@@ -57,7 +57,7 @@ export class ErrorsOverviewComponent {
           sort: 'desc',
           valueFormatter: (params: ValueFormatterParams): string => {
             if (!isNaN(Date.parse(params.value))) {
-              return datePipe.transform(params.value, 'dd-MM-yyyy HH:mm:ss');
+              return datePipe.transform(params.value, 'dd-MM-yyyy HH:mm:ss.SSS');
             } else {
               return 'N/B';
             }
