@@ -4,7 +4,7 @@ export class ErrorReport {
   log_name: string;
   project_id: string;
   receive_timestamp: string;
-  resource: object;
+  resource: any;
   trace: string;
 }
 
@@ -15,6 +15,6 @@ export class ErrorReportCount {
   log_name: string;
   project_id: string;
   receive_timestamp: string;
-  resource: object;
+  resource: any;
   trace: string;
 }

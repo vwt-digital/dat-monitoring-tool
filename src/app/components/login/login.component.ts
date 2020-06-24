@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  saveApiKey(value: object): void {
+  saveApiKey(value: AbstractControl): void {
     sessionStorage.setItem('apiKey', value['apiKey']);
     this.form.reset();
     this.router.navigate(['dashboard']);

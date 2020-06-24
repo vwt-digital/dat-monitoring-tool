@@ -1,19 +1,19 @@
 import { EnvService } from './env.service';
 
-export const EnvServiceFactory = (): object => {
+export const EnvServiceFactory = (): any => {
   // Create env
   const env = new EnvService();
 
   // Read environment variables from browser window
   const browserWindow = window || {};
-  const browserWindowEnv = (browserWindow as object)['__env'] || {};
+  const browserWindowEnv = (browserWindow as any).__env || {};
 
   // Assign environment variables from browser window to env
   // In the current implementation, properties from env.js overwrite defaults from the EnvService.
   // If needed, a deep merge can be performed here to merge properties instead of overwriting them.
   for (const key in browserWindowEnv) {
     if (browserWindowEnv.hasOwnProperty(key)) { // eslint-disable-line no-prototype-builtins
-      env[key] = (window as object)['__env'][key];
+      env[key] = (window as any).__env[key];
     }
   }
 

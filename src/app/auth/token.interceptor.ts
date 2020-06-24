@@ -9,7 +9,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private env: EnvService
   ) {}
-  intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (sessionStorage.getItem('apiKey') && request.url.includes(this.env.apiUrl)) {
       request = request.clone({

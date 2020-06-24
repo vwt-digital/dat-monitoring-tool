@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { isNil, isPlainObject } from 'lodash';
 
 export class UtilsService {
-  static buildQueryParams(source: object): HttpParams {
+  static buildQueryParams(source: { property: string | number; }): HttpParams {
     let target: HttpParams = new HttpParams();
 
     Object.keys(source).forEach((key: string) => {

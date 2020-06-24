@@ -81,7 +81,7 @@ export class DashboardService {
       `${this.env.apiUrl}/error-reports/counts`,
       { params: {
         days: '7',
-        max_rows: '5' // eslint-disable-line @typescript-eslint/camelcase
+        max_rows: '5' // eslint-disable-line camelcase
         } }
     );
   }
