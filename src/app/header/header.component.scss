@@ -10,6 +10,17 @@ nav {
     }
   }
 
+  .navbar-toggler {
+    &:hover {
+      background-color: $gray-dark;
+      color: $white;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   .navbar-nav {
     li {
       padding: 5px;

@@ -22,9 +22,17 @@ import { DashboardService } from '../dashboard/dashboard.service';
   providers: [DatePipe, TitleCasePipe]
 })
 export class ErrorsOverviewComponent implements OnInit {
-  gridOptions: GridOptions;
-  overlayNoRowsTemplate: string;
-  errorReporting$: Observable<ErrorReport[]>;
+  private gridApi;
+  private gridColumnApi;
+
+  public gridOptions: GridOptions;
+  public overlayNoRowsTemplate: string;
+  public errorReporting: ErrorReport[];
+
+  private pageLimit = 30;
+  private pageCurrent = 1;
+  public pageHasNext = true;
+  public pageHasPrev = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -85,6 +93,8 @@ export class ErrorsOverviewComponent implements OnInit {
       ],
       rowData: [],
       enableRangeSelection: true,
+      suppressScrollOnNewData: true,
+      suppressPaginationPanel: true,
       domLayout: 'autoHeight',
       statusBar: {
         statusPanels: [
@@ -97,37 +107,63 @@ export class ErrorsOverviewComponent implements OnInit {
     this.overlayNoRowsTemplate = '<span>Geen errors gevonden</span>';
   }
 
-  ngOnInit() {
-    this.errorReporting$ = this.route.paramMap.pipe(
-      switchMap(() => {
-        return this.getErrorReports();
-      })
-    );
-  }
-
-  getErrorReports(): Observable<ErrorReport[]> {
-    const queryParams: HttpParams = UtilsService.buildQueryParams({limit: 30});
-    return this.httpClient.get<ErrorReport>(
-      `${this.env.apiUrl}/error-reports`, { params: queryParams })
-      .pipe(map((response: any) => response));
-  }
+  ngOnInit() { }
 
   onGridReady(event: any) {
-    event.api.showLoadingOverlay();
+    this.gridApi = event.api;
+    this.gridColumnApi = event.columnApi;
 
-    this.errorReporting$.subscribe(
+    console.log(this.gridApi);
+
+    this.changePage();
+  }
+
+  changePage(action = null) {
+    if (action === 'next') {
+      this.pageCurrent++;
+    } else if (action === 'prev') {
+      if (this.pageCurrent > 1) {
+        this.pageCurrent--;
+      } else {
+        this.pageHasPrev = false;
+        this.pageHasNext = true;
+        return;
+      }
+    } else if (action === 'first') {
+      this.pageHasPrev = false;
+      this.pageHasNext = true;
+      this.pageCurrent = 1;
+    }
+
+    const limit = this.pageLimit;
+    const offset = this.pageCurrent * this.pageLimit;
+
+    this.gridApi.showLoadingOverlay();
+
+    this.getErrorReports(limit, offset).subscribe(
       async result => {
-        event.api.setRowData(result);
-        event.api.hideOverlay();
-        event.columnApi.autoSizeAllColumns();
-
-        if (result.length <= 0) {
-          event.api.showNoRowsOverlay();
+        if (result.length >= 1) {
+          this.gridApi.setRowData(result);
+          this.pageHasNext = true;
+          this.pageHasPrev = this.pageCurrent > 1 ? true : false;
+          this.gridColumnApi.autoSizeAllColumns();
+          this.gridApi.hideOverlay();
+        } else {
+          this.pageCurrent--;
+          this.pageHasNext = false;
+          this.gridApi.hideOverlay();
         }
       },
       error => {
         console.log(error);
       }
+    );
+  }
+
+  getErrorReports(limit, offset) {
+    return this.httpClient.get<ErrorReport[]>(
+      `${this.env.apiUrl}/error-reports`,
+      { params: UtilsService.buildQueryParams({limit, offset}) }
     );
   }
 }
