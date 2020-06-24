@@ -30,7 +30,7 @@ export class ErrorsOverviewComponent implements OnInit {
   public errorReporting: ErrorReport[];
 
   private pageLimit = 30;
-  private pageCurrent = 1;
+  public pageCurrent = 1;
   public pageHasNext = true;
   public pageHasPrev = false;
 
