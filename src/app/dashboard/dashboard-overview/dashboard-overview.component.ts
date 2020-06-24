@@ -49,8 +49,8 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
       res => this.service.hasError = res
     );
 
-    await this.refreshData();
-    this.service.interval = setInterval(() => {
+    this.refreshData();
+    this.service.interval = window.setInterval(() => {
       this.refreshData();
     }, this.service.refreshTime);
   }

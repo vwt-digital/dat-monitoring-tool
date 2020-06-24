@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { browser, protractor, by, element } from 'protractor';
 const request = require('request'); // eslint-disable-line
 
@@ -22,7 +24,7 @@ describe('DAT Monitoring', () => {
         }
       };
 
-      const get = (options: object): Promise => {
+      const get = (options: any): any => {
         const defer = protractor.promise.defer();
 
         request(options, (error, message) => {
@@ -35,7 +37,7 @@ describe('DAT Monitoring', () => {
         return defer.promise;
       };
 
-      const setupCommon = (): object => {
+      const setupCommon = (): any => {
         return get(requestOptions);
       };
 
