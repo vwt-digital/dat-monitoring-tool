@@ -22,7 +22,7 @@ describe('DAT Monitoring', () => {
         }
       };
 
-      const get = (options: any): any => {
+      const get = (options: object): Promise => {
         const defer = protractor.promise.defer();
 
         request(options, (error, message) => {
@@ -35,7 +35,7 @@ describe('DAT Monitoring', () => {
         return defer.promise;
       };
 
-      const setupCommon = (): any => {
+      const setupCommon = (): object => {
         return get(requestOptions);
       };
 

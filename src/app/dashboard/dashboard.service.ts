@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../components/modal/modal.component';
@@ -21,7 +21,7 @@ export class DashboardService {
 
   public refreshTime = 300000; // Time in milliseconds
   public lastUpdate: Date;
-  public interval: any;
+  public interval: number;
 
   public hasError = false;
 
@@ -32,7 +32,7 @@ export class DashboardService {
     private modalService: NgbModal
   ) { }
 
-  updateData() {
+  updateData(): void {
     forkJoin([
       this.getBuildStatusesTrigger(),
       this.getErrorReporting()
@@ -60,11 +60,11 @@ export class DashboardService {
         });
   }
 
-  get getBranch() {
+  get getBranch(): string {
     return this.env.environment;
   }
 
-  setModalMessage(title: string, content: string, backdrop = true) {
+  setModalMessage(title: string, content: string, backdrop = true): void {
     const modalRef = this.modalService.open(ModalComponent, { backdrop: (backdrop ? backdrop : 'static') });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
@@ -72,11 +72,11 @@ export class DashboardService {
   }
 
 
-  getBuildStatusesTrigger() {
+  getBuildStatusesTrigger(): Observable<BuildTriggerStatus[]> {
     return this.httpClient.get<BuildTriggerStatus[]>(`${this.env.apiUrl}/build-statuses-triggers`);
   }
 
-  getErrorReporting() {
+  getErrorReporting(): Observable<ErrorReportCount[]> {
     return this.httpClient.get<ErrorReportCount[]>(
       `${this.env.apiUrl}/error-reports/counts`,
       { params: {

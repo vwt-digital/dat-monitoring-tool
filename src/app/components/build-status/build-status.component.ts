@@ -8,7 +8,7 @@ import { BuildTriggerStatus } from 'src/app/dashboard/build-status';
   styleUrls: ['./build-status.component.scss']
 })
 export class BuildStatusComponent implements OnInit {
-  @Input() buildStatuses: any;
+  @Input() buildStatuses: BuildTriggerStatus[];
   @Input() buildStatusType: string;
   @Input() buildStatusKind: string;
   @Input() buildStatusAmount: number = null;
@@ -18,7 +18,7 @@ export class BuildStatusComponent implements OnInit {
   cardHeaderIcon: string;
   cardColor: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.buildStatusKind === 'trigger') {
       this.cardHeader = 'Cloud Builds';
       this.cardHeaderIcon = 'fas fa-code';
@@ -30,7 +30,7 @@ export class BuildStatusComponent implements OnInit {
     }
   }
 
-  getFilteredStatuses(status: string, amount: number = null) {
+  getFilteredStatuses(status: string, amount: number = null): BuildTriggerStatus[] {
     let filteredStatuses = [];
 
     for (const buildStatus of this.buildStatuses) {
@@ -47,7 +47,7 @@ export class BuildStatusComponent implements OnInit {
     return filteredStatuses;
   }
 
-  getFilteredStatusesCount(status: string) {
+  getFilteredStatusesCount(status: string): number {
     let filteredCount = 0;
 
     for (const buildStatus of this.buildStatuses) {
@@ -59,7 +59,7 @@ export class BuildStatusComponent implements OnInit {
     return filteredCount;
   }
 
-  getLogUrl(buildStatus: any) {
+  getLogUrl(buildStatus: BuildTriggerStatus): string {
     if (buildStatus['log_url']) {
       return buildStatus['log_url'];
     } else {
@@ -67,7 +67,7 @@ export class BuildStatusComponent implements OnInit {
     }
   }
 
-  outlineColor(buildStatus: string) {
+  outlineColor(buildStatus: string): string {
     if (buildStatus === 'pending') {
       return 'orange';
     } else if (buildStatus === 'failing') {
@@ -77,7 +77,7 @@ export class BuildStatusComponent implements OnInit {
     }
   }
 
-  outlineIcon(buildStatus: string) {
+  outlineIcon(buildStatus: string): string {
     if (buildStatus === 'pending') {
       return 'fa-sync-alt';
     } else if (buildStatus === 'failing') {
@@ -87,7 +87,7 @@ export class BuildStatusComponent implements OnInit {
     }
   }
 
-  badgeColor(buildStatus: BuildTriggerStatus) {
+  badgeColor(buildStatus: BuildTriggerStatus): string {
     if (buildStatus.status === 'pending') {
       return 'warning';
     } else if (buildStatus.status === 'failing') {
@@ -97,7 +97,7 @@ export class BuildStatusComponent implements OnInit {
     }
   }
 
-  badgeIcon(buildStatus: BuildTriggerStatus) {
+  badgeIcon(buildStatus: BuildTriggerStatus): string {
     if (buildStatus.status === 'pending') {
       return 'fa-spinner fa-spin';
     } else if (buildStatus.status === 'failing') {

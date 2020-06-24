@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
 import { ErrorReport } from '../dashboard/error-report';
 
 import 'ag-grid-enterprise';
-import { GridOptions } from 'ag-grid-community';
+import { AgGridEvent, GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { DashboardService } from '../dashboard/dashboard.service';
 
 
@@ -21,11 +20,12 @@ import { DashboardService } from '../dashboard/dashboard.service';
   styleUrls: ['./errors-overview.component.scss'],
   providers: [DatePipe, TitleCasePipe]
 })
-export class ErrorsOverviewComponent implements OnInit {
+
+export class ErrorsOverviewComponent {
   private gridApi;
   private gridColumnApi;
 
-  public gridOptions: GridOptions;
+  public gridOptions: GridOptions;
   public overlayNoRowsTemplate: string;
   public errorReporting: ErrorReport[];
 
@@ -55,7 +55,7 @@ export class ErrorsOverviewComponent implements OnInit {
           headerName: 'Timestamp',
           field: 'receive_timestamp',
           sort: 'desc',
-          valueFormatter: (params: any) => {
+          valueFormatter: (params: ValueFormatterParams): string => {
             if (!isNaN(Date.parse(params.value))) {
               return datePipe.transform(params.value, 'dd-MM-yyyy HH:mm:ss');
             } else {
@@ -70,7 +70,7 @@ export class ErrorsOverviewComponent implements OnInit {
             {
               headerName: 'Type',
               field: 'resource.type',
-              valueFormatter: (params: any) => {
+              valueFormatter: (params: ValueFormatterParams): string => {
                 return titleCasePipe.transform(
                   params.value.replace(/[^a-zA-Z0-9]/g, ' '));
               }
@@ -78,7 +78,7 @@ export class ErrorsOverviewComponent implements OnInit {
             {
               headerName: 'Name',
               field: 'resource.labels',
-              valueFormatter: (params: any) => {
+              valueFormatter: (params: ValueFormatterParams): string => {
                 for (const item in params.value) {
                   if (item in params.value && item.includes('name')) {
                     return params.value[item];
@@ -107,18 +107,14 @@ export class ErrorsOverviewComponent implements OnInit {
     this.overlayNoRowsTemplate = '<span>Geen errors gevonden</span>';
   }
 
-  ngOnInit() { }
-
-  onGridReady(event: any) {
+  onGridReady(event: AgGridEvent): void {
     this.gridApi = event.api;
     this.gridColumnApi = event.columnApi;
-
-    console.log(this.gridApi);
 
     this.changePage();
   }
 
-  changePage(action = null) {
+  changePage(action = null): void {
     if (action === 'next') {
       this.pageCurrent++;
     } else if (action === 'prev') {
@@ -160,7 +156,7 @@ export class ErrorsOverviewComponent implements OnInit {
     );
   }
 
-  getErrorReports(limit, offset) {
+  getErrorReports(limit, offset): Observable<ErrorReport[]> {
     return this.httpClient.get<ErrorReport[]>(
       `${this.env.apiUrl}/error-reports`,
       { params: UtilsService.buildQueryParams({limit, offset}) }

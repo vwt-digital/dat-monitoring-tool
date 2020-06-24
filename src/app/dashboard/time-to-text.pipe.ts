@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'timeToText' })
 export class TimeToTextPipe implements PipeTransform {
-  transform(value: number, args?: any): any {
+  transform(value: number): string {
     try {
       return millisecondsToStr(value);
     } catch {
@@ -12,7 +12,7 @@ export class TimeToTextPipe implements PipeTransform {
 }
 
 
-function millisecondsToStr(milliseconds: number) {
+function millisecondsToStr(milliseconds: number): string {
   let temp = Math.floor(milliseconds / 1000);
   const years = Math.floor(temp / 31536000);
   if (years) {

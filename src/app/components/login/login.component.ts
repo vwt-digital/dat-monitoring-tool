@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
@@ -26,14 +27,14 @@ export class LoginComponent implements OnInit {
     this.form = formGroup;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.route.snapshot.queryParams.apiKey) {
       sessionStorage.setItem('apiKey', this.route.snapshot.queryParams.apiKey);
       this.router.navigate(['dashboard']);
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       this.saveApiKey(this.form.value);
     } else {
@@ -41,13 +42,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  saveApiKey(value: any) {
-    sessionStorage.setItem('apiKey', value.apiKey);
+  saveApiKey(value: object): void {
+    sessionStorage.setItem('apiKey', value['apiKey']);
     this.form.reset();
     this.router.navigate(['dashboard']);
   }
 
-  validateAllFormFields(formGroup: FormGroup) {
+  validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       control.markAsTouched({ onlySelf: true });

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ErrorReport } from 'src/app/dashboard/error-report';
 
@@ -8,14 +8,14 @@ import { ErrorReport } from 'src/app/dashboard/error-report';
   styleUrls: ['./error-reporting.component.scss']
 })
 export class ErrorReportComponent {
-  @Input() errorReporting: any;
+  @Input() errorReporting: ErrorReport[];
   @Input() errorReportingAmount: number = null;
 
   cardHeader = 'Error reporting';
   cardHeaderIcon = 'fas fa-sitemap';
   cardColor = 'red';
 
-  getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number) {
+  getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number): ErrorReport[] {
     // tslint:disable-next-line:max-line-length
     let filteredStatuses = errorReporting.sort((a, b) => a.receive_timestamp > b.receive_timestamp ? -1 : (a.receive_timestamp < b.receive_timestamp ? 1 : 0));
     filteredStatuses = filteredStatuses.slice(0, amount);
@@ -23,7 +23,7 @@ export class ErrorReportComponent {
     return filteredStatuses;
   }
 
-  getLogUrl(errorReporting: any) {
+  getLogUrl(errorReporting: ErrorReport): string {
     if (errorReporting['log_url']) {
       return errorReporting['log_url'];
     } else {

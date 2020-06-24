@@ -8,10 +8,3 @@ export class BuildTriggerStatus {
   status: string;
   updated: string;
 }
-export class BuildOtherStatus {
-  finish_time: string;
-  id: string;
-  project_id: string;
-  start_time: string;
-  status: string;
-}

@@ -1,7 +1,9 @@
 import { Directive, ElementRef} from '@angular/core';
+
 @Directive({
   selector: '[appFormPassword]'
 })
+
 export class FormPasswordDirective {
   private shown = false;
 
@@ -9,7 +11,7 @@ export class FormPasswordDirective {
     this.setup();
   }
 
-  toggle(span: HTMLElement) {
+  toggle(span: HTMLElement): void {
     this.shown = !this.shown;
     if (this.shown) {
       this.el.nativeElement.setAttribute('type', 'text');
@@ -20,7 +22,7 @@ export class FormPasswordDirective {
     }
   }
 
-  setup() {
+  setup(): void {
     const parent = this.el.nativeElement.parentNode;
 
     const inputAppend = document.createElement('div');

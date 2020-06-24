@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.backdrop) {
       setTimeout(() => {
         this.closeOnError(this.activeModal);
@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  closeOnError(activeModal: any) {
+  closeOnError(activeModal: NgbActiveModal): void {
     activeModal.close('Close clicked');
     this.router.navigate(['login']);
   }

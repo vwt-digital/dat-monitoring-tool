@@ -7,21 +7,21 @@ import { DashboardService } from './dashboard/dashboard.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  private requests: HttpRequest<any>[] = [];
+  private requests: HttpRequest<object>[] = [];
 
   constructor(
     private loaderService: LoaderService,
     private service: DashboardService
   ) { }
 
-  removeRequest(req: HttpRequest<any>) {
+  removeRequest(req: HttpRequest<object>): void {
     const i = this.requests.indexOf(req);
     this.requests.splice(i, 1);
     this.loaderService.isLoading.next(this.requests.length > 0);
     this.loaderService.isError.next(this.requests.length > 0);
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
     this.requests.push(req);
 
     this.loaderService.isLoading.next(true);
@@ -42,7 +42,7 @@ export class LoaderInterceptor implements HttpInterceptor {
           },
           () => { this.removeRequest(req); observer.complete(); }
         );
-      return () => {
+      return (): void => {
         this.removeRequest(req);
         subscription.unsubscribe();
       };
