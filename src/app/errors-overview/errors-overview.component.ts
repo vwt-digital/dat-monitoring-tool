@@ -34,6 +34,8 @@ export class ErrorsOverviewComponent {
   public pageHasNext = true;
   public pageHasPrev = false;
 
+  private uuidRegex = /[0-9]{6}-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g;
+
   constructor(
     private httpClient: HttpClient,
     private route: ActivatedRoute,
@@ -52,6 +54,17 @@ export class ErrorsOverviewComponent {
       },
       columnDefs: [
         {
+          field: 'id',
+          rowGroup: true,
+          hide: true,
+          valueGetter: (params) => {
+            if (params.data.id.match(this.uuidRegex)) {
+              return params.data.id.replace(/[0-9]{6}-/g, '');
+            }
+            return params.data.id;
+          }
+        },
+        {
           headerName: 'Timestamp',
           field: 'receive_timestamp',
           sort: 'desc',
@@ -63,6 +76,7 @@ export class ErrorsOverviewComponent {
             }
           }
         },
+        { headerName: 'Severity', field: 'severity' },
         { headerName: 'Project ID', field: 'project_id' },
         {
           headerName: 'Resource',
@@ -79,8 +93,9 @@ export class ErrorsOverviewComponent {
               headerName: 'Name',
               field: 'resource.labels',
               valueFormatter: (params: ValueFormatterParams): string => {
+                const nameKeys = ['function_name', 'service_name', 'revision_name', 'detector_name', 'job_id', 'configuration_name'];
                 for (const item in params.value) {
-                  if (item in params.value && item.includes('name')) {
+                  if (item in params.value && nameKeys.indexOf(item) > -1) {
                     return params.value[item];
                   }
                 }
@@ -89,12 +104,14 @@ export class ErrorsOverviewComponent {
             },
             { headerName: 'Region', field: 'resource.labels.region' }
           ]
-        }
+        },
+        { headerName: 'Text Payload', field: 'text_payload' }
       ],
-      rowData: [],
       enableRangeSelection: true,
       suppressScrollOnNewData: true,
       suppressPaginationPanel: true,
+      groupUseEntireRow: true,
+      groupRemoveSingleChildren: true,
       domLayout: 'autoHeight',
       statusBar: {
         statusPanels: [
