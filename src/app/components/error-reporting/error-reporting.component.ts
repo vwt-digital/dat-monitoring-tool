@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ErrorReport } from 'src/app/dashboard/error-report';
+import { DashboardService } from 'src/app/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-error-reporting',
@@ -15,6 +16,10 @@ export class ErrorReportComponent {
   cardHeaderIcon = 'fas fa-sitemap';
   cardColor = 'red';
 
+  constructor(
+    public service: DashboardService
+  ) { }
+
   getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number): ErrorReport[] {
     // tslint:disable-next-line:max-line-length
     let filteredStatuses = errorReporting.sort((a, b) => a.receive_timestamp > b.receive_timestamp ? -1 : (a.receive_timestamp < b.receive_timestamp ? 1 : 0));
@@ -23,11 +28,7 @@ export class ErrorReportComponent {
     return filteredStatuses;
   }
 
-  getLogUrl(errorReporting: ErrorReport): string {
-    if (errorReporting['log_url']) {
-      return errorReporting['log_url'];
-    } else {
-      return `https://console.cloud.google.com/errors?project=${errorReporting.project_id}`;
-    }
+  getLogUrl(error: ErrorReport): string {
+    return this.service.getErrorLogsViewerUrl(error);
   }
 }

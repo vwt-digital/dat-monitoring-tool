@@ -8,12 +8,11 @@ import { ModalComponent } from '../components/modal/modal.component';
 
 import { EnvService } from '../env/env.service';
 import { AuthService } from '../auth/auth.service';
-
 import { BuildTriggerStatus } from './build-status';
-import { ErrorReportCount } from './error-report';
+import { ErrorReportCount, ErrorReport } from './error-report';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
@@ -24,6 +23,27 @@ export class DashboardService {
   public interval: number;
 
   public hasError = false;
+
+  dotify(object) {
+    const res = {};
+    function recurse(obj, current = null) {
+      for (const key in obj) {
+        if (key in obj) {
+          const value = obj[key];
+          const newKey = (current ? current + '.' + key : key);  // joined key with dot
+          if (value && typeof value === 'object') {
+            recurse(value, newKey);  // it's a nested object, so do it again
+          } else {
+            res[newKey] = value;  // it's not an object, so set the property
+          }
+        }
+      }
+    }
+
+    recurse(object);
+    return res;
+  }
+
 
   constructor(
     private httpClient: HttpClient,
@@ -84,5 +104,24 @@ export class DashboardService {
         max_rows: '5' // eslint-disable-line camelcase
         } }
     );
+  }
+
+  getErrorLogsViewerUrl(error: ErrorReport): string {
+    const flat = this.dotify({
+      labels: error.labels,
+      resource: error.resource
+    });
+
+    const advancedFilter = [];
+
+    for (const item in flat) {
+      if (item in flat && flat[item] !== '') {
+        advancedFilter.push(`${item}%3D%22${flat[item]}%22`);
+      }
+    }
+
+    return [
+      `https://console.cloud.google.com/logs/viewer?project=${error.project_id}`,
+      `advancedFilter=${advancedFilter.join('%0A')}`].join('&');
   }
 }

@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import 'rxjs/add/operator/filter';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
 import { ErrorReport } from '../dashboard/error-report';
 
 import 'ag-grid-enterprise';
-import { AgGridEvent, GridOptions, ValueFormatterParams } from 'ag-grid-community';
+import { AgGridEvent, GridOptions, ValueFormatterParams, ICellRendererParams } from 'ag-grid-community';
 import { DashboardService } from '../dashboard/dashboard.service';
 
 
@@ -21,7 +22,7 @@ import { DashboardService } from '../dashboard/dashboard.service';
   providers: [DatePipe, TitleCasePipe]
 })
 
-export class ErrorsOverviewComponent {
+export class ErrorsOverviewComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
@@ -40,8 +41,8 @@ export class ErrorsOverviewComponent {
     private httpClient: HttpClient,
     private route: ActivatedRoute,
     private env: EnvService,
-    private datePipe: DatePipe,
     private titleCasePipe: TitleCasePipe,
+    private datePipe: DatePipe,
     public service: DashboardService
   ) {
     this.gridOptions = {
@@ -54,19 +55,9 @@ export class ErrorsOverviewComponent {
       },
       columnDefs: [
         {
-          field: 'id',
-          rowGroup: true,
-          hide: true,
-          valueGetter: (params) => {
-            if (params.data.id.match(this.uuidRegex)) {
-              return params.data.id.replace(/[0-9]{6}-/g, '');
-            }
-            return params.data.id;
-          }
-        },
-        {
           headerName: 'Timestamp',
           field: 'receive_timestamp',
+          pinned: 'left',
           sort: 'desc',
           valueFormatter: (params: ValueFormatterParams): string => {
             if (!isNaN(Date.parse(params.value))) {
@@ -105,13 +96,36 @@ export class ErrorsOverviewComponent {
             { headerName: 'Region', field: 'resource.labels.region' }
           ]
         },
-        { headerName: 'Text Payload', field: 'text_payload' }
+        { headerName: 'Text Payload', field: 'text_payload' },
+        {
+          pinned: 'right',
+          filter: false,
+          sortable: false,
+          suppressMenu: true,
+          width: 100,
+          rowGroup: true,
+          valueGetter: (params) => this.service.getErrorLogsViewerUrl(params.data),
+          valueFormatter: (params: ValueFormatterParams): string => {
+            if (params.node.group) {
+              return `Error group: ${params.node.allLeafChildren[0].data.project_id}`;
+            }
+            return params.node.hasChildren() ? 'Error group' : params.value;
+          },
+          cellRenderer: (params: ICellRendererParams): string => {
+            return `<a class="view-more" href="${params.value}" target="_blank">More <i class="fas fa-external-link-alt"></i></a>`;
+          }
+        }
       ],
       enableRangeSelection: true,
       suppressScrollOnNewData: true,
       suppressPaginationPanel: true,
       groupUseEntireRow: true,
       groupRemoveSingleChildren: true,
+      getRowClass: (params) => {
+        if (params.node.parent.allChildrenCount > 1) {
+          return 'ag-group-row';
+        }
+      },
       domLayout: 'autoHeight',
       statusBar: {
         statusPanels: [
@@ -122,6 +136,16 @@ export class ErrorsOverviewComponent {
     };
 
     this.overlayNoRowsTemplate = '<span>Geen errors gevonden</span>';
+  }
+
+  ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.page)
+      .subscribe(params => {
+        if (parseInt(params.page, 10)) {
+          this.pageCurrent = params.page;
+        }
+      });
   }
 
   onGridReady(event: AgGridEvent): void {
@@ -147,6 +171,7 @@ export class ErrorsOverviewComponent {
       this.pageHasNext = true;
       this.pageCurrent = 1;
     }
+
 
     const limit = this.pageLimit;
     const offset = this.pageCurrent * this.pageLimit;
@@ -178,5 +203,15 @@ export class ErrorsOverviewComponent {
       `${this.env.apiUrl}/error-reports`,
       { params: UtilsService.buildQueryParams({limit, offset}) }
     );
+  }
+
+  getErrorReportName(error: ErrorReport): string {
+    const nameKeys = ['function_name', 'service_name', 'revision_name', 'detector_name', 'job_id', 'configuration_name'];
+    for (const item in error) {
+      if (item in error && nameKeys.indexOf(item) > -1) {
+        return error[item];
+      }
+    }
+    return 'N/A';
   }
 }

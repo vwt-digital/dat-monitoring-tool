@@ -37,10 +37,12 @@
     </div>
 
     <ag-grid-angular
-      [ngClass]="['col-12', 'ag-theme-balham', 'info-grid']"
+      [ngClass]="['col-12', 'ag-theme-balham', 'ag-grid']"
       [gridOptions]="gridOptions"
       [overlayNoRowsTemplate]="overlayNoRowsTemplate"
       (gridReady)="onGridReady($event)" >
     </ag-grid-angular>
+
+    <small class="form-text text-muted mt-2">The grouping of errors is based on the logs filter url generated with the resource and label objects.</small>
   </div>
 </div>
