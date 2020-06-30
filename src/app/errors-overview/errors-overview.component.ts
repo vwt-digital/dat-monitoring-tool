@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
-import { ErrorReport } from '../dashboard/error-report';
+import { ErrorReport, ErrorReportResponse } from '../dashboard/error-report';
 
 import 'ag-grid-enterprise';
 import { AgGridEvent, GridOptions, ValueFormatterParams, ICellRendererParams } from 'ag-grid-community';
@@ -22,7 +22,7 @@ import { DashboardService } from '../dashboard/dashboard.service';
   providers: [DatePipe, TitleCasePipe]
 })
 
-export class ErrorsOverviewComponent implements OnInit {
+export class ErrorsOverviewComponent {
   private gridApi;
   private gridColumnApi;
 
@@ -30,7 +30,8 @@ export class ErrorsOverviewComponent implements OnInit {
   public overlayNoRowsTemplate: string;
   public errorReporting: ErrorReport[];
 
-  private pageLimit = 30;
+  private pageSize = 30;
+  private pageCursors = {};
   public pageCurrent = 1;
   public pageHasNext = true;
   public pageHasPrev = false;
@@ -135,73 +136,82 @@ export class ErrorsOverviewComponent implements OnInit {
       }
     };
 
-    this.overlayNoRowsTemplate = '<span>Geen errors gevonden</span>';
+    this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No errors found</span>';
   }
 
-  ngOnInit() {
-    this.route.queryParams
-      .filter(params => params.page)
-      .subscribe(params => {
-        if (parseInt(params.page, 10)) {
-          this.pageCurrent = params.page;
-        }
-      });
+  rowDataChangedHandler(event: AgGridEvent) {
+    if (!event.api.getRowNode('0')) {
+      event.api.showNoRowsOverlay();
+    }
   }
 
   onGridReady(event: AgGridEvent): void {
     this.gridApi = event.api;
     this.gridColumnApi = event.columnApi;
 
+    this.gridApi.addEventListener('rowDataChanged', this.rowDataChangedHandler);
+
     this.changePage();
   }
 
   changePage(action = null): void {
+    this.gridApi.showLoadingOverlay();
+
+    const pageSize = this.pageSize;
+    let cursor = null;
+
     if (action === 'next') {
+      cursor = this.pageCursors[this.pageCurrent + 1];
+      this.pageHasPrev = true;
       this.pageCurrent++;
-    } else if (action === 'prev') {
-      if (this.pageCurrent > 1) {
-        this.pageCurrent--;
-      } else {
-        this.pageHasPrev = false;
-        this.pageHasNext = true;
-        return;
-      }
-    } else if (action === 'first') {
+    } else if (action === 'prev' && this.pageCurrent > 2) {
+      cursor = this.pageCursors[this.pageCurrent];
+      this.pageHasPrev = true;
+      this.pageCurrent--;
+    } else {
+      action = 'next';
       this.pageHasPrev = false;
       this.pageHasNext = true;
       this.pageCurrent = 1;
+      this.pageCursors = {};
     }
 
-
-    const limit = this.pageLimit;
-    const offset = this.pageCurrent * this.pageLimit;
-
-    this.gridApi.showLoadingOverlay();
-
-    this.getErrorReports(limit, offset).subscribe(
+    this.getErrorReports(pageSize, action, cursor).subscribe(
       async result => {
-        if (result.length >= 1) {
-          this.gridApi.setRowData(result);
+        if (result['results'] && result['results'].length >= 1) {
+          if (result['next_cursor']) {
+            this.pageCursors[this.pageCurrent + 1] = result['next_cursor'];
+          }
+          this.gridApi.setRowData(result['results']);
           this.pageHasNext = true;
-          this.pageHasPrev = this.pageCurrent > 1 ? true : false;
           this.gridColumnApi.autoSizeAllColumns();
-          this.gridApi.hideOverlay();
         } else {
           this.pageCurrent--;
           this.pageHasNext = false;
-          this.gridApi.hideOverlay();
         }
+        this.gridApi.hideOverlay();
       },
       error => {
+        this.gridApi.setRowData([]);
+        this.gridApi.hideOverlay();
         console.log(error);
       }
     );
   }
 
-  getErrorReports(limit, offset): Observable<ErrorReport[]> {
-    return this.httpClient.get<ErrorReport[]>(
+  getErrorReports(pageSize: number, page: string, cursor: string): Observable<ErrorReportResponse> {
+    const requestParams = {
+      pageSize,
+      page
+    };
+
+    if (cursor) {
+      requestParams['cursor'] = cursor;
+    }
+
+    return this.httpClient.get<ErrorReportResponse>(
       `${this.env.apiUrl}/error-reports`,
-      { params: UtilsService.buildQueryParams({limit, offset}) }
+      { params: UtilsService.buildQueryParams(requestParams) }
     );
   }
 
