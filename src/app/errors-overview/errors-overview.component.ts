@@ -201,7 +201,7 @@ export class ErrorsOverviewComponent {
 
   getErrorReports(pageSize: number, page: string, cursor: string): Observable<ErrorReportResponse> {
     const requestParams = {
-      pageSize,
+      page_size: pageSize,
       page
     };
 
