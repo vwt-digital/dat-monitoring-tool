@@ -5,14 +5,14 @@
         <i class="{{ cardHeaderIcon }}"></i>
         {{ cardHeader }}
 
-        <a routerLink="/security-overview" routerLinkActive="active" class="btn btn-secondary btn-xs float-right">
+        <a routerLink="/security-command-centre" routerLinkActive="active" class="btn btn-secondary btn-xs float-right" title="View Security Command Centre">
           View more <i class="fas fa-chevron-right"></i>
         </a>
       </div>
 
       <div class="card-body">
         <h4 class="card-title">
-          <i class="fas fa-bell"></i> Notifications
+          <i class="fas fa-bell"></i> Security Notifications
         </h4>
 
         <h2
@@ -31,7 +31,7 @@
 
           <ng-container *ngFor="let securityNot of getFilteredsecurityNotifications(securityNotifications, securityNotificationsAmount)" >
             <div class="security-notifications">
-              <a href="{{ securityNot.external_uri }}" target="_blank">
+              <a href="{{ securityNot.external_uri }}" target="_blank" title="View resource">
                 <div
                   class="badge badge-danger" >
                   <span class="badge-title">

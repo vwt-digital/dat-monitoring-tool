@@ -16,13 +16,13 @@ import { DashboardService } from '../dashboard/dashboard.service';
 
 
 @Component({
-  selector: 'app-security-overview',
-  templateUrl: './security-overview.component.html',
-  styleUrls: ['./security-overview.component.scss'],
+  selector: 'app-security-command-centre',
+  templateUrl: './security-command-centre.component.html',
+  styleUrls: ['./security-command-centre.component.scss'],
   providers: [DatePipe, TitleCasePipe]
 })
 
-export class SecurityOverviewComponent {
+export class SecurityCommandCentreComponent {
   private gridApi;
   private gridColumnApi;
 
@@ -53,7 +53,7 @@ export class SecurityOverviewComponent {
         editable: false,
         autoHeight: true,
         width: 150,
-        maxWidth: 400,
+        maxWidth: 500,
         resizable: true,
         flex: 1,
         cellClass: 'cell-wrap-text'
@@ -75,8 +75,17 @@ export class SecurityOverviewComponent {
         { headerName: 'Severity', field: 'severity', pinned: 'left', },
         { headerName: 'Category', field: 'category' },
         { headerName: 'Project ID', field: 'project_id' },
-        { headerName: 'Explanation', field: 'explanation', width: 100 },
-        { headerName: 'Exception instructions', field: 'exception_instructions' },
+        {
+          headerName: 'Explanation',
+          field: 'explanation',
+          width: 100,
+          cellRenderer: this.parseUrlsInString
+        },
+        {
+          headerName: 'Recommendation',
+          field: 'recommendation',
+          cellRenderer: this.parseUrlsInString
+        },
         {
           headerName: 'Created',
           field: 'created_at',
@@ -97,7 +106,7 @@ export class SecurityOverviewComponent {
           width: 100,
           field: 'external_uri',
           cellRenderer: (params: ICellRendererParams): string => {
-            return `<a class="view-more" href="${params.value}" target="_blank">To resource <i class="fas fa-external-link-alt"></i></a>`;
+            return `<a class="view-more" href="${params.value}" target="_blank">View resource <i class="fas fa-external-link-alt"></i></a>`;
           }
         }
       ],
@@ -120,6 +129,20 @@ export class SecurityOverviewComponent {
     if (!event.api.getRowNode('0')) {
       event.api.showNoRowsOverlay();
     }
+  }
+
+  parseUrlsInString(params: ICellRendererParams): string {
+    let value = params.value;
+    const urls = /(\b(https?|ftp):\/\/[A-Z0-9+&@#/%?=~_|!:,.;-]*[-A-Z0-9+&@#/%=~_|])/gim;
+    const emails = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+
+    if (value.match(urls)) {
+      value = value.replace(urls, '<a href="$1" target="_blank" title="$1">link</a>');
+    }
+    if (value.match(emails)) {
+      value = value.replace(emails, '<a href="mailto:$1">$1</a>');
+    }
+    return value;
   }
 
   onGridReady(event: AgGridEvent): void {

@@ -12,7 +12,7 @@ export class SecurityNotificationsComponent {
   @Input() securityNotifications: SecurityNotification[];
   @Input() securityNotificationsAmount: number = null;
 
-  cardHeader = 'Security notifications';
+  cardHeader = 'Security Command Centre';
   cardHeaderIcon = 'fas fa-shield-alt';
   cardColor = 'red';
 

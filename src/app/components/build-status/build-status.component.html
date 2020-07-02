@@ -24,7 +24,7 @@
           </span>
 
           <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
-            <a href="{{ getLogUrl(buildStatus) }}" target="_blank">
+            <a href="{{ getLogUrl(buildStatus) }}" target="_blank" title="View build">
               <div
                 *ngIf="buildStatus"
                 class="build-status {{ buildStatus.repo_name ? 'big' : 'small' }}" >
