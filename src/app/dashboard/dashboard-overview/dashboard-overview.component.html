@@ -71,6 +71,16 @@
               [errorReportingAmount]="5" >
             </app-error-reporting>
         </ng-container>
+
+        <ng-container
+          *ngIf="securityNotifications | async as securityNotifications; else loading">
+            <app-security-notifications
+              ngxMasonryItem
+              [ngClass]="['masonry-item']"
+              [securityNotifications]="securityNotifications"
+              [securityNotificationsAmount]="5" >
+            </app-security-notifications>
+        </ng-container>
       </ngx-masonry>
     </div>
   </div>

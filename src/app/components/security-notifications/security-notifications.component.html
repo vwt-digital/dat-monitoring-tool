@@ -1,0 +1,57 @@
+<ng-container *ngIf="securityNotifications">
+  <div class="security-notifications-item">
+    <div class="card {{ securityNotifications.length > 0 ? 'red' : '' }}">
+      <div class="card-header {{ cardColor }}">
+        <i class="{{ cardHeaderIcon }}"></i>
+        {{ cardHeader }}
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="fas fa-bell"></i> Notifications
+        </h4>
+
+        <h2
+          *ngIf="securityNotifications.length <= 0"
+          class="build-count">0</h2>
+
+        <div
+          *ngIf="securityNotifications.length > 0"
+          class="security-notifications-badges">
+
+          <span
+            *ngIf="securityNotificationsAmount"
+            class="build-count-limited">
+            Last {{ securityNotificationsAmount }} updated security notifications
+          </span>
+
+          <ng-container *ngFor="let securityNot of getFilteredsecurityNotifications(securityNotifications, securityNotificationsAmount)" >
+            <div class="security-notifications">
+              <a href="{{ securityNot.external_uri }}" target="_blank">
+                <div
+                  class="badge badge-danger" >
+                  <span class="badge-title">
+                    {{ securityNot.category | replaceValue:'_':' ' | titlecase }}
+                  </span>
+                  <span
+                    class="badge-content">
+                    {{ securityNot.project_id }}
+                  </span>
+                </div>
+                <div class="badge badge-light security-notifications-time" >
+                  <span class="badge-title">
+                    {{ securityNot.updated_at | timeDifference }}
+                  </span>
+                  <span
+                    class="badge-content">
+                    {{ securityNot.severity | uppercase }}
+                  </span>
+                </div>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

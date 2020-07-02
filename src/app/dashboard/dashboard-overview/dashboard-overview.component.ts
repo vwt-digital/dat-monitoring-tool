@@ -5,6 +5,7 @@ import { DashboardService } from '../dashboard.service';
 import { LoaderService } from 'src/app/loader.service';
 import { BuildTriggerStatus } from '../build-status';
 import { ErrorReport, ErrorReportCount } from '../error-report';
+import { SecurityNotification } from '../security-notification';
 
 import { NgxMasonryOptions } from 'ngx-masonry';
 import { BehaviorSubject } from 'rxjs';
@@ -25,6 +26,7 @@ import { BehaviorSubject } from 'rxjs';
 export class DashboardOverviewComponent implements OnDestroy, OnInit {
   buildTriggerStatuses: BehaviorSubject<BuildTriggerStatus[]>;
   errorReporting: BehaviorSubject<ErrorReport[] | ErrorReportCount[]>;
+  securityNotifications: BehaviorSubject<SecurityNotification[] | SecurityNotification[]>;
   blinkInterval: number;
   blinkingIcon = 'visible';
 
@@ -44,6 +46,7 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   async ngOnInit(): Promise<void> {
     this.buildTriggerStatuses = this.service.buildTriggerStatuses$;
     this.errorReporting = this.service.errorReporting$;
+    this.securityNotifications = this.service.securityNotifications$;
 
     this.loader.isError.subscribe(
       res => this.service.hasError = res

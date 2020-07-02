@@ -10,6 +10,7 @@ import { EnvService } from '../env/env.service';
 import { AuthService } from '../auth/auth.service';
 import { BuildTriggerStatus } from './build-status';
 import { ErrorReportCount, ErrorReport } from './error-report';
+import { SecurityNotification } from './security-notification';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ import { ErrorReportCount, ErrorReport } from './error-report';
 export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
   public errorReporting$: BehaviorSubject<ErrorReportCount[]> = new BehaviorSubject([]);
+  public securityNotifications$: BehaviorSubject<SecurityNotification[]> = new BehaviorSubject([]);
 
   public refreshTime = 300000; // Time in milliseconds
   public lastUpdate: Date;
@@ -55,7 +57,8 @@ export class DashboardService {
   updateData(): void {
     forkJoin([
       this.getBuildStatusesTrigger(),
-      this.getErrorReporting()
+      this.getErrorReporting(),
+      this.getSecurityNotifications()
     ]).subscribe(
         responseList => {
           this.buildTriggerStatuses$.next(responseList[0].filter(
@@ -63,6 +66,7 @@ export class DashboardService {
               return !(value.repo_name === 'backup' && value.status !== 'failing');
             }));
           this.errorReporting$.next(responseList[1]);
+          this.securityNotifications$.next(responseList[2]);
 
           this.lastUpdate = new Date();
         }, error => {
@@ -101,6 +105,15 @@ export class DashboardService {
       `${this.env.apiUrl}/error-reports/counts`,
       { params: {
         days: '7',
+        max_rows: '5' // eslint-disable-line camelcase
+        } }
+    );
+  }
+
+  getSecurityNotifications(): Observable<SecurityNotification[]> {
+    return this.httpClient.get<SecurityNotification[]>(
+      `${this.env.apiUrl}/security-notifications`,
+      { params: {
         max_rows: '5' // eslint-disable-line camelcase
         } }
     );

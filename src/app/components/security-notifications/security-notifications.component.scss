@@ -1,0 +1,150 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.security-notifications-item {
+  .card {
+    background-color: $white;
+    border-radius: 5px;
+    position: relative;
+
+    .card-header {
+      text-transform: uppercase;
+
+      background-color: $gray;
+      border-color: $gray-hover;
+      color: $red;
+    }
+
+    h4.card-title,
+    h2.build-count {
+      color: $gray-dark;
+    }
+
+    &.red{
+      h4.card-title {
+        color: $red;
+      }
+    }
+
+    span.build-count-limited {
+      font-size: 10px;
+      color: $gray-dark;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  }
+
+  .security-notifications-badges {
+    margin-top: 10px;
+
+    .security-notifications {
+      width: 100%;
+      display: table;
+      float: left;
+      margin: 5px 0;
+      height: 40px;
+      overflow: hidden;
+
+      &:hover {
+        opacity: .9;
+      }
+
+      .badge {
+        width: 75%;
+        max-width: 75%;
+        height: 100%;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        padding: 10px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        float: left;
+
+        text-align: left;
+        font-size: 20px;
+        line-height: 20px;
+
+        color: $red;
+        background-color: $gray;
+
+        &.security-notifications-time {
+          width: 25%;
+          height: 100%;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          padding: 10px;
+          border-radius: 0 .25rem .25rem 0;
+
+          font-size: 75%;
+          text-align: left;
+          text-transform: uppercase;
+
+          color: $red;
+          background-color: $gray-hover;
+
+          .badge-content {
+            font-size: 75%;
+          }
+
+          span {
+            vertical-align: middle;
+          }
+        }
+
+        .badge-title,
+        .badge-content {
+          width: 100%;
+          max-width: 100%;
+          float: left;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .badge-title {
+          line-height: 24px;
+        }
+        .badge-content {
+          font-size: 50%;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+
+@media (max-width: $breakpoint-tablet) {
+  .security-notifications-item {
+    .card-title {
+      margin-bottom: 5px;
+    }
+
+    .security-notifications-badges {
+      .security-notifications {
+        height: 30px;
+        .badge {
+          padding: 7.5px;
+          font-size: 15px;
+          line-height: 15px;
+
+          &.security-notifications-time {
+            font-size: 75%;
+            padding: 7px;
+          }
+        }
+      }
+    }
+  }
+}
