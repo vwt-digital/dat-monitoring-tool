@@ -4,7 +4,7 @@ export class ErrorReport {
   labels: any;
   log_name: string;
   project_id: string;
-  receive_timestamp: string;
+  received_at: string;
   resource: any;
   severity: string;
   text_payload: string;
@@ -17,7 +17,7 @@ export class ErrorReportCount {
   id: string;
   log_name: string;
   project_id: string;
-  receive_timestamp: string;
+  received_at: string;
   resource: any;
   trace: string;
 }

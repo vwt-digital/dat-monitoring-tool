@@ -39,7 +39,7 @@ export class BuildStatusComponent implements OnInit {
       }
     }
 
-    filteredStatuses = filteredStatuses.sort((a, b) => a.updated > b.updated ? -1 : (a.updated < b.updated ? 1 : 0));
+    filteredStatuses = filteredStatuses.sort((a, b) => a.updated_at > b.updated_at ? -1 : (a.updated_at < b.updated_at ? 1 : 0));
     if (amount) {
       filteredStatuses = filteredStatuses.slice(0, amount);
     }

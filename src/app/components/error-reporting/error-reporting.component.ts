@@ -22,7 +22,7 @@ export class ErrorReportComponent {
 
   getFilteredErrorReporting(errorReporting: ErrorReport[], amount: number): ErrorReport[] {
     // tslint:disable-next-line:max-line-length
-    let filteredStatuses = errorReporting.sort((a, b) => a.receive_timestamp > b.receive_timestamp ? -1 : (a.receive_timestamp < b.receive_timestamp ? 1 : 0));
+    let filteredStatuses = errorReporting.sort((a, b) => a.received_at > b.received_at ? -1 : (a.received_at < b.received_at ? 1 : 0));
     filteredStatuses = filteredStatuses.slice(0, amount);
 
     return filteredStatuses;

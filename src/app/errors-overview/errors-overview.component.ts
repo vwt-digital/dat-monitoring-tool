@@ -57,7 +57,7 @@ export class ErrorsOverviewComponent {
       columnDefs: [
         {
           headerName: 'Timestamp',
-          field: 'receive_timestamp',
+          field: 'received_at',
           pinned: 'left',
           sort: 'desc',
           valueFormatter: (params: ValueFormatterParams): string => {
