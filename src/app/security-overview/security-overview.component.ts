@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
-import { ErrorReport, ErrorReportResponse } from '../dashboard/error-report';
+import { SecurityNotification } from '../dashboard/security-notification';
 
 import 'ag-grid-enterprise';
 import { AgGridEvent, GridOptions, ValueFormatterParams, ICellRendererParams } from 'ag-grid-community';
@@ -16,21 +16,21 @@ import { DashboardService } from '../dashboard/dashboard.service';
 
 
 @Component({
-  selector: 'app-errors-overview',
-  templateUrl: './errors-overview.component.html',
-  styleUrls: ['./errors-overview.component.scss'],
+  selector: 'app-security-overview',
+  templateUrl: './security-overview.component.html',
+  styleUrls: ['./security-overview.component.scss'],
   providers: [DatePipe, TitleCasePipe]
 })
 
-export class ErrorsOverviewComponent {
+export class SecurityOverviewComponent {
   private gridApi;
   private gridColumnApi;
 
   public gridOptions: GridOptions;
   public overlayNoRowsTemplate: string;
-  public errorReporting: ErrorReport[];
+  public SecurityNotificationing: SecurityNotification[];
 
-  private pageSize = 30;
+  private pageSize = 10;
   private pageCursors = {};
   public pageCurrent = 1;
   public pageHasNext = true;
@@ -51,13 +51,17 @@ export class ErrorsOverviewComponent {
         sortable: true,
         filter: true,
         editable: false,
+        autoHeight: true,
         width: 150,
-        resizable: true
+        maxWidth: 400,
+        resizable: true,
+        flex: 1,
+        cellClass: 'cell-wrap-text'
       },
       columnDefs: [
         {
-          headerName: 'Timestamp',
-          field: 'received_at',
+          headerName: 'Updated',
+          field: 'updated_at',
           pinned: 'left',
           sort: 'desc',
           valueFormatter: (params: ValueFormatterParams): string => {
@@ -68,65 +72,38 @@ export class ErrorsOverviewComponent {
             }
           }
         },
-        { headerName: 'Severity', field: 'severity' },
+        { headerName: 'Severity', field: 'severity', pinned: 'left', },
+        { headerName: 'Category', field: 'category' },
         { headerName: 'Project ID', field: 'project_id' },
+        { headerName: 'Explanation', field: 'explanation', width: 100 },
+        { headerName: 'Exception instructions', field: 'exception_instructions' },
         {
-          headerName: 'Resource',
-          children: [
-            {
-              headerName: 'Type',
-              field: 'resource.type',
-              valueFormatter: (params: ValueFormatterParams): string => {
-                return titleCasePipe.transform(
-                  params.value.replace(/[^a-zA-Z0-9]/g, ' '));
-              }
-            },
-            {
-              headerName: 'Name',
-              field: 'resource.labels',
-              valueFormatter: (params: ValueFormatterParams): string => {
-                const nameKeys = ['function_name', 'service_name', 'revision_name', 'detector_name', 'job_id', 'configuration_name'];
-                for (const item in params.value) {
-                  if (item in params.value && nameKeys.indexOf(item) > -1) {
-                    return params.value[item];
-                  }
-                }
-                return 'N/A';
-              }
-            },
-            { headerName: 'Region', field: 'resource.labels.region' }
-          ]
+          headerName: 'Created',
+          field: 'created_at',
+          valueFormatter: (params: ValueFormatterParams): string => {
+            if (!isNaN(Date.parse(params.value))) {
+              return datePipe.transform(params.value, 'dd-MM-yyyy HH:mm:ss.SSS');
+            } else {
+              return 'N/B';
+            }
+          }
         },
-        { headerName: 'Text Payload', field: 'text_payload' },
         {
+          headerName: '',
           pinned: 'right',
           filter: false,
           sortable: false,
           suppressMenu: true,
           width: 100,
-          rowGroup: true,
-          valueGetter: (params) => this.service.getErrorLogsViewerUrl(params.data),
-          valueFormatter: (params: ValueFormatterParams): string => {
-            if (params.node.group) {
-              return `Error group: ${params.node.allLeafChildren[0].data.project_id}`;
-            }
-            return params.node.hasChildren() ? 'Error group' : params.value;
-          },
+          field: 'external_uri',
           cellRenderer: (params: ICellRendererParams): string => {
-            return `<a class="view-more" href="${params.value}" target="_blank">More <i class="fas fa-external-link-alt"></i></a>`;
+            return `<a class="view-more" href="${params.value}" target="_blank">To resource <i class="fas fa-external-link-alt"></i></a>`;
           }
         }
       ],
       enableRangeSelection: true,
       suppressScrollOnNewData: true,
       suppressPaginationPanel: true,
-      groupUseEntireRow: true,
-      groupRemoveSingleChildren: true,
-      getRowClass: (params) => {
-        if (params.node.parent.allChildrenCount > 1) {
-          return 'ag-group-row';
-        }
-      },
       domLayout: 'autoHeight',
       statusBar: {
         statusPanels: [
@@ -136,7 +113,7 @@ export class ErrorsOverviewComponent {
       }
     };
 
-    this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No errors found</span>';
+    this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No notifications found</span>';
   }
 
   rowDataChangedHandler(event: AgGridEvent) {
@@ -176,7 +153,7 @@ export class ErrorsOverviewComponent {
       this.pageCursors = {};
     }
 
-    this.getErrorReports(pageSize, action, cursor).subscribe(
+    this.getSecurityNotifications(pageSize, action, cursor).subscribe(
       async result => {
         if (result['results'] && result['results'].length >= 1) {
           if (result['next_cursor']) {
@@ -187,6 +164,7 @@ export class ErrorsOverviewComponent {
           }
           this.gridApi.setRowData(result['results']);
           this.gridColumnApi.autoSizeAllColumns();
+          this.gridApi.resetRowHeights();
         } else {
           this.pageCurrent--;
           this.pageHasNext = false;
@@ -201,7 +179,7 @@ export class ErrorsOverviewComponent {
     );
   }
 
-  getErrorReports(pageSize: number, page: string, cursor: string): Observable<ErrorReportResponse> {
+  getSecurityNotifications(pageSize: number, page: string, cursor: string): Observable<SecurityNotification> {
     const requestParams = {
       page_size: pageSize,
       page
@@ -211,19 +189,9 @@ export class ErrorsOverviewComponent {
       requestParams['cursor'] = cursor;
     }
 
-    return this.httpClient.get<ErrorReportResponse>(
-      `${this.env.apiUrl}/error-reports`,
+    return this.httpClient.get<SecurityNotification>(
+      `${this.env.apiUrl}/security-notifications`,
       { params: UtilsService.buildQueryParams(requestParams) }
     );
-  }
-
-  getErrorReportName(error: ErrorReport): string {
-    const nameKeys = ['function_name', 'service_name', 'revision_name', 'detector_name', 'job_id', 'configuration_name'];
-    for (const item in error) {
-      if (item in error && nameKeys.indexOf(item) > -1) {
-        return error[item];
-      }
-    }
-    return 'N/A';
   }
 }

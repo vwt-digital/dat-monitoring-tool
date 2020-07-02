@@ -1,4 +1,4 @@
-<div class="container-fluid app-errors-overview p-0">
+<div class="container-fluid app-security-overview p-0">
   <div class="col-12 toolbar mb-4 mb-md-0">
     <span class="badge badge-light">
       <i class="fas fa-code-branch"></i> {{ service.getBranch }}
@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="container app-errors-overview">
+<div class="container app-security-overview">
   <div class="row">
     <div class="col-12 info-box mb-0">
       <nav class="d-flex justify-content-md-end justify-content-begin" aria-label="pagination">
@@ -41,7 +41,5 @@
       [overlayNoRowsTemplate]="overlayNoRowsTemplate"
       (gridReady)="onGridReady($event)" >
     </ag-grid-angular>
-
-    <small class="form-text text-muted mt-2">The grouping of errors is based on the logs filter url generated with the resource and label objects.</small>
   </div>
 </div>

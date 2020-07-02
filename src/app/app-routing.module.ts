@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
+import { SecurityOverviewComponent } from './security-overview/security-overview.component';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'errors-overview',
     component: ErrorsOverviewComponent,
+  },
+  {
+    path: 'security-overview',
+    component: SecurityOverviewComponent,
   },
   {
     path: 'login',

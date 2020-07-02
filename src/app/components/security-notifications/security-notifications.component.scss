@@ -13,6 +13,12 @@
       background-color: $gray;
       border-color: $gray-hover;
       color: $red;
+
+      a {
+        @include button-variant($gray-dark, $gray-dark, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover);
+        &:focus { background-color: $gray-dark-hover; }
+        &:hover { cursor: pointer; }
+      }
     }
 
     h4.card-title,

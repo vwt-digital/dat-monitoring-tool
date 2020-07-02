@@ -12,3 +12,11 @@ export class SecurityNotification {
   severity: string;
   updated_at: string;
 }
+
+/* tslint:disable:variable-name */
+export class SecurityNotificationResponse {
+  next_cursor: string;
+  page_size:	number;
+  results: SecurityNotification[];
+  status: string;
+}

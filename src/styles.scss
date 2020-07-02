@@ -154,5 +154,9 @@ small {
     .ag-row.ag-group-row {
       background-color: $gray-light;
     }
+
+    .cell-wrap-text {
+      white-space: normal;
+    }
   }
 }

@@ -20,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
+import { SecurityOverviewComponent } from './security-overview/security-overview.component';
 
 import { FormPasswordDirective } from './components/login/form-password.directive';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -37,7 +38,8 @@ registerLocaleData(localeNl, 'nl');
     FormPasswordDirective,
     PageNotAuthorizedComponent,
     ModalComponent,
-    ErrorsOverviewComponent
+    ErrorsOverviewComponent,
+    SecurityOverviewComponent
   ],
   imports: [
     BrowserModule,

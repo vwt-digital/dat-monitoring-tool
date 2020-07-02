@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../components/modal/modal.component';
@@ -114,9 +115,9 @@ export class DashboardService {
     return this.httpClient.get<SecurityNotification[]>(
       `${this.env.apiUrl}/security-notifications`,
       { params: {
-        max_rows: '5' // eslint-disable-line camelcase
+        page_size: '5' // eslint-disable-line camelcase
         } }
-    );
+    ).pipe(map(data => data['results']));
   }
 
   getErrorLogsViewerUrl(error: ErrorReport): string {
