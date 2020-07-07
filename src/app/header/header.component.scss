@@ -2,43 +2,65 @@
 @import "~src/assets/scss/mixins";
 
 nav {
-  width: 100%;
-  color: $gray;
-  padding: 20px;
+  padding: 15px 20px;
 
-  .row {
-    width: 100%;
+  .navbar-brand {
+    i {
+      margin-right: 10px;
+    }
   }
 
-  .container-fluid {
-    padding: 0;
+  .navbar-toggler {
+    &:hover {
+      background-color: $gray-dark;
+      color: $white;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 
-  h1 {
-    a {
-      color: $gray-dark;
-      text-decoration: none;
+  .navbar-nav {
+    li {
+      padding: 5px;
 
-      &:hover {
-        color: $gray-dark-hover;
-        text-decoration: none;
+      a {
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 14px;
+
+        i {
+          margin-left: 5px;
+        }
       }
     }
   }
 
   .logo {
-    height: 48px;
-    width: auto;
-    float: right;
+    img {
+      height: 48px;
+      width: auto;
+      float: right;
+    }
   }
 }
 
-@media (max-width: $breakpoint-tablet) {
+@media (min-width: $breakpoint-menu) {
+  nav {
+    .navbar-nav {
+      padding-right: 20px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-desktop) {
   nav {
     padding: 10px;
 
-    .logo {
-      height: 30px;
+    h1 {
+      font-size: 30px;
+      line-height: 50px;
     }
   }
 }

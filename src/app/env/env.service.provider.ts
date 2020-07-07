@@ -1,6 +1,6 @@
 import { EnvService } from './env.service';
 
-export const EnvServiceFactory = () => {
+export const EnvServiceFactory = (): any => {
   // Create env
   const env = new EnvService();
 

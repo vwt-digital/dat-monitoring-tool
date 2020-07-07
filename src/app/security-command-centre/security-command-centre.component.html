@@ -1,0 +1,48 @@
+<div class="container-fluid app-security-command-centre p-0">
+  <div class="col-12 toolbar mb-4 mb-md-0">
+    <span class="badge badge-light">
+      <i class="fas fa-code-branch"></i> {{ service.getBranch }}
+    </span>
+    <span class="badge badge-light">
+      <i class="far fa-file-alt"></i> Security Command Centre
+    </span>
+  </div>
+</div>
+
+<div class="container app-security-command-centre">
+  <div class="row">
+    <div class="col-12 info-box mb-0">
+      <nav class="d-flex justify-content-md-end justify-content-begin" aria-label="pagination">
+        <a
+          class="btn btn-secondary page-first"
+          title="Jump to now"
+          (click)="changePage('first')">
+          <i class="fas fa-redo-alt"></i>
+        </a>
+
+        <ul class="pagination">
+          <li class="page-item page-prev">
+            <a class="btn btn-secondary" [class.disabled]="!pageHasPrev" (click)="changePage('prev')" title="Previous page">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
+          <li class="page-item page-current">
+            {{ pageCurrent }} of {{ pageHasNext ? 'many' : pageCurrent}}
+          </li>
+          <li class="page-item page-next">
+            <a class="btn btn-secondary" [class.disabled]="!pageHasNext" (click)="changePage('next')" title="Next page">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <ag-grid-angular
+      [ngClass]="['col-12', 'ag-theme-balham', 'ag-grid']"
+      [gridOptions]="gridOptions"
+      [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+      (gridReady)="onGridReady($event)" >
+    </ag-grid-angular>
+  </div>
+</div>

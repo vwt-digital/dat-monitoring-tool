@@ -16,7 +16,7 @@ export class PageNotAuthorizedComponent {
     }
   }
 
-  navigateHome() {
+  navigateHome(): void {
     this.router.navigate(['/login']);
   }
 }

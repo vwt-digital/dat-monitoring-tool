@@ -4,6 +4,10 @@
       <div class="card-header {{ cardColor }}">
         <i class="{{ cardHeaderIcon }}"></i>
         {{ cardHeader }}
+
+        <a routerLink="/errors-overview" routerLinkActive="active" class="btn btn-secondary btn-xs float-right" title="View more errors">
+          View more <i class="fas fa-chevron-right"></i>
+        </a>
       </div>
 
       <div class="card-body">
@@ -27,7 +31,7 @@
 
           <ng-container *ngFor="let errorReport of getFilteredErrorReporting(errorReporting, errorReportingAmount)" >
             <div class="error-reporting">
-              <a href="{{ getLogUrl(errorReport) }}" target="_blank">
+              <a href="{{ getLogUrl(errorReport) }}" target="_blank" title="View error logging">
                 <div
                   class="badge badge-danger" >
                   <span class="badge-title">
@@ -40,7 +44,7 @@
                 </div>
                 <div class="badge badge-light error-reporting-time" >
                   <span class="badge-title">
-                    {{ errorReport.receive_timestamp | timeDifference }}
+                    {{ errorReport.received_at | timeDifference }}
                   </span>
                   <span
                     class="badge-content">

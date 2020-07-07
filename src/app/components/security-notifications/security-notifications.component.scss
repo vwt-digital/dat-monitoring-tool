@@ -1,7 +1,7 @@
 @import "~src/assets/scss/constants";
 @import "~src/assets/scss/mixins";
 
-.error-reporting-item {
+.security-notifications-item {
   .card {
     background-color: $white;
     border-radius: 5px;
@@ -40,10 +40,10 @@
     }
   }
 
-  .error-reporting-badges {
+  .security-notifications-badges {
     margin-top: 10px;
 
-    .error-reporting {
+    .security-notifications {
       width: 100%;
       display: table;
       float: left;
@@ -76,7 +76,7 @@
         color: $red;
         background-color: $gray;
 
-        &.error-reporting-time {
+        &.security-notifications-time {
           width: 25%;
           height: 100%;
 
@@ -123,22 +123,6 @@
         }
       }
     }
-
-    &.small {
-      .error-reporting {
-        height: 30px;
-        .badge {
-          padding: 7.5px;
-          font-size: 15px;
-          line-height: 15px;
-
-          &.error-reporting-time {
-            font-size: 75%;
-            padding: 7px;
-          }
-        }
-      }
-    }
   }
 
   i {
@@ -148,38 +132,22 @@
 
 
 @media (max-width: $breakpoint-tablet) {
-  .error-reporting-item {
+  .security-notifications-item {
     .card-title {
       margin-bottom: 5px;
     }
 
-    .error-reporting-badges {
-      .error-reporting {
+    .security-notifications-badges {
+      .security-notifications {
         height: 30px;
         .badge {
           padding: 7.5px;
           font-size: 15px;
           line-height: 15px;
 
-          &.error-reporting-time {
+          &.security-notifications-time {
             font-size: 75%;
             padding: 7px;
-          }
-        }
-      }
-
-      &.small {
-        .error-reporting {
-          height: 30px;
-          .badge {
-            padding: 7.5px;
-            font-size: 15px;
-            line-height: 15px;
-
-            &.error-reporting-time {
-              font-size: 75%;
-              padding: 7px;
-            }
           }
         }
       }

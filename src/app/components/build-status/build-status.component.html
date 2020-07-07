@@ -24,7 +24,7 @@
           </span>
 
           <ng-container *ngFor="let buildStatus of getFilteredStatuses(buildStatusType, buildStatusAmount ? 5 : null)" >
-            <a href="{{ getLogUrl(buildStatus) }}" target="_blank">
+            <a href="{{ getLogUrl(buildStatus) }}" target="_blank" title="View build">
               <div
                 *ngIf="buildStatus"
                 class="build-status {{ buildStatus.repo_name ? 'big' : 'small' }}" >
@@ -48,7 +48,7 @@
                 </div>
                 <div class="badge badge-light build-status-time badge-content">
                   <span class="badge-title">
-                    {{ buildStatus.updated || buildStatus.finish_time | timeDifference }}
+                    {{ buildStatus.updated_at || buildStatus.finish_time | timeDifference }}
                   </span>
                 </div>
               </div>

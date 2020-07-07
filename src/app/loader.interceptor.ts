@@ -14,7 +14,7 @@ export class LoaderInterceptor implements HttpInterceptor {
     private service: DashboardService
   ) { }
 
-  removeRequest(req: HttpRequest<any>) {
+  removeRequest(req: HttpRequest<any>): void {
     const i = this.requests.indexOf(req);
     this.requests.splice(i, 1);
     this.loaderService.isLoading.next(this.requests.length > 0);
@@ -42,7 +42,7 @@ export class LoaderInterceptor implements HttpInterceptor {
           },
           () => { this.removeRequest(req); observer.complete(); }
         );
-      return () => {
+      return (): void => {
         this.removeRequest(req);
         subscription.unsubscribe();
       };

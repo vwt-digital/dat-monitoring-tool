@@ -1,0 +1,76 @@
+@import "~src/assets/scss/constants";
+@import "~src/assets/scss/mixins";
+
+.app-security-command-centre {
+  .toolbar {
+    span.badge {
+      margin-right: 10px;
+      font-size: 20px;
+      padding: 5px 10px;
+
+      i {
+        margin-right: 5px;
+      }
+      small {
+        color: $black-light !important;
+      }
+    }
+  }
+  .info-box {
+    .page-first {
+      margin-right: 10px;
+      color: $white;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .page-first, .pagination {
+      display: table;
+      float: left;
+    }
+
+    .pagination {
+      .page-item {
+        float: left;
+        color: $white;
+
+        &.page-current {
+          background-color: $gray-dark;
+          box-sizing: border-box;
+          border-left: 1px solid $gray-dark-hover;
+          border-right: 1px solid $gray-dark-hover;
+
+          font-size: 12px;
+          line-height: 14px;
+          padding: 12px 10px;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+
+        a {
+          cursor: pointer;
+        }
+
+        &.page-prev .btn{
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        &.page-next .btn {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+    }
+
+    .disabled {
+      background-color: $gray-medium;
+      border-color: $gray-medium-hover;
+      color: $gray-dark;
+
+      &:hover {
+        background-color: $gray-medium;
+      }
+    }
+  }
+}

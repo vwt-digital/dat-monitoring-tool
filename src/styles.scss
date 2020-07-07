@@ -5,6 +5,9 @@
 @import "~src/assets/scss/constants";
 @import "~src/assets/scss/mixins";
 
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
 $fa-font-path: "~src/assets/fonts/font-awesome";
 @import "~src/assets/fontawesome/scss/fontawesome.scss";
 @import "~src/assets/fontawesome/scss/regular.scss";
@@ -56,6 +59,10 @@ h4 {
 
 p {
   margin: 0;
+}
+
+small {
+  font-size: 70%;
 }
 
 @media (max-width: $breakpoint-tablet) {
@@ -116,5 +123,40 @@ p {
 @media (max-width: $breakpoint-tablet - 1) {
   .masonry-item {
     width: 100%;
+  }
+}
+
+
+// AG GRID STYLING
+.ag-grid {
+  padding: 0;
+
+  .ag-root {
+    a {
+      color: $primary;
+
+      &:hover{
+        color: $primary-hover;
+        text-decoration: none;
+      }
+
+      &.view-more{
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 10px;
+
+        i {
+          margin-left: 3px;
+        }
+      }
+    }
+
+    .ag-row.ag-group-row {
+      background-color: $gray-light;
+    }
+
+    .cell-wrap-text {
+      white-space: normal;
+    }
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { browser, protractor, by, element } from 'protractor';
 const request = require('request'); // eslint-disable-line
 

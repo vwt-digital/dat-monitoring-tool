@@ -3,12 +3,29 @@ import { NgModule } from '@angular/core';
 
 import { LoginComponent } from './components/login/login.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
+import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
+import { SecurityCommandCentreComponent } from './security-command-centre/security-command-centre.component';
+import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardOverviewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'errors-overview',
+    component: ErrorsOverviewComponent,
+  },
+  {
+    path: 'security-command-centre',
+    component: SecurityCommandCentreComponent,
   },
   {
     path: 'login',

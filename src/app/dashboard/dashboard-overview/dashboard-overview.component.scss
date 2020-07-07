@@ -19,17 +19,37 @@
         color: $black-light !important;
       }
     }
+    button {
+      i {
+        margin-right: 5px;
+      }
+      &.btn-secondary:hover {
+        background-color: $gray-dark-hover;
+      }
+      &:disabled:hover {
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
 @media (max-width: $breakpoint-tablet) {
   .app-dashboard-overview {
     .toolbar {
+      margin: 0;
+
       span.badge {
         margin-right: 5px;
         font-size: 15px;
         line-height: 15px;
         padding: 5px;
+      }
+      button {
+        font-size: 15px;
+        line-height: 15px;
+      }
+      span.badge, button {
+        margin-bottom: 5px;
       }
     }
   }

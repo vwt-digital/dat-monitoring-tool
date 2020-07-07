@@ -10,7 +10,7 @@ export class AuthService {
     private router: Router
   ) { }
 
-  get hasApiKey() {
+  get hasApiKey(): boolean {
     const apiKey = sessionStorage.getItem('apiKey');
 
     if (apiKey && apiKey !== '') {
@@ -20,11 +20,11 @@ export class AuthService {
     return false;
   }
 
-  removeApiKey() {
+  removeApiKey(): void {
     sessionStorage.removeItem('apiKey');
   }
 
-  toLoginpage() {
+  toLoginpage(): void {
     this.router.navigate(['login']);
   }
 }

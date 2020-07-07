@@ -6,12 +6,5 @@ export class BuildTriggerStatus {
   project_id: string;
   repo_name: string;
   status: string;
-  updated: string;
-}
-export class BuildOtherStatus {
-  finish_time: string;
-  id: string;
-  project_id: string;
-  start_time: string;
-  status: string;
+  updated_at: string;
 }

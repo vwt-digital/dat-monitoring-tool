@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'timeDifference' })
 export class TimeDifferencePipe implements PipeTransform {
-  transform(value: string, args?: any): any {
+  transform(value: string): string {
     if (value) {
       try {
         const currentDate = new Date();
@@ -19,8 +19,8 @@ export class TimeDifferencePipe implements PipeTransform {
 }
 
 
-function millisecondsToStr(milliseconds) {
-    function numberEnding(endingNumber: number) {
+function millisecondsToStr(milliseconds): string {
+    function numberEnding(endingNumber: number): string {
       return (endingNumber > 1) ? 's ago' : ' ago';
     }
 
