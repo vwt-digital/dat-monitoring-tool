@@ -1,6 +1,6 @@
 <div class="container-fluid app-dashboard-overview">
   <div class="row">
-    <div class="col-12 toolbar">
+    <div class="col-12 toolbar d-md-flex">
       <span class="badge badge-light">
         <i class="fas fa-code-branch"></i> {{ service.getBranch }}
       </span>
@@ -26,7 +26,14 @@
         <i class="fas fa-exclamation-triangle"></i> An error has occurred
       </span>
 
-      <span class="badge badge-{{ this.service.hasError ? 'danger' : 'light' }} float-right">
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm mr-2 ml-md-auto"
+        [disabled]="loader.isLoading | async"
+        (click)="refreshData()">
+        <i class="fas fa-sync-alt {{ (loader.isLoading | async) ? 'fa-spin' : '' }}"></i> Refresh now
+      </button>
+      <span class="badge badge-{{ this.service.hasError ? 'danger' : 'light' }}">
         <i class="fas fa-history"></i> {{ this.service.lastUpdate ? (this.service.lastUpdate | date:'HH:mm') : 'N/A' }}
       </span>
     </div>
