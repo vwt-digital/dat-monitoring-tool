@@ -33,7 +33,7 @@
         (click)="refreshData()">
         <i class="fas fa-sync-alt {{ (loader.isLoading | async) ? 'fa-spin' : '' }}"></i> Refresh now
       </button>
-      <span class="badge badge-{{ this.service.hasError ? 'danger' : 'light' }}">
+      <span class="badge badge-{{ this.service.hasError ? 'danger' : 'light' }}" title="Last updated">
         <i class="fas fa-history"></i> {{ this.service.lastUpdate ? (this.service.lastUpdate | date:'HH:mm') : 'N/A' }}
       </span>
     </div>

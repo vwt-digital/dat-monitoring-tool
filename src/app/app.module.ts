@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -72,6 +72,10 @@ registerLocaleData(localeNl, 'nl');
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'nl-NL'
     }
   ],
   entryComponents: [

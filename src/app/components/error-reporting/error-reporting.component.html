@@ -31,7 +31,7 @@
 
           <ng-container *ngFor="let errorReport of getFilteredErrorReporting(errorReporting, errorReportingAmount)" >
             <div class="error-reporting">
-              <a href="{{ getLogUrl(errorReport) }}" target="_blank" title="View error logging">
+              <a href="{{ getLogUrl(errorReport) }}" target="_blank" title="Visit logging page">
                 <div
                   class="badge badge-danger" >
                   <span class="badge-title">
@@ -39,7 +39,7 @@
                   </span>
                   <span
                     class="badge-content">
-                    <b>{{ errorReport.count }}</b> in last 7 days
+                    <b>{{ errorReport.count | number:'1.0-0' }}</b> in last 7 days
                   </span>
                 </div>
                 <div class="badge badge-light error-reporting-time" >
