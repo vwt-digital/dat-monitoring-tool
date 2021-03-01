@@ -34,7 +34,7 @@ export class BuildStatusComponent implements OnInit {
     let filteredStatuses = [];
 
     for (const buildStatus of this.buildStatuses) {
-      if (buildStatus.status === status && this.getTimeDifference(buildStatus.updated_at) <= this.totalDays) {
+      if (buildStatus.status === status) {
         filteredStatuses.push(buildStatus);
       }
     }
@@ -51,7 +51,7 @@ export class BuildStatusComponent implements OnInit {
     let filteredCount = 0;
 
     for (const buildStatus of this.buildStatuses) {
-      if (buildStatus.status === status && this.getTimeDifference(buildStatus.updated_at) <= this.totalDays) {
+      if (buildStatus.status === status) {
         filteredCount++;
       }
     }
@@ -105,12 +105,5 @@ export class BuildStatusComponent implements OnInit {
     } else {
       return 'fa-check';
     }
-  }
-
-  getTimeDifference(startDate: string): number {
-    const then = new Date(startDate);
-    const now = new Date;
-
-    return Math.round((Number(now) - Number(then)) / (1000 * 60 * 60 * 24));
   }
 }
