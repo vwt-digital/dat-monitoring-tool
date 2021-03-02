@@ -25,6 +25,8 @@ export class DashboardService {
   public lastUpdate: Date;
   public interval: number;
 
+  public updateMasonryLayout = false;
+
   public hasError = false;
 
   dotify(object) {
@@ -70,6 +72,7 @@ export class DashboardService {
           this.securityNotifications$.next(responseList[2]);
 
           this.lastUpdate = new Date();
+          this.updateMasonryLayout = this.updateMasonryLayout ? false : true;
         }, error => {
           if (error.status === 401) {
             clearInterval(this.interval);
