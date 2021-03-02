@@ -31,7 +31,16 @@ export class DashboardOverviewComponent implements OnDestroy, OnInit {
   blinkingIcon = 'visible';
 
   public masonryOptions: NgxMasonryOptions = {
-    transitionDuration: '0.5s'
+    animations: {
+      show: [
+        style({opacity: 0}),
+        animate('500ms ease-in', style({opacity: 1})),
+      ],
+      hide: [
+        style({opacity: '*'}),
+        animate('500ms ease-in', style({opacity: 0})),
+      ]
+    }
   };
 
   constructor(
