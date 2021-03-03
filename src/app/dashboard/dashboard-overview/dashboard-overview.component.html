@@ -40,7 +40,8 @@
 
     <div class="col-12 masonry-outer">
       <ngx-masonry
-        [options]="masonryOptions">
+        [options]="masonryOptions"
+        [updateLayout]="this.service.updateMasonryLayout">
         <ng-container
           *ngIf="buildTriggerStatuses | async as triggerStatuses; else loading">
           <app-build-status
