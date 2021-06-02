@@ -1,13 +1,13 @@
 <div class="container-fluid app-dashboard-overview">
   <div class="row">
     <div class="col-12 toolbar d-md-flex">
-      <span class="badge badge-light">
+      <span class="badge bg-light text-dark">
         <i class="fas fa-code-branch"></i> {{ service.getBranch }}
       </span>
 
       <span
         *ngIf="this.service.interval"
-        class="badge badge-light" >
+        class="badge bg-light text-dark" >
         <i
           [@showhide]="blinkingIcon"
           class="fas fa-circle green" ></i> live refresh
@@ -16,13 +16,13 @@
 
       <span
         *ngIf="loader.isLoading | async"
-        class="badge badge-warning" >
+        class="badge bg-warning" >
         <i class="fas fa-spinner fa-spin"></i> Refreshing
       </span>
 
       <span
         *ngIf="this.service.hasError"
-        class="badge badge-danger" >
+        class="badge bg-danger" >
         <i class="fas fa-exclamation-triangle"></i> An error has occurred
       </span>
 
@@ -33,7 +33,7 @@
         (click)="refreshData()">
         <i class="fas fa-sync-alt {{ (loader.isLoading | async) ? 'fa-spin' : '' }}"></i> Refresh now
       </button>
-      <span class="badge badge-{{ this.service.hasError ? 'danger' : 'light' }}" title="Last updated">
+      <span class="badge bg-{{ this.service.hasError ? 'danger' : 'light text-dark' }}" title="Last updated">
         <i class="fas fa-history"></i> {{ this.service.lastUpdate ? (this.service.lastUpdate | date:'HH:mm') : 'N/A' }}
       </span>
     </div>

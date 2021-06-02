@@ -29,7 +29,7 @@ export class FormPasswordDirective {
     inputAppend.className = 'input-group-append';
 
     const span = document.createElement('span');
-    span.className = 'input-group-text';
+    span.className = 'input-group-text h-100';
     span.innerHTML = '<i class="far fa-eye"></i>';
     span.addEventListener('click', () => {
       this.toggle(span);

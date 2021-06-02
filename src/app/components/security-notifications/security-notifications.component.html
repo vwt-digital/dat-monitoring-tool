@@ -2,7 +2,7 @@
   <div class="security-notifications-item">
     <div class="card {{ securityNotifications.length > 0 ? 'red' : '' }}">
       <div class="card-header d-flex {{ cardColor }}">
-        <i class="{{ cardHeaderIcon }}"></i>
+        <i class="{{ cardHeaderIcon }} align-self-center"></i>
         {{ cardHeader }}
 
         <a routerLink="/security-command-centre" routerLinkActive="active" class="btn btn-secondary btn-xs ms-auto" title="View Security Command Centre">
@@ -33,7 +33,7 @@
             <div class="security-notifications">
               <a href="{{ securityNot.external_uri }}" target="_blank" title="View resource">
                 <div
-                  class="badge badge-danger" >
+                  class="badge bg-danger" >
                   <span class="badge-title">
                     {{ securityNot.category | replaceValue:'_':' ' | titlecase }}
                   </span>
@@ -42,7 +42,7 @@
                     {{ securityNot.project_id }}
                   </span>
                 </div>
-                <div class="badge badge-light security-notifications-time" >
+                <div class="badge bg-light security-notifications-time" >
                   <span class="badge-title">
                     {{ securityNot.updated_at | timeDifference }}
                   </span>

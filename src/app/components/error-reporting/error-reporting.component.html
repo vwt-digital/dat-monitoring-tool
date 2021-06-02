@@ -2,7 +2,7 @@
   <div class="error-reporting-item">
     <div class="card {{ errorReporting.length > 0 ? 'red' : '' }}">
       <div class="card-header d-flex {{ cardColor }}">
-        <i class="{{ cardHeaderIcon }}"></i>
+        <i class="{{ cardHeaderIcon }} align-self-center"></i>
         {{ cardHeader }}
 
         <a routerLink="/errors-overview" routerLinkActive="active" class="btn btn-secondary btn-xs ms-auto" title="View more errors">
@@ -33,7 +33,7 @@
             <div class="error-reporting">
               <a href="{{ getLogUrl(errorReport) }}" target="_blank" title="Visit logging page">
                 <div
-                  class="badge badge-danger" >
+                  class="badge bg-danger bg-inverted" >
                   <span class="badge-title">
                     {{ errorReport.project_id }}
                   </span>
@@ -42,7 +42,7 @@
                     <b>{{ errorReport.count | number:'1.0-0' }}</b> in last 7 days
                   </span>
                 </div>
-                <div class="badge badge-light error-reporting-time" >
+                <div class="badge bg-light bg-darker text-red error-reporting-time" >
                   <span class="badge-title">
                     {{ errorReport.received_at | timeDifference }}
                   </span>

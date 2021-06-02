@@ -22,7 +22,52 @@ $breakpoint-phone-small-screen: 320px;
 $breakpoint-desktop: 1200px;
 $breakpoint-desktop-big: 1800px;
 
+// Buttons
+.btn-primary, .btn-secondary, .btn-success, .btn-warning, .btn-danger {
+  color: $white;
+}
 
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.0;
+  border-radius: 0.2rem;
+}
+
+// Background
+.bg-light.bg-darker {
+  background-color: $gray-hover !important;
+}
+.bg-success.bg-darker {
+  background-color: $green-hover !important;
+}
+.bg-warning.bg-darker {
+  background-color: $orange-hover !important;
+}
+.bg-danger.bg-darker {
+  background-color: $red-hover !important;
+}
+
+// Background
+.bg-success.bg-inverted {
+  color: $green !important;
+  background-color: $gray !important;
+}
+.bg-warning.bg-inverted {
+  color: $orange !important;
+  background-color: $gray !important;
+}
+.bg-danger.bg-inverted {
+  color: $red !important;
+  background-color: $gray !important;
+}
+
+// Screensizes
 @mixin md-phone-only {
   @media (max-width: $breakpoint-phone-medium-screen) { @content; }
 }
@@ -46,65 +91,4 @@ $breakpoint-desktop-big: 1800px;
 }
 @mixin for-big-desktop-up {
   @media (min-width: $breakpoint-desktop-big) { @content; }
-}
-
-.btn:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.btn-primary {
-  @include button-variant($primary, $primary, $white, $primary-hover, $primary-hover, $white, $primary-hover, $primary-hover, $white);
-  &:focus { background-color: $primary-hover; }
-}
-.btn-secondary {
-  @include button-variant($gray-dark, $gray-dark, $white, $gray-dark-hover, $gray-dark-hover, $white, $gray-dark-hover, $gray-dark-hover, $white);
-  &:focus { background-color: $gray-dark-hover; }
-}
-.btn-success {
-  @include button-variant($green, $green, $white, $green-hover, $green-hover, $white, $green-hover, $green-hover, $white);
-  &:focus { background-color: $green-hover; }
-}
-.btn-danger {
-  @include button-variant($red, $red, $white, $red-hover, $red-hover, $white, $red-hover, $red-hover, $white);
-  &:focus { background-color: $red-hover; }
-}
-.btn-warning {
-  @include button-variant($orange, $orange, $white, $orange-hover, $orange-hover, $white, $orange-hover, $orange-hover, $white);
-  &:focus { background-color: $orange-hover; }
-}
-.btn-light {
-  @include button-variant($gray, $gray, $black, $gray-hover, $gray-hover, $black, $gray-hover, $gray-hover, $black);
-  &:focus { background-color: $gray-hover; }
-}
-
-.badge {
-  padding: 4px 5px;
-}
-.badge-primary {
-  background-color: $primary;
-}
-.badge-secondary {
-  background-color: $gray-dark;
-}
-.badge-success {
-  background-color: $green;
-}
-.badge-danger {
-  background-color: $red;
-}
-.badge-warning {
-  background-color: $orange;
-  color: $white;
-}
-.badge-light {
-  background-color: $gray;
-  color: $black;
-}
-
-.btn-xs {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  line-height: 1.0;
-  border-radius: 0.2rem;
 }

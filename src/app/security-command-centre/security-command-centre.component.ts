@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/filter';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
