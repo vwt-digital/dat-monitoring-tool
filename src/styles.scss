@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:500,600,700,800&display=swap");
 
-@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap/scss/bootstrap-grid.scss";
+@import "~bootstrap/scss/bootstrap-reboot.scss";
+@import "~bootstrap/scss/bootstrap-utilities.scss";
+@import "~bootstrap/scss/bootstrap.scss";
 
 @import "~src/assets/scss/constants";
 @import "~src/assets/scss/mixins";
@@ -102,35 +105,32 @@ small {
 .masonry-outer {
   margin-left: -10px;
   margin-right: -10px;
+}
 
+@include media-breakpoint-up(xl) {
   .masonry-item {
+    width: calc(100% / 3);
     padding: 10px;
   }
 }
 
-@media (min-width: $breakpoint-desktop + 1) {
-  .masonry-item {
-    width: calc(100% / 3);
-  }
-}
-
-@media (max-width: $breakpoint-desktop) and (min-width: $breakpoint-tablet) {
+@include media-breakpoint-between(md, xl) {
   .masonry-item {
     width: calc(100% / 2);
+    padding: 10px;
   }
 }
 
-@media (max-width: $breakpoint-tablet - 1) {
+@include media-breakpoint-down(md) {
   .masonry-item {
     width: 100%;
+    margin-bottom: 10px;
   }
 }
 
 
 // AG GRID STYLING
 .ag-grid {
-  padding: 0;
-
   .ag-root {
     a {
       color: $primary;

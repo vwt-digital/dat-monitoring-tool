@@ -27,6 +27,7 @@ export class ErrorsOverviewComponent {
   private gridColumnApi;
 
   public gridOptions: GridOptions;
+  public overlayLoadingTemplate: string;
   public overlayNoRowsTemplate: string;
   public errorReporting: ErrorReport[];
 
@@ -136,7 +137,8 @@ export class ErrorsOverviewComponent {
       }
     };
 
-    this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No errors found</span>';
+    this.overlayLoadingTemplate = '<span class="ag-overlay-loading-center"><i class="fas fa-spinner fa-spin mr-2"></i> Loading data</span>';
+    this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No notifications found</span>';
   }
 
   rowDataChangedHandler(event: AgGridEvent) {
@@ -187,11 +189,14 @@ export class ErrorsOverviewComponent {
           }
           this.gridApi.setRowData(result['results']);
           this.gridColumnApi.autoSizeAllColumns();
+          this.gridApi.hideOverlay();
         } else {
+          this.gridApi.hideOverlay();
+          this.gridApi.showNoRowsOverlay();
+
           this.pageCurrent--;
           this.pageHasNext = false;
         }
-        this.gridApi.hideOverlay();
       },
       error => {
         this.gridApi.setRowData([]);

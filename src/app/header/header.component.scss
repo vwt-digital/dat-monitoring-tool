@@ -34,6 +34,12 @@ nav {
           margin-left: 5px;
         }
       }
+
+      &.active a {
+        color: $black;
+        background-color: $gray-hover;
+        border-color: $gray-hover;
+      }
     }
   }
 

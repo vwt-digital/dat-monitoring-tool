@@ -28,7 +28,7 @@
 
       <button
         type="button"
-        class="btn btn-secondary btn-sm mr-2 ml-md-auto"
+        class="btn btn-secondary btn-sm me-2 ms-md-auto"
         [disabled]="loader.isLoading | async"
         (click)="refreshData()">
         <i class="fas fa-sync-alt {{ (loader.isLoading | async) ? 'fa-spin' : '' }}"></i> Refresh now

@@ -1,11 +1,11 @@
 <ng-container *ngIf="errorReporting">
   <div class="error-reporting-item">
     <div class="card {{ errorReporting.length > 0 ? 'red' : '' }}">
-      <div class="card-header {{ cardColor }}">
+      <div class="card-header d-flex {{ cardColor }}">
         <i class="{{ cardHeaderIcon }}"></i>
         {{ cardHeader }}
 
-        <a routerLink="/errors-overview" routerLinkActive="active" class="btn btn-secondary btn-xs float-right" title="View more errors">
+        <a routerLink="/errors-overview" routerLinkActive="active" class="btn btn-secondary btn-xs ms-auto" title="View more errors">
           View more <i class="fas fa-chevron-right"></i>
         </a>
       </div>
