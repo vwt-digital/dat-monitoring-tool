@@ -1,18 +1,20 @@
-<div class="container-fluid app-errors-overview p-0">
-  <div class="col-12 toolbar mb-4 mb-md-0">
-    <span class="badge badge-light">
-      <i class="fas fa-code-branch"></i> {{ service.getBranch }}
-    </span>
+<div class="container-fluid app-errors-overview py-0">
+  <div class="row">
+    <div class="col-12 toolbar mb-4 mb-md-0">
+      <span class="badge bg-light text-dark">
+        <i class="fas fa-code-branch"></i> {{ service.getBranch }}
+      </span>
 
-    <span class="badge badge-light">
-      <i class="far fa-file-alt"></i> Errors overview
-    </span>
+      <span class="badge bg-light text-dark">
+        <i class="far fa-file-alt"></i> Errors overview
+      </span>
+    </div>
   </div>
 </div>
 
 <div class="container app-errors-overview">
   <div class="row">
-    <div class="col-12 info-box mb-0">
+    <div class="col-12 info-box mb-3">
       <nav class="d-flex justify-content-md-end justify-content-begin" aria-label="pagination">
         <a
           class="btn btn-secondary page-first"
@@ -21,7 +23,7 @@
           <i class="fas fa-redo-alt"></i>
         </a>
 
-        <ul class="pagination">
+        <ul class="pagination mb-0">
           <li class="page-item page-prev">
             <a class="btn btn-secondary" [class.disabled]="!pageHasPrev" (click)="changePage('prev')" title="Previous page">
               <i class="fas fa-chevron-left"></i>
@@ -42,10 +44,13 @@
     <ag-grid-angular
       [ngClass]="['col-12', 'ag-theme-balham', 'ag-grid']"
       [gridOptions]="gridOptions"
+      [overlayLoadingTemplate]="overlayLoadingTemplate"
       [overlayNoRowsTemplate]="overlayNoRowsTemplate"
       (gridReady)="onGridReady($event)" >
     </ag-grid-angular>
 
-    <small class="form-text text-muted mt-2">The grouping of errors is based on the logs filter url generated with the resource and label objects.</small>
+    <div class="col-12 py-2">
+      <small class="form-text text-muted mt-2">The grouping of errors is based on the logs filter url generated with the resource and label objects.</small>
+    </div>
   </div>
 </div>

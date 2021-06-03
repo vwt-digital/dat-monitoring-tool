@@ -72,7 +72,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "monitoring-dashboard:build"
+            "browserTarget": "monitoring-dashboard:build",
+            "optimization": false,
+            "sourceMap": true,
+            "vendorChunk": false,
+            "aot": true
           },
           "configurations": {
             "production": {

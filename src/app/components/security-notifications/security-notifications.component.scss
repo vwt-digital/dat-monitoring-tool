@@ -15,7 +15,7 @@
       color: $red;
 
       a {
-        @include button-variant($gray-dark, $gray-dark, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover, $gray-dark-hover);
+        @include button-variant($gray-dark, $gray-dark, $white, $gray-dark-hover, $gray-dark-hover, $white);
         &:focus { background-color: $gray-dark-hover; }
         &:hover { cursor: pointer; }
       }

@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/filter';
 
 import { EnvService } from '../env/env.service';
 import { UtilsService } from '../utils.service';
@@ -27,6 +26,7 @@ export class SecurityCommandCentreComponent {
   private gridColumnApi;
 
   public gridOptions: GridOptions;
+  public overlayLoadingTemplate: string;
   public overlayNoRowsTemplate: string;
   public SecurityNotificationing: SecurityNotification[];
 
@@ -76,17 +76,6 @@ export class SecurityCommandCentreComponent {
         { headerName: 'Category', field: 'category' },
         { headerName: 'Project ID', field: 'project_id' },
         {
-          headerName: 'Explanation',
-          field: 'explanation',
-          width: 100,
-          cellRenderer: this.parseUrlsInString
-        },
-        {
-          headerName: 'Recommendation',
-          field: 'recommendation',
-          cellRenderer: this.parseUrlsInString
-        },
-        {
           headerName: 'Created',
           field: 'created_at',
           valueFormatter: (params: ValueFormatterParams): string => {
@@ -96,6 +85,17 @@ export class SecurityCommandCentreComponent {
               return 'N/B';
             }
           }
+        },
+        {
+          headerName: 'Explanation',
+          field: 'explanation',
+          width: 100,
+          cellRenderer: this.parseUrlsInString
+        },
+        {
+          headerName: 'Recommendation',
+          field: 'recommendation',
+          cellRenderer: this.parseUrlsInString
         },
         {
           headerName: '',
@@ -122,6 +122,7 @@ export class SecurityCommandCentreComponent {
       }
     };
 
+    this.overlayLoadingTemplate = '<span class="ag-overlay-loading-center"><i class="fas fa-spinner fa-spin mr-2"></i> Loading data</span>';
     this.overlayNoRowsTemplate = '<span class="ag-overlay-loading-center">No notifications found</span>';
   }
 
@@ -178,6 +179,8 @@ export class SecurityCommandCentreComponent {
 
     this.getSecurityNotifications(pageSize, action, cursor).subscribe(
       async result => {
+        console.log(result);
+
         if (result['results'] && result['results'].length >= 1) {
           if (result['next_cursor']) {
             this.pageCursors[this.pageCurrent + 1] = result['next_cursor'];
@@ -185,14 +188,18 @@ export class SecurityCommandCentreComponent {
           } else {
             this.pageHasNext = false;
           }
+
           this.gridApi.setRowData(result['results']);
           this.gridColumnApi.autoSizeAllColumns();
           this.gridApi.resetRowHeights();
+          this.gridApi.hideOverlay();
         } else {
+          this.gridApi.hideOverlay();
+          this.gridApi.showNoRowsOverlay();
+
           this.pageCurrent--;
           this.pageHasNext = false;
         }
-        this.gridApi.hideOverlay();
       },
       error => {
         this.gridApi.setRowData([]);
