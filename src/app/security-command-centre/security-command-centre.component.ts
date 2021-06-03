@@ -76,17 +76,6 @@ export class SecurityCommandCentreComponent {
         { headerName: 'Category', field: 'category' },
         { headerName: 'Project ID', field: 'project_id' },
         {
-          headerName: 'Explanation',
-          field: 'explanation',
-          width: 100,
-          cellRenderer: this.parseUrlsInString
-        },
-        {
-          headerName: 'Recommendation',
-          field: 'recommendation',
-          cellRenderer: this.parseUrlsInString
-        },
-        {
           headerName: 'Created',
           field: 'created_at',
           valueFormatter: (params: ValueFormatterParams): string => {
@@ -96,6 +85,17 @@ export class SecurityCommandCentreComponent {
               return 'N/B';
             }
           }
+        },
+        {
+          headerName: 'Explanation',
+          field: 'explanation',
+          width: 100,
+          cellRenderer: this.parseUrlsInString
+        },
+        {
+          headerName: 'Recommendation',
+          field: 'recommendation',
+          cellRenderer: this.parseUrlsInString
         },
         {
           headerName: '',
@@ -189,8 +189,8 @@ export class SecurityCommandCentreComponent {
             this.pageHasNext = false;
           }
 
-          this.gridColumnApi.autoSizeAllColumns();
           this.gridApi.setRowData(result['results']);
+          this.gridColumnApi.autoSizeAllColumns();
           this.gridApi.resetRowHeights();
           this.gridApi.hideOverlay();
         } else {

@@ -33,7 +33,7 @@
             <div class="security-notifications">
               <a href="{{ securityNot.external_uri }}" target="_blank" title="View resource">
                 <div
-                  class="badge bg-danger" >
+                  class="badge bg-danger bg-inverted" >
                   <span class="badge-title">
                     {{ securityNot.category | replaceValue:'_':' ' | titlecase }}
                   </span>
@@ -42,7 +42,7 @@
                     {{ securityNot.project_id }}
                   </span>
                 </div>
-                <div class="badge bg-light security-notifications-time" >
+                <div class="badge bg-light bg-darker text-red security-notifications-time" >
                   <span class="badge-title">
                     {{ securityNot.updated_at | timeDifference }}
                   </span>
