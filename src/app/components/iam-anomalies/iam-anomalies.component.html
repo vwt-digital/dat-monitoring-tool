@@ -1,0 +1,57 @@
+<ng-container *ngIf="iamAnomalies">
+  <div class="iam-anomalies-item">
+    <div class="card {{ iamAnomalies.length > 0 ? 'red' : '' }}">
+      <div class="card-header d-flex {{ cardColor }}">
+        <i class="{{ cardHeaderIcon }} align-self-center"></i>
+        {{ cardHeader }}
+
+        <a routerLink="/iam-centre" routerLinkActive="active" class="btn btn-secondary btn-xs ms-auto" title="View IAM Centre">
+          View more <i class="fas fa-chevron-right ms-2 me-0"></i>
+        </a>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="fas fa-bell"></i> IAM Anomalies
+        </h4>
+
+        <h2
+          *ngIf="iamAnomalies.length <= 0"
+          class="build-count">0</h2>
+
+        <div
+          *ngIf="iamAnomalies.length > 0"
+          class="iam-anomalies-badges">
+
+          <span
+            *ngIf="iamAnomaliesAmount"
+            class="build-count-limited">
+            Last {{ iamAnomaliesAmount }} updated IAM anomalies
+          </span>
+
+          <ng-container *ngFor="let anomaly of getFilterediamAnomalies(iamAnomalies, iamAnomaliesAmount)" >
+            <div class="iam-anomalies">
+              <a href="{{ getIAMAnomalyUrl(anomaly) }}" target="_blank" title="View resource">
+                <div
+                  class="badge bg-danger bg-inverted" >
+                  <span class="badge-title">
+                    {{ anomaly.member | replaceValue:'user:':'' }}
+                  </span>
+                  <span
+                    class="badge-content">
+                    {{ anomaly.role }} @ {{ anomaly.project_id }}
+                  </span>
+                </div>
+                <div class="badge bg-light bg-darker text-red iam-anomalies-time" >
+                  <span class="badge-title">
+                    {{ anomaly.updated_at | timeDifference }}
+                  </span>
+                </div>
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

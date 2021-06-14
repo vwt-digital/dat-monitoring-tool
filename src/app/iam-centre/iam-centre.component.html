@@ -1,0 +1,56 @@
+<div class="container-fluid app-iam-centre py-0">
+  <div class="row">
+    <div class="col-12 toolbar mb-4 mb-md-0">
+      <span class="badge bg-light text-dark">
+        <i class="fas fa-code-branch"></i> {{ service.getBranch }}
+      </span>
+
+      <span class="badge bg-light text-dark">
+        <i class="far fa-file-alt"></i> IAM Centre
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="container app-iam-centre">
+  <div class="row">
+    <div class="col-12 info-box mb-3">
+      <nav class="d-flex justify-content-md-end justify-content-begin" aria-label="pagination">
+        <a
+          class="btn btn-secondary page-first"
+          title="Jump to now"
+          (click)="changePage('first')">
+          <i class="fas fa-redo-alt"></i>
+        </a>
+
+        <ul class="pagination mb-0">
+          <li class="page-item page-prev">
+            <a class="btn btn-secondary" [class.disabled]="!pageHasPrev" (click)="changePage('prev')" title="Previous page">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
+          <li class="page-item page-current">
+            {{ pageCurrent }} of {{ pageHasNext ? 'many' : pageCurrent}}
+          </li>
+          <li class="page-item page-next">
+            <a class="btn btn-secondary" [class.disabled]="!pageHasNext" (click)="changePage('next')" title="Next page">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <ag-grid-angular
+      [ngClass]="['col-12', 'ag-theme-balham', 'ag-grid']"
+      [gridOptions]="gridOptions"
+      [overlayLoadingTemplate]="overlayLoadingTemplate"
+      [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+      (gridReady)="onGridReady($event)" >
+    </ag-grid-angular>
+
+    <div class="col-12 py-2">
+      <small class="form-text text-muted mt-2">IAM Anomalies are based on user IAM Policy bindings without any expiry condition.</small>
+    </div>
+  </div>
+</div>

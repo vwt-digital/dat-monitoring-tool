@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 import { BuildTriggerStatus } from './build-status';
 import { ErrorReportCount, ErrorReport } from './error-report';
 import { SecurityNotification } from './security-notification';
+import { IAMAnomaly } from './iam-anomaly';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class DashboardService {
   public buildTriggerStatuses$: BehaviorSubject<BuildTriggerStatus[]> = new BehaviorSubject([]);
   public errorReporting$: BehaviorSubject<ErrorReportCount[]> = new BehaviorSubject([]);
   public securityNotifications$: BehaviorSubject<SecurityNotification[]> = new BehaviorSubject([]);
+  public iamAnomalies$: BehaviorSubject<IAMAnomaly[]> = new BehaviorSubject([]);
 
   public refreshTime = 300000; // Time in milliseconds
   public lastUpdate: Date;
@@ -61,7 +63,8 @@ export class DashboardService {
     forkJoin([
       this.getBuildStatusesTrigger(),
       this.getErrorReporting(),
-      this.getSecurityNotifications()
+      this.getSecurityNotifications(),
+      this.getIAMAnomalies()
     ]).subscribe(
         responseList => {
           this.buildTriggerStatuses$.next(responseList[0].filter(
@@ -70,6 +73,7 @@ export class DashboardService {
             }));
           this.errorReporting$.next(responseList[1]);
           this.securityNotifications$.next(responseList[2]);
+          this.iamAnomalies$.next(responseList[3]);
 
           this.lastUpdate = new Date();
           this.updateMasonryLayout = this.updateMasonryLayout ? false : true;
@@ -117,6 +121,15 @@ export class DashboardService {
   getSecurityNotifications(): Observable<SecurityNotification[]> {
     return this.httpClient.get<SecurityNotification[]>(
       `${this.env.apiUrl}/security-notifications`,
+      { params: {
+        page_size: '5' // eslint-disable-line camelcase
+        } }
+    ).pipe(map(data => data['results']));
+  }
+
+  getIAMAnomalies(): Observable<IAMAnomaly[]> {
+    return this.httpClient.get<IAMAnomaly[]>(
+      `${this.env.apiUrl}/iam-anomalies`,
       { params: {
         page_size: '5' // eslint-disable-line camelcase
         } }
