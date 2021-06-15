@@ -89,6 +89,16 @@
               [securityNotificationsAmount]="5" >
             </app-security-notifications>
         </ng-container>
+
+        <ng-container
+          *ngIf="iamAnomalies | async as iamAnomalies; else loading">
+            <app-iam-anomalies
+              ngxMasonryItem
+              [ngClass]="['masonry-item']"
+              [iamAnomalies]="iamAnomalies"
+              [iamAnomaliesAmount]="5" >
+            </app-iam-anomalies>
+        </ng-container>
       </ngx-masonry>
     </div>
   </div>

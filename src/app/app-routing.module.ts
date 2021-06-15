@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PageNotAuthorizedComponent } from './components/page-not-authorized/page-not-authorized.component';
 import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
 import { SecurityCommandCentreComponent } from './security-command-centre/security-command-centre.component';
+import { IAMCentreComponent } from './iam-centre/iam-centre.component';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { AuthGuard } from './auth/auth.guard';
 
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'security-command-centre',
     component: SecurityCommandCentreComponent,
+  },
+  {
+    path: 'iam-centre',
+    component: IAMCentreComponent,
   },
   {
     path: 'login',

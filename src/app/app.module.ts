@@ -21,6 +21,7 @@ import { PageNotAuthorizedComponent } from './components/page-not-authorized/pag
 import { ModalComponent } from './components/modal/modal.component';
 import { ErrorsOverviewComponent } from './errors-overview/errors-overview.component';
 import { SecurityCommandCentreComponent } from './security-command-centre/security-command-centre.component';
+import { IAMCentreComponent } from './iam-centre/iam-centre.component';
 
 import { FormPasswordDirective } from './components/login/form-password.directive';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -39,7 +40,8 @@ registerLocaleData(localeNl, 'nl');
     PageNotAuthorizedComponent,
     ModalComponent,
     ErrorsOverviewComponent,
-    SecurityCommandCentreComponent
+    SecurityCommandCentreComponent,
+    IAMCentreComponent
   ],
   imports: [
     BrowserModule,
