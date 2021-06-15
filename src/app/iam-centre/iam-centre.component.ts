@@ -71,12 +71,10 @@ export class IAMCentreComponent {
             }
           }
         },
-        { headerName: 'Project ID', field: 'project_id' },
-        { headerName: 'Role', field: 'role' },
-        { headerName: 'Member', field: 'member' },
         {
           headerName: 'Created',
           field: 'created_at',
+          pinned: 'left',
           valueFormatter: (params: ValueFormatterParams): string => {
             if (!isNaN(Date.parse(params.value))) {
               return datePipe.transform(params.value, 'dd-MM-yyyy HH:mm:ss');
@@ -85,6 +83,9 @@ export class IAMCentreComponent {
             }
           }
         },
+        { headerName: 'Project ID', field: 'project_id' },
+        { headerName: 'Role', field: 'role' },
+        { headerName: 'Member', field: 'member' },
         {
           headerName: '',
           pinned: 'right',
