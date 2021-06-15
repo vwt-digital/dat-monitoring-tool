@@ -39,12 +39,15 @@
                   </span>
                   <span
                     class="badge-content">
-                    {{ anomaly.role }} @ {{ anomaly.project_id }}
+                    {{ anomaly.project_id }}
                   </span>
                 </div>
                 <div class="badge bg-light bg-darker text-red iam-anomalies-time" >
                   <span class="badge-title">
                     {{ anomaly.updated_at | timeDifference }}
+                  </span>
+                  <span class="badge-content">
+                    {{ anomaly.role }}
                   </span>
                 </div>
               </a>
