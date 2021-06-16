@@ -27,7 +27,7 @@
     }
 
     &.red{
-      h4.card-title {
+      h4.card-title, h2.build-count {
         color: $red;
       }
     }

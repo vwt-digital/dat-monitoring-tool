@@ -1,5 +1,6 @@
 /* tslint:disable:variable-name */
 export class IAMAnomaly {
+  active: boolean;
   created_at: string;
   id: string;
   member: string;

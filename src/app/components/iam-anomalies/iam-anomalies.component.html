@@ -1,6 +1,6 @@
 <ng-container *ngIf="iamAnomalies">
   <div class="iam-anomalies-item">
-    <div class="card {{ iamAnomalies.length > 0 ? 'red' : '' }}">
+    <div class="card {{ getFilteredAnomaliesCount > 0 ? 'red' : '' }}">
       <div class="card-header d-flex {{ cardColor }}">
         <i class="{{ cardHeaderIcon }} align-self-center"></i>
         {{ cardHeader }}
@@ -15,18 +15,16 @@
           <i class="fas fa-bell"></i> IAM Anomalies
         </h4>
 
-        <h2
-          *ngIf="iamAnomalies.length <= 0"
-          class="build-count">0</h2>
+        <h2 class="build-count">{{ getFilteredAnomaliesCount }}</h2>
 
         <div
-          *ngIf="iamAnomalies.length > 0"
+          *ngIf="getFilteredAnomaliesCount > 0"
           class="iam-anomalies-badges">
 
           <span
             *ngIf="iamAnomaliesAmount"
             class="build-count-limited">
-            Last {{ iamAnomaliesAmount }} updated IAM anomalies
+            Last {{ getFilteredAnomaliesCount > iamAnomaliesAmount ? iamAnomaliesAmount : getFilteredAnomaliesCount }} active IAM anomalies
           </span>
 
           <ng-container *ngFor="let anomaly of getFilterediamAnomalies(iamAnomalies, iamAnomaliesAmount)" >
