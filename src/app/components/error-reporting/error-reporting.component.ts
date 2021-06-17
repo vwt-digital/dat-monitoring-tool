@@ -12,7 +12,7 @@ export class ErrorReportComponent {
   @Input() errorReporting: ErrorReport[];
   @Input() errorReportingAmount: number = null;
 
-  cardHeader = 'Error reporting';
+  cardHeader = 'Stackdriver errors';
   cardHeaderIcon = 'fas fa-sitemap';
   cardColor = 'red';
 

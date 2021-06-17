@@ -15,7 +15,7 @@
           <i class="fas fa-bell"></i> IAM Anomalies
         </h4>
 
-        <h2 class="build-count">{{ getFilteredAnomaliesCount }}</h2>
+        <h2 class="iam-anomalies-count">{{ iamAnomalies.length }}</h2>
 
         <div
           *ngIf="getFilteredAnomaliesCount > 0"
@@ -23,7 +23,7 @@
 
           <span
             *ngIf="iamAnomaliesAmount"
-            class="build-count-limited">
+            class="iam-anomalies-count-limited">
             Last {{ getFilteredAnomaliesCount > iamAnomaliesAmount ? iamAnomaliesAmount : getFilteredAnomaliesCount }} active IAM anomalies
           </span>
 
