@@ -23,8 +23,8 @@ export class IAMAnomaliesComponent {
   get getFilteredAnomaliesCount(): number {
     let filteredCount = 0;
 
-    for (const buildStatus of this.iamAnomalies) {
-      if (buildStatus.active === true) {
+    for (const anomaly of this.iamAnomalies) {
+      if (anomaly.active === true) {
         filteredCount++;
       }
     }

@@ -22,17 +22,17 @@
     }
 
     h4.card-title,
-    h2.build-count {
+    h2.iam-anomalies-count {
       color: $gray-dark;
     }
 
     &.red{
-      h4.card-title, h2.build-count {
+      h4.card-title, h2.iam-anomalies-count {
         color: $red;
       }
     }
 
-    span.build-count-limited {
+    span.iam-anomalies-count-limited {
       font-size: 10px;
       color: $gray-dark;
       text-transform: uppercase;

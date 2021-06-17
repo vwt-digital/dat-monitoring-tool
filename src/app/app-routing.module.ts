@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'errors-overview',
+    path: 'stackdriver-centre',
     component: ErrorsOverviewComponent,
   },
   {
