@@ -188,8 +188,6 @@ export class IAMCentreComponent {
 
     this.getIAMAnomalies(pageSize, action, cursor).subscribe(
       async result => {
-        console.log(result);
-
         if (result['results'] && result['results'].length >= 1) {
           if (result['next_cursor']) {
             this.pageCursors[this.pageCurrent + 1] = result['next_cursor'];

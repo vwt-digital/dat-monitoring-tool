@@ -50,7 +50,10 @@
     </ag-grid-angular>
 
     <div class="col-12 py-2">
-      <small class="form-text text-muted mt-2">IAM Anomalies are based on user IAM Policy bindings without any expiry condition.</small>
+      <ul class="list-inline">
+        <li class="list-inline-item"><small class="form-text text-muted">IAM Anomalies are based on user IAM Policy bindings without any <a href="https://cloud.google.com/iam/docs/configuring-temporary-access" target="_blank">expiry condition</a>.</small></li>
+        <li class="list-inline-item"><small class="form-text text-muted">An anomaly is set to <i>inactive</i> when it has not been updated in the last <i>1 day</i>.</small><li>
+      </ul>
     </div>
   </div>
 </div>

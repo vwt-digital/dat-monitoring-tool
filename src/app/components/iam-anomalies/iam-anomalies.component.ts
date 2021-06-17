@@ -16,20 +16,26 @@ export class IAMAnomaliesComponent {
   cardHeaderIcon = 'fas fa-user-shield';
   cardColor = 'red';
 
+  filteredCount = null;
+
   constructor(
     public service: DashboardService
   ) { }
 
-  get getFilteredAnomaliesCount(): number {
-    let filteredCount = 0;
+  getFilteredAnomaliesCount(iamAnomalies: IAMAnomaly[]): number {
+    if (!this.filteredCount) {
+      let filteredCount = 0;
 
-    for (const anomaly of this.iamAnomalies) {
-      if (anomaly.active === true) {
-        filteredCount++;
+      for (const anomaly of iamAnomalies) {
+        if (anomaly.active === true) {
+          filteredCount++;
+        }
       }
+
+      this.filteredCount = filteredCount;
     }
 
-    return filteredCount;
+    return this.filteredCount;
   }
 
   getFilterediamAnomalies(iamAnomalies: IAMAnomaly[], amount: number): IAMAnomaly[] {
