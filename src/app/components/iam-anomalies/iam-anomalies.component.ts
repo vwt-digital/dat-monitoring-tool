@@ -20,12 +20,32 @@ export class IAMAnomaliesComponent {
     public service: DashboardService
   ) { }
 
-  getFilterediamAnomalies(iamAnomalies: IAMAnomaly[], amount: number): IAMAnomaly[] {
-    // tslint:disable-next-line:max-line-length
-    let filteredStatuses = iamAnomalies.sort((a, b) => a.updated_at > b.updated_at ? -1 : (a.updated_at < b.updated_at ? 1 : 0));
-    filteredStatuses = filteredStatuses.slice(0, amount);
+  get getFilteredAnomaliesCount(): number {
+    let filteredCount = 0;
 
-    return filteredStatuses;
+    for (const buildStatus of this.iamAnomalies) {
+      if (buildStatus.active === true) {
+        filteredCount++;
+      }
+    }
+
+    return filteredCount;
+  }
+
+  getFilterediamAnomalies(iamAnomalies: IAMAnomaly[], amount: number): IAMAnomaly[] {
+    let filteredIAMAnomalies = [];
+
+    for (const anomaly of iamAnomalies) {
+      if (anomaly.active === true) {
+        filteredIAMAnomalies.push(anomaly);
+      }
+    }
+
+    // tslint:disable-next-line:max-line-length
+    filteredIAMAnomalies = filteredIAMAnomalies.sort((a, b) => a.updated_at > b.updated_at ? -1 : (a.updated_at < b.updated_at ? 1 : 0));
+    filteredIAMAnomalies = filteredIAMAnomalies.slice(0, amount);
+
+    return filteredIAMAnomalies;
   }
 
   getIAMAnomalyUrl(anomaly: IAMAnomaly): string {

@@ -59,6 +59,26 @@ export class IAMCentreComponent {
       },
       columnDefs: [
         {
+          headerName: 'Status',
+          field: 'active',
+          width: 100,
+          pinned: 'left',
+          sort: 'desc',
+          valueFormatter: (params: ValueFormatterParams): string => {
+            if (params.value === true) {
+              return  'Active'
+            } else {
+              return 'Inactive';
+            }
+          },
+          cellStyle: params => {
+            if (params.value === true) {
+                return {color: 'red'};
+            }
+            return null;
+          }
+        },
+        {
           headerName: 'Updated',
           field: 'updated_at',
           pinned: 'left',
