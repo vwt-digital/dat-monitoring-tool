@@ -85,9 +85,10 @@
   },
   "resolutions": {
     "dns-packet": ">=5.2.2",
-    "postcss": ">=8.2.10",
+    "postcss": ">=7.0.36",
     "ws": ">=7.4.6",
     "glob-parent": ">=5.1.2",
-    "normalize-url": ">=4.5.1"
+    "normalize-url": ">=4.5.1",
+    "socket.io-parser": ">=3.3.2"
   }
 }
